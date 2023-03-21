@@ -1,0 +1,37 @@
+.topNavStyle {
+  margin-bottom: 10px;
+}
+.topNavStyle ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.topNavStyle ul li {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.topNavStyle ul li:last-child { 
+  margin-right: 0;
+}
+.topNavStyle ul li a {
+  background-color: rgba(161, 98, 247, 0.1);
+  padding: 10px 25px;
+  display: inline-block;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.topNavStyle ul li a:hover, .topNavStyle ul li.active a {
+  background-color: var(--primaryColor);
+  color: #fff;
+}
+
+/* For RTL Style */
+[dir="rtl"] .topNavStyle ul li {
+  margin-right: 0;
+  margin-left: 10px;
+}
+[dir="rtl"] .topNavStyle ul li:last-child { 
+  margin-left: 0;
+}

@@ -1,0 +1,20 @@
+.tabs ul {
+  border-bottom: 1px solid #EEF0F7;
+}
+.tabs ul li {
+  color: #260944;
+  font-weight: 500;
+  font-size: 16px;
+  background: #F5F7FA;
+  padding: 8px 25px;
+  border-radius: 5px 5px 0px 0px;
+  outline: 0;
+}
+.tabs ul li:focus:after {
+  background: transparent;
+}
+
+/* For dark mode */
+[class="dark"] .tabs ul {
+  border-bottom: 1px solid var(--borderColor);
+}

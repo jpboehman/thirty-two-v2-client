@@ -1,0 +1,65 @@
+.infoList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F7FAFF;
+  margin-bottom: 13px;
+  padding-bottom: 13px;
+  position: relative;
+  padding-left: 15px;
+}
+.infoList::before {
+  content: '';
+  background: #F765A3;
+  box-shadow: 0px 2.98686px 13.4409px rgba(126, 172, 235, 0.25);
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+.infoList:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.infoList p {
+  font-size: 13px;
+  margin: 0;
+}
+.infoList .rightContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.infoList h5 {
+  margin: 0 15px 0 0;
+  font-size: 12px;
+  color: #5B5B98;
+}
+.infoList .rightContent i {
+  position: relative;
+  top: 2px;
+}
+
+/* For RTL Style */
+[dir="rtl"] .infoList {
+  padding-left: 0;
+  padding-right: 15px;
+}
+[dir="rtl"] .infoList::before {
+  left: auto;
+  right: 0;
+}
+[dir="rtl"] .infoList h5 {
+  margin: 0 0 0 15px;
+}
+
+/* For dark mode */
+[class="dark"] .infoList {
+  border-bottom: 1px solid var(--borderColor);
+}
+[class="dark"] .infoList:last-child {
+  border-bottom: none;
+}

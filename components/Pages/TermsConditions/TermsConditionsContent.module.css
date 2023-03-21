@@ -1,0 +1,37 @@
+.termsConditionsContent h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent h5 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent h6 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.termsConditionsContent p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+.termsConditionsContent ul, .termsConditionsContent ol {
+  margin-bottom: 20px;
+}
+.termsConditionsContent ul li, .termsConditionsContent ol li {
+  margin-bottom: 10px;
+}
+.termsConditionsContent ul li:last-child, .termsConditionsContent ol li:last-child {
+  margin-bottom: 0;
+}

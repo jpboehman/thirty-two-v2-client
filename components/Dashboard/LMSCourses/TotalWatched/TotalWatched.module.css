@@ -1,0 +1,44 @@
+.box {
+  background: #757FEF;
+  border-radius: 10px;
+  padding: 25px 20px;
+  margin-bottom: 15px;
+}
+.boxList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding-left: 17px;
+  border-bottom: 1px solid #878fe5;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+}
+.boxList:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.boxList::before {
+  content: '';
+  background: linear-gradient(149.1deg, #99B8F3 14.61%, #177FCB 130.18%);
+  box-shadow: 0px 2.98686px 13.4409px rgba(126, 172, 235, 0.25);
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  border-radius: 100px;
+}
+.boxList h4 {
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+}
+.boxList p {
+  margin: 0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+}

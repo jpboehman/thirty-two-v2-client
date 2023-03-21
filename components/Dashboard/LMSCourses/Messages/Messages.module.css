@@ -1,0 +1,24 @@
+.messagesList {
+  border-bottom: 1px solid #F7FAFF;
+  border-right: 2px solid transparent;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.messagesList:last-child {
+  margin-bottom: 0;
+}
+.messagesList:hover {
+  background: #FAFAFA;
+  border-right: 2px solid #757FEF;
+}
+
+/* For dark mode */
+[class="dark"] .messagesList {
+  border-bottom: 1px solid var(--borderColor);
+}
+[class="dark"] .messagesList:hover {
+  background: var(--colorBlack);
+}

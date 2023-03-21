@@ -1,0 +1,24 @@
+.chartBox {
+  text-align: center;
+  top: 12px;
+  position: relative;
+}
+.chartBox h4 {
+  margin: 0;
+  color: #00B69B;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 14px;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+}
+.chartBox h3 {
+  margin: 0;
+  color: #5B5B98;
+  font-weight: 500;
+  font-size: 12px;
+  position: relative;
+  bottom: 7px;
+}

@@ -1,0 +1,41 @@
+.header {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h4 {
+  font-size: 16px;
+  color: #030229;
+  font-weight: 500;
+}
+.header button {
+  text-transform: capitalize;
+}
+.notificationList {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #EEF0F7;
+  max-width: 300px;
+  width: 100%;
+  cursor: pointer;
+}
+.notificationListContent {
+  display: flex;
+  align-items: center; 
+}
+.rightArrow {
+  position: relative;
+  top: 2px;
+}
+
+/* For Dark Mode */
+[class="dark"] .header {
+  border-bottom: 1px solid var(--borderColor);
+}
+[class="dark"] .header h4 {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .notificationList {
+  border-bottom: 1px solid var(--borderColor);
+}

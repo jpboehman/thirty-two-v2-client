@@ -1,0 +1,75 @@
+.leftNav {
+  padding: 0;
+  margin: 0 0 30px;
+  list-style-type: none;
+}
+.leftNav li {
+  margin-bottom: 15px;
+}
+.leftNav li:last-child {
+  margin-bottom: 0;
+}
+.leftNav li a {
+  text-decoration: none;
+  color: #260944;
+  font-size: 13px;
+  font-weight: 500;
+  display: block;
+}
+.leftNav li a:hover, .leftNav li a:hover i {
+  color: var(--primaryColor);
+}
+.leftNav li.active > a, .leftNav li.active a i {
+  color: var(--primaryColor) !important; 
+}
+.leftNav li a i {
+  color: #818093;
+  font-size: 16px;
+  position: relative;
+  top: 3px;
+  margin-right: 5px;
+}
+
+.leftNav li ul {
+  padding: 0;
+  margin: 15px 0 0;
+  list-style-type: none;
+}
+.leftNav li ul li {
+  position: relative;
+  padding-left: 45px;
+}
+.leftNav li ul li::before {
+  content: "";
+  background-color: #818093;
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  position: absolute;
+  left: 30px;
+  top: 6px;
+}
+.leftNav li ul li a {
+  color: #5B5B98;
+  font-size: 13.5px;
+}
+
+/* For dark mode */
+[class="dark"] .leftNav li a {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .leftNav li a span {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .leftNav li a i {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .leftNav li ul li a {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .leftNav li a:hover, [class="dark"] .leftNav li a:hover i {
+  color: var(--primaryColor);
+}
+[class="dark"] .leftNav li.active > a span, [class="dark"] .leftNav li.active a i {
+  color: var(--primaryColor); 
+}

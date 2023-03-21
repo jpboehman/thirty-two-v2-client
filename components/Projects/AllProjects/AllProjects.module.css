@@ -1,0 +1,10 @@
+.members {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.members img {
+  border-radius: 100%;
+  border: 2px solid #fff;
+  margin-left: -6px;
+}

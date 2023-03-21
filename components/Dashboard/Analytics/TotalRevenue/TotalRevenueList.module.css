@@ -1,0 +1,39 @@
+.totalRevenueList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #F7FAFF;
+  margin-bottom: 13px;
+  padding-bottom: 13px;
+}
+.totalRevenueList:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.totalRevenueList p {
+  font-size: 13px;
+  margin: 0;
+}
+.totalRevenueList .rightContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.totalRevenueList .rightContent h5 {
+  margin: 0 15px 0 0;
+  font-size: 12px;
+  color: #5B5B98;
+}
+.totalRevenueList .rightContent i {
+  position: relative;
+  top: 2px;
+}
+
+/* For dark mode */
+[class="dark"] .totalRevenueList {
+  border-bottom: 1px solid var(--borderColor);
+}
+[class="dark"] .totalRevenueList:last-child {
+  border-bottom: none;
+}

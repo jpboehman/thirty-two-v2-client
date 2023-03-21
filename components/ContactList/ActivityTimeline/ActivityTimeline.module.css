@@ -1,0 +1,40 @@
+.timelineList .tList {
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #F7FAFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.timelineList .tList:last-child {
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.timelineList .tList .content {
+  display: flex;
+  align-items: center;
+}
+.timelineList .tList .content img {
+  margin-right: 10px;
+  width: 27px;
+}
+.timelineList .tList .content h5 {
+  margin: 0;
+  color: #5B5B98;
+  font-size: 13px;
+  font-weight: 500;
+}
+.timelineList .tList .date {
+  color: #A9A9C8;
+  font-size: 12px;
+  margin: 0;
+}
+
+@media only screen and (min-width: 1800px) {
+  .timelineList .tList {
+    margin-bottom: 16.5px;
+    padding-bottom: 16.5px;
+  }
+}

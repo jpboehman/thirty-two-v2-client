@@ -1,0 +1,59 @@
+.feedbackText {
+  background-color: #f2f1f3;
+  padding: 40px 30px;
+  border-radius: 25px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.feedbackImg {
+  display: flex;
+  margin-bottom: 10px;
+}
+.feedbackImg img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+.feedbackImg h4 {
+  margin: 0 0 3px;
+  font-size: 14px;
+}
+.feedbackImg p {
+  margin: 0 0 5px;
+  font-size: 12px;
+}
+.feedbackImg ul {
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+.feedbackImg ul li {
+  display: inline-block;
+  margin-right: 3px;
+  color: #ffc744;
+}
+.feedbackImg ul li:last-child {
+  margin-right: 0;
+}
+
+/* For RTL Style */
+[dir="rtl"] .feedbackImg img {
+  margin-right: 0;
+  margin-left: 10px;
+}
+[dir="rtl"] .feedbackImg ul li {
+  margin-right: 0;
+  margin-left: 3px;
+}
+[dir="rtl"] .feedbackImg ul li:last-child {
+  margin-left: 0;
+}
+
+/* For dark mode */
+[class="dark"] .feedbackText {
+  background-color: var(--colorBlack);
+}
+[class="dark"] .feedbackText q {
+  color: var(--darkBodyTextColor);
+}

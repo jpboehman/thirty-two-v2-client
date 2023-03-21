@@ -1,0 +1,64 @@
+.header {
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h4 {
+  font-size: 16px;
+  color: #030229;
+  font-weight: 500;
+}
+.header button {
+  text-transform: capitalize;
+}
+.notificationList {
+  position: relative;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #EEF0F7;
+  max-width: 255px;
+  width: 100%;
+  cursor: pointer;
+}
+.notificationList::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 17px;
+  background: linear-gradient(149.1deg, #99B8F3 14.61%, #177FCB 130.18%);
+  box-shadow: 0px 2.98686px 13.4409px rgba(126, 172, 235, 0.25);
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+.notificationListContent {
+  display: flex;
+  align-items: center; 
+}
+.rightArrow {
+  position: relative;
+  top: 2px;
+}
+
+/* For RTL Style */
+[dir=rtl] .notificationList {
+  padding-left: 0;
+  padding-right: 20px;
+}
+[dir=rtl] .notificationList::before {
+  left: auto;
+  right: 0;
+}
+
+/* For Dark Mode */
+[class="dark"] .header {
+  border-bottom: 1px solid var(--borderColor);
+}
+[class="dark"] .header h4 {
+  color: var(--darkHeadingTextColor);
+}
+[class="dark"] .notificationList {
+  border-bottom: 1px solid var(--borderColor);
+}

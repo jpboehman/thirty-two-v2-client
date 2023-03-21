@@ -1,0 +1,43 @@
+.dropzone {
+  background: #fdfdfd;
+  border: 2px dashed #eee;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.thumbImage {
+  margin-right: 30px;
+}
+.fileDetails {
+  display: flex;
+  align-items: center;
+}
+.filePreview {
+  margin-right: 10px;
+}
+.fileName {
+  font-size: 14px;
+  font-weight: 500;
+}
+.buttons {
+  text-align: end;
+}
+
+@media screen and (max-width: 900px) {
+  .thumbImage {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/* For RTL Style */
+[dir="rtl"] .thumbImage {
+  margin-right: 0;
+  margin-left: 30px;
+}
+
+/* For dark mode */
+[class="dark"] .dropzone {
+  background: #181717;
+  border: 2px dashed var(--borderColor);
+}

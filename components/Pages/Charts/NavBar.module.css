@@ -1,0 +1,33 @@
+.topNavStyle {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.topNavStyle ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.topNavStyle ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.topNavStyle ul li:last-child {
+  margin-right: 0;
+}
+.topNavStyle ul li a {
+  background-color: #fff;
+  padding: 10px 30px;
+  display: inline-block;
+  border-radius: 20px 20px 0 0;
+  text-decoration: none;
+  font-weight: 500;
+}
+.topNavStyle ul li a:hover, .topNavStyle ul li.active a {
+  background-color: var(--primaryColor);
+  color: #fff;
+}
+
+/* For dark mode */
+[class="dark"] .topNavStyle {
+  border-bottom: 1px solid var(--borderColor);
+}

@@ -1,0 +1,11 @@
+.darkModeBox {
+  margin-bottom: 30px;
+}
+.darkModeBox h3 {
+  font-weight: 500;
+  border-bottom: 1px solid #eee !important;
+  padding-bottom: 5px;
+  margin: 0 0 15px 0;
+  font-size: 15px;
+  color: var(--headingColor) !important;
+}
