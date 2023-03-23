@@ -18,14 +18,7 @@ const Footer = () => {
           <Typography>
             Copyright  {' '}
             <strong>Company</strong> is Proudly Owned by {' '}
-            <Link
-              href="https://envytheme.com/"
-              target="_blank" 
-              underline="none"
-              rel="noreferrer"
-            >
-              EnvyTheme
-            </Link>
+            
           </Typography>
         </Box>
       </Stack>
