@@ -16,7 +16,7 @@
     "@fullcalendar/react": "^6.0.2",
     "@mantine/core": "^6.0.4",
     "@mantine/hooks": "^6.0.4",
-    "@mantine/rte": "^5.10.0",
+    "@mantine/rte": "^5.10.5",
     "@mui/icons-material": "^5.10.15",
     "@mui/lab": "^5.0.0-alpha.115",
     "@mui/material": "^5.11.4",
