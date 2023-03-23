@@ -302,7 +302,7 @@ const CreateProduct = () => {
                 Meta Description
               </Typography>
   
-              <RichTextEditor
+              {/* <RichTextEditor
                 id="rte"
                 controls={[
                   ['bold', 'italic', 'underline', 'link', 'image'],
@@ -310,7 +310,7 @@ const CreateProduct = () => {
                   ['sup', 'sub'],
                   ['alignLeft', 'alignCenter', 'alignRight'],
                 ]}
-              />
+              /> */}
             </Grid>
         
             <Grid item xs={12}>
