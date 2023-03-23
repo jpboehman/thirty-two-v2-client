@@ -15,9 +15,9 @@ import styles from '@/styles/PageTitle.module.css';
 
 import dynamic from 'next/dynamic'
 import MemberSelect from '@/components/Projects/ProjectCreate/MemberSelect';
-const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-  ssr: false,
-})
+// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+//   ssr: false,
+// })
 
 const ProjectCreate = () => {
   const handleSubmit = (event) => {
@@ -156,7 +156,7 @@ const ProjectCreate = () => {
                 Project Description
               </Typography>
               
-              <RichTextEditor
+              {/* <RichTextEditor
                 id="rte"
                 controls={[
                   ['bold', 'italic', 'underline', 'link', 'image'],
@@ -164,7 +164,7 @@ const ProjectCreate = () => {
                   ['sup', 'sub'],
                   ['alignLeft', 'alignCenter', 'alignRight'],
                 ]}
-              />
+              /> */}
             </Grid>
 
             <Grid item xs={12} md={12} lg={6}>

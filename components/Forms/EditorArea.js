@@ -2,9 +2,9 @@ import React from 'react';
 import { Box, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import dynamic from 'next/dynamic'
-const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-  ssr: false,
-})
+// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+//   ssr: false,
+// })
 
 const EditorArea = () => {
   return (
@@ -29,7 +29,7 @@ const EditorArea = () => {
         </Typography>
  
         <div>
-          <RichTextEditor
+          {/* <RichTextEditor
             id="rte"
             controls={[
               ['bold', 'italic', 'underline', 'link', 'image'],
@@ -37,7 +37,7 @@ const EditorArea = () => {
               ['sup', 'sub'],
               ['alignLeft', 'alignCenter', 'alignRight'],
             ]}
-          />
+          /> */}
         </div>
       </Card>
     </>

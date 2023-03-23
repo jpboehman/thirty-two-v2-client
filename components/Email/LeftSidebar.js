@@ -19,9 +19,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
 
 import dynamic from "next/dynamic";
-const RichTextEditor = dynamic(() => import("@mantine/rte"), {
-  ssr: false,
-});
+// const RichTextEditor = dynamic(() => import("@mantine/rte"), {
+//   ssr: false,
+// });
 
 // Compose Modal
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -328,7 +328,7 @@ const LeftSidebar = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <RichTextEditor
+                  {/* <RichTextEditor
                     id="rte"
                     controls={[
                       ["bold", "italic", "underline", "link", "image"],
@@ -336,7 +336,7 @@ const LeftSidebar = () => {
                       ["sup", "sub"],
                       ["alignLeft", "alignCenter", "alignRight"],
                     ]}
-                  />
+                  /> */}
                 </Grid>
 
                 <Grid item xs={12} textAlign="end">

@@ -39,9 +39,9 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 
 import dynamic from 'next/dynamic'
-const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-  ssr: false,
-})
+// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+//   ssr: false,
+// })
 
 // Create Product Modal Style
 const style = {
@@ -909,7 +909,7 @@ export default function Products() {
                       Product Description
                     </Typography>
        
-                    <RichTextEditor
+                    {/* <RichTextEditor
                       id="rte"
                       controls={[
                         ['bold', 'italic', 'underline', 'link', 'image'],
@@ -917,7 +917,7 @@ export default function Products() {
                         ['sup', 'sub'],
                         ['alignLeft', 'alignCenter', 'alignRight'],
                       ]}
-                    />
+                    /> */}
                   </Grid>
  
                   <Grid item xs={12}>

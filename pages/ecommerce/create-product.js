@@ -13,9 +13,9 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 
 import dynamic from 'next/dynamic'
-const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-  ssr: false,
-})
+// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+//   ssr: false,
+// })
 
 const CreateProduct = () => {
   const handleSubmit = (event) => {
@@ -229,7 +229,7 @@ const CreateProduct = () => {
                 Product Description
               </Typography>
   
-              <RichTextEditor
+              {/* <RichTextEditor
                 id="rte"
                 controls={[
                   ['bold', 'italic', 'underline', 'link', 'image'],
@@ -237,7 +237,7 @@ const CreateProduct = () => {
                   ['sup', 'sub'],
                   ['alignLeft', 'alignCenter', 'alignRight'],
                 ]}
-              />
+              /> */}
             </Grid>
 
             <Grid item xs={12}>

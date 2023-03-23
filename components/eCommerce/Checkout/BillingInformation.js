@@ -10,9 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import dynamic from 'next/dynamic'
-const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-  ssr: false,
-})
+// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+//   ssr: false,
+// })
 
 const BillingInformation = () => {
   const handleSubmit = (event) => {
@@ -297,7 +297,7 @@ const BillingInformation = () => {
                 Order Notes : 
               </Typography>
   
-              <RichTextEditor
+              {/* <RichTextEditor
                 id="rte"
                 controls={[
                   ['bold', 'italic', 'underline', 'link', 'image'],
@@ -305,7 +305,7 @@ const BillingInformation = () => {
                   ['sup', 'sub'],
                   ['alignLeft', 'alignCenter', 'alignRight'],
                 ]}
-              />
+              /> */}
             </Grid>
   
             <Grid item xs={12} textAlign="end">
