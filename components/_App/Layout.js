@@ -43,7 +43,6 @@ const Layout = ({ children }) => {
 
         <div className="main-content">
           {children}
-
           {!(
             router.pathname === "/authentication/sign-in" ||
             router.pathname === "/authentication/sign-up" ||

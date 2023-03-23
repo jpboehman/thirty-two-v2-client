@@ -17,7 +17,7 @@ const Footer = () => {
         <Box>
           <Typography>
             Copyright  {' '}
-            <strong>Admash</strong> is Proudly Owned by {' '}
+            <strong>Company</strong> is Proudly Owned by {' '}
             <Link
               href="https://envytheme.com/"
               target="_blank" 

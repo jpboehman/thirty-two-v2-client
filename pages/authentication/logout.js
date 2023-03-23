@@ -46,10 +46,6 @@ export default function Logout() {
               You are Logged Out
             </Typography>
 
-            <Typography>
-              Thank you for using Admash admin template
-            </Typography>
-
             <Button
               href="/authentication/sign-in/"
               fullWidth
