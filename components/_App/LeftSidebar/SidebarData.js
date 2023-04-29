@@ -32,15 +32,15 @@ export const SidebarData = [
     subNav: [
       {
         title: "NCAA Team EPSS",
-        path: "/pages/team-epss/ncaa.js",
+        path: "/pages/team-epss/ncaa",
       },
       {
         title: "NCAA Player Grades",
-        path: "/pages/player-season-grades-eps/ncaa.js",
+        path: "/pages/player-season-grade-eps/ncaa",
       },
       {
         title: "NCAA Expected Wins",
-        path: "/pages/expected-wins/ncaa.js",
+        path: "/pages/expected-wins/ncaa",
       },
     ],
   },
@@ -54,15 +54,15 @@ export const SidebarData = [
     subNav: [
       {
         title: "NBA Team EPSS",
-        path: "/pages/team-epss/nba.js",
+        path: "/pages/team-epss/nba",
       },
       {
         title: "NBA Player Grades",
-        path: "/pages/player-season-grades-eps/nba.js",
+        path: "/pages/player-season-grades-eps/nba",
       },
       {
         title: "NBA Expected Wins",
-        path: "/pages/expected-wins/nba.js",
+        path: "/pages/expected-wins/nba",
       },
     ],
   },

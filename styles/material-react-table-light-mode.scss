@@ -1,0 +1,33 @@
+/* material-react-table-light-mode.css */
+.material-react-table-light-mode {
+    background-color: #fff;
+    color: #333;
+}
+
+.material-react-table-light-mode thead th {
+    background-color: #eee;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.material-react-table-light-mode tbody td {
+    border-bottom: 1px solid #ddd;
+}
+
+.material-react-table-light-mode tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.material-react-table-light-mode tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.material-react-table-light-mode .pagination button {
+    background-color: #eee;
+    color: #333;
+    border: none;
+}
+
+.material-react-table-light-mode .pagination button:hover {
+    background-color: #ddd;
+}

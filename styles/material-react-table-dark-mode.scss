@@ -1,0 +1,33 @@
+/* material-react-table-dark-mode.css */
+.material-react-table {
+    background-color: #333;
+    color: #eee;
+}
+
+.material-react-table thead th {
+    background-color: #555;
+    color: #eee;
+    border-bottom: 1px solid #777;
+}
+
+.material-react-table tbody td {
+    border-bottom: 1px solid #777;
+}
+
+.material-react-table tbody tr:nth-child(even) {
+    background-color: #444;
+}
+
+.material-react-table tbody tr:hover {
+    background-color: #555;
+}
+
+.material-react-table .pagination button {
+    background-color: #555;
+    color: #eee;
+    border: none;
+}
+
+.material-react-table .pagination button:hover {
+    background-color: #666;
+}

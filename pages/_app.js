@@ -14,6 +14,9 @@ import '../styles/rtl.css'
 import '../styles/dark.css'
 // Left Sidebar Dark Mode Styles
 import '../styles/leftSidebarDark.css'
+// MaterialReactTable Dark Mode styles
+import '../styles/material-react-table-dark-mode.css'
+import '../styles/material-react-table-light-mode.css'
 // Theme Styles
 import theme from '../styles/theme'
 
