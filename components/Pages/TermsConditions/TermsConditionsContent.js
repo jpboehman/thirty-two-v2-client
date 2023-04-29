@@ -29,7 +29,7 @@ const OurStatsExplained = () => {
             statistic doesn’t attempt to rate players but strictly grade their
             season.
           </p>
-          <strong>How accruate are Player Season Grades?</strong>
+          <strong>How accurate are Player Season Grades?</strong>
           <p>
             In 9 of the past 10 seasons, the NBA MVP has finished within the top
             2 of Player Season Grades for that season. In 7 of the past 10

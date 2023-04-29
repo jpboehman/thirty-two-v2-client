@@ -14,11 +14,12 @@ import CopyAllIcon from "@mui/icons-material/CopyAll";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import OurStatsExplained from "@/components/Pages/TermsConditions/TermsConditionsContent";
 
 export const SidebarData = [
   {
     title: "Overview",
-    path: "/",
+    path: "/pages/our-stats-explained",
     icon: <GridViewIcon />,
   },
   {
@@ -31,19 +32,37 @@ export const SidebarData = [
     subNav: [
       {
         title: "NCAA Team EPSS",
-        path: "/apps/file-manager/",
+        path: "/pages/team-epss/ncaa.js",
       },
       {
         title: "NCAA Player Grades",
-        path: "/apps/chat/",
+        path: "/pages/player-season-grades-eps/ncaa.js",
       },
       {
-        title: "NCAA other",
-        path: "/apps/to-do/",
+        title: "NCAA Expected Wins",
+        path: "/pages/expected-wins/ncaa.js",
+      },
+    ],
+  },
+  {
+    title: "NBA",
+    path: "/apps/file-manager/",
+    icon: <LayersIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+      {
+        title: "NBA Team EPSS",
+        path: "/pages/team-epss/nba.js",
       },
       {
-        title: "Calendar",
-        path: "/apps/calendar/",
+        title: "NBA Player Grades",
+        path: "/pages/player-season-grades-eps/nba.js",
+      },
+      {
+        title: "NBA Expected Wins",
+        path: "/pages/expected-wins/nba.js",
       },
     ],
   },
