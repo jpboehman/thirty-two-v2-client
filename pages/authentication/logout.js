@@ -25,16 +25,16 @@ export default function Logout() {
             className="bg-black"
           >
             <Box>
-              <img 
-                src="/images/logo.png" 
-                alt="Black logo" 
-                className="black-logo" 
+              <img
+                src="/images/logo.png"
+                alt="Black logo"
+                className="black-logo"
               />
 
-              <img 
-                src="/images/logo-white.png" 
-                alt="White logo" 
-                className="white-logo" 
+              <img
+                src="/images/logo-white.png"
+                alt="White logo"
+                className="white-logo"
               />
             </Box>
 
