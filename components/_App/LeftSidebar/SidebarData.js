@@ -7,7 +7,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
-import PostAddIcon from "@mui/icons-material/PostAdd";
+import SchoolIcon from '@mui/icons-material/School';
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
@@ -24,8 +24,8 @@ export const SidebarData = [
   },
   {
     title: "NCAA",
-    path: "/apps/file-manager/",
-    icon: <LayersIcon />,
+    path: "/pages/our-stats-explained",
+    icon: <SchoolIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
@@ -46,7 +46,7 @@ export const SidebarData = [
   },
   {
     title: "NBA",
-    path: "/apps/file-manager/",
+    path: "/pages/our-stats-explained",
     icon: <LayersIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -58,7 +58,7 @@ export const SidebarData = [
       },
       {
         title: "NBA Player Grades",
-        path: "/pages/player-season-grades-eps/nba",
+        path: "/pages/player-season-grade-eps/nba",
       },
       {
         title: "NBA Expected Wins",

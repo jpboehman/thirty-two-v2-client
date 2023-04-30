@@ -6,6 +6,7 @@ import styles from "@/styles/PageTitle.module.css";
 import MaterialReactTable from "material-react-table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
+import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOverview";
 
 const columns = [
   { accessorKey: "PLAYER", header: "PLAYER" },
@@ -58,6 +59,7 @@ const NcaaTeamEpss = () => {
           <li>Orders List</li>
         </ul>
       </div>
+      <PlayerGradesOverview />
 
       <TableContainer
         component={Paper}
