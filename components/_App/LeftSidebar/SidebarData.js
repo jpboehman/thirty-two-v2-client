@@ -7,7 +7,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
-import SchoolIcon from '@mui/icons-material/School';
+import SchoolIcon from "@mui/icons-material/School";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AddchartIcon from "@mui/icons-material/Addchart";
 import CopyAllIcon from "@mui/icons-material/CopyAll";
@@ -143,5 +143,12 @@ export const SidebarData = [
         path: "/authentication/logout/",
       },
     ],
+  },
+  {
+    title: "Subscribe",
+    path: "/pages/subscribe",
+    icon: <SettingsIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
   },
 ];

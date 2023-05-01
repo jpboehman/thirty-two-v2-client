@@ -1,39 +1,45 @@
-import React from 'react';
-import '../styles/remixicon.css'
-import 'react-tabs/style/react-tabs.css';
+import { useState, useEffect } from "react";
+// import '../styles/remixicon.css'
+import "react-tabs/style/react-tabs.css";
 import "swiper/css";
 import "swiper/css/bundle";
 
 // Chat Styles
-import '../styles/chat.css'
+import "../styles/chat.css";
 // Globals Styles
-import '../styles/globals.css'
+import "../styles/globals.css";
 // Rtl Styles
-import '../styles/rtl.css'
+import "../styles/rtl.css";
 // Dark Mode Styles
-import '../styles/dark.css'
+import "../styles/dark.css";
 // Left Sidebar Dark Mode Styles
-import '../styles/leftSidebarDark.css'
-// MaterialReactTable Dark Mode styles
-import '../styles/material-react-table-dark-mode.css'
-import '../styles/material-react-table-light-mode.css'
+import "../styles/leftSidebarDark.css";
 // Theme Styles
-import theme from '../styles/theme'
+import theme from "../styles/theme";
+
+// State-Management
+import { Provider } from "react-redux";
+import { createWrapper } from "next-redux-wrapper";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../store";
 
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import Layout from "@/components/_App/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-    </>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </PersistGate>
+    </Provider>
   );
 }
 
-export default MyApp
+const wrapper = createWrapper(() => store);
+export default MyApp;

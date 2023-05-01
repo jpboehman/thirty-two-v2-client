@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
@@ -9,15 +9,47 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "@/components/Authentication/Authentication.module.css";
 
+// Will import useDispatch hook and useSelector hook into component that updates global state
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "redux/apiCalls";
+
 const SignInForm = () => {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const dispatch = useDispatch();
+  // useSelector allows us to access Redux's global state values and place them into local variables
+  const currentUser = useSelector((state) => state.currentUser?.payload);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const onChangeInput = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    setFormData({
+      ...formData,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { email, password } = formData;
+    login(dispatch, { email, password }); // Passing in dispatch because it allows us to update state within that function
+    if (currentUser) {
+      setLoading(false);
+      setMessage("success");
+      setTimeout(() => {
+        window.location.pathname = "/dashboard";
+      }, 3000);
+    }
+    if (!currentUser) {
+      setTimeout(() => {
+        setLoading(false);
+        setMessage("Invalid Login Parameters");
+      }, 4000);
+    }
+  };
+
+  console.log(currentUser);
+  console.log(message);
 
   return (
     <>
@@ -102,6 +134,7 @@ const SignInForm = () => {
                       <TextField
                         required
                         fullWidth
+                        onChange={onChangeInput}
                         id="email"
                         label="Email Address"
                         name="email"
@@ -128,6 +161,7 @@ const SignInForm = () => {
                       <TextField
                         required
                         fullWidth
+                        onChange={onChangeInput}
                         name="password"
                         label="Password"
                         type="password"
