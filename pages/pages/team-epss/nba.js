@@ -9,6 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import TeamEpssOverview from "@/components/StatOverviews/teamEpssOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "Team", header: "TEAM" },
   { accessorKey: "G", header: "G" },
@@ -25,6 +27,7 @@ const columns = [
 const NbaTeamEpss = () => {
   const [nbaTeamEpss, setNbaTeamEpss] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
 
   useEffect(() => {
     const storedPreference = localStorage.getItem("theme");
@@ -55,10 +58,10 @@ const NbaTeamEpss = () => {
         download: true,
         header: true,
         complete: (results) => {
-          if (results.data.length > 100) {
-            setNbaTeamEpss(results.data.slice(0, 100));
-          } else {
+          if (currentUser) {
             setNbaTeamEpss(results.data);
+          } else {
+            setNbaTeamEpss(results.data.slice(0, 5));
           }
         },
       }

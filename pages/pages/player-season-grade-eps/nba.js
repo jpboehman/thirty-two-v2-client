@@ -8,6 +8,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "PLAYER", header: "PLAYER" },
   { accessorKey: "TEAM", header: "TEAM" },
@@ -27,7 +29,7 @@ const columns = [
 const NcaaTeamEpss = () => {
   const [nbaPlayerRatings, setNbaPlayerRatings] = useState([]);
   // const [selectedYear, setSelectedYear] = useState(chosenYear[20222023])
-  // const currentUser = useSelector((state) => state.currentUser?.payload);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
   useEffect(() => {
     // Correctly fetches data from NBA Player Season Grades spreadsheet. Work on limiting the items returned
     Papa.parse(
@@ -36,7 +38,11 @@ const NcaaTeamEpss = () => {
         download: true,
         header: true,
         complete: (results) => {
-          setNbaPlayerRatings(results.data);
+          if (currentUser) {
+            setNbaPlayerRatings(results.data);
+          } else {
+            setNbaPlayerRatings(results.data.slice(0, 5));
+          }
         },
       }
     );

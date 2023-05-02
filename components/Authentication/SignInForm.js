@@ -37,7 +37,7 @@ const SignInForm = () => {
       setLoading(false);
       setMessage("success");
       setTimeout(() => {
-        window.location.pathname = "/dashboard";
+        window.location.pathname = "/";
       }, 3000);
     }
     if (!currentUser) {

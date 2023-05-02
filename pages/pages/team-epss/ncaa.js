@@ -9,6 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import TeamEpssOverview from "@/components/StatOverviews/teamEpssOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "School", header: "SCHOOL" },
   { accessorKey: "G", header: "G" },
@@ -30,6 +32,7 @@ const columns = [
 const NcaaTeamEpss = () => {
   const [ncaaTeamEpss, setNcaaTeamEpss] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
 
   useEffect(() => {
     const storedPreference = localStorage.getItem("theme");
@@ -59,7 +62,11 @@ const NcaaTeamEpss = () => {
         download: true,
         header: true,
         complete: (results) => {
-          setNcaaTeamEpss(results.data);
+          if (currentUser) {
+            setNcaaTeamEpss(results.data);
+          } else {
+            setNcaaTeamEpss(results.data.slice(0, 5));
+          }
         },
       }
     );

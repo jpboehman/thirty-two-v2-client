@@ -8,6 +8,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "PLAYER", header: "PLAYER" },
   { accessorKey: "SCHOOL", header: "SCHOOL" },
@@ -29,7 +31,7 @@ const columns = [
 const NcaaTeamEpss = () => {
   const [ncaaTeamEpss, setNcaaTeamEpss] = useState([]);
   //   const [selectedYear, setSelectedYear] = useState([]);
-  //   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
 
   useEffect(() => {
     try {
@@ -39,7 +41,11 @@ const NcaaTeamEpss = () => {
           download: true,
           header: true,
           complete: (results) => {
-            setNcaaTeamEpss(results.data);
+            if (currentUser) {
+              setNcaaTeamEpss(results.data);
+            } else {
+              setNcaaTeamEpss(results.data.slice(0, 5));
+            }
           },
         }
       );

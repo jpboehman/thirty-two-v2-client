@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import ExpectedWinsOverview from "@/components/StatOverviews/expectedWinsOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "Team", header: "TEAM" },
   { accessorKey: "G", header: "G" },
@@ -24,7 +26,7 @@ const columns = [
 const NbaExpectedWins = () => {
   const [nbaExpectedWins, setNbaExpectedWins] = useState([]);
   //   const [selectedYear, setSelectedYear] = useState([]);
-  //   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
 
   useEffect(() => {
     // Correctly fetches data from NBA Player Season Grades spreadsheet. Work on limiting the items returned
@@ -34,7 +36,11 @@ const NbaExpectedWins = () => {
         download: true,
         header: true,
         complete: (results) => {
-          setNbaExpectedWins(results.data);
+          if (currentUser) {
+            setNbaExpectedWins(results.data);
+          } else {
+            setNbaExpectedWins(results.data.slice(0, 5));
+          }
         },
       }
     );

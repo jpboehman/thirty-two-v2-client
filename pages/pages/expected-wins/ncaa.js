@@ -9,6 +9,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import ExpectedWinsOverview from "@/components/StatOverviews/expectedWinsOverview";
 
+import { useSelector } from "react-redux";
+
 const columns = [
   { accessorKey: "School", header: "SCHOOL" },
   { accessorKey: "G", header: "G" },
@@ -26,7 +28,8 @@ const columns = [
 const NcaaTeamEpss = () => {
   const [ncaaExpectedWins, setNcaaExpectedWins] = useState([]);
   //   const [selectedYear, setSelectedYear] = useState([]);
-  //   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const currentUser = useSelector((state) => state.currentUser?.payload);
+  console.log(currentUser);
 
   useEffect(() => {
     Papa.parse(
