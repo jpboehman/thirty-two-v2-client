@@ -1,27 +1,85 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
-import dynamic from "next/dynamic";
-// const RichTextEditor = dynamic(() => import('@mantine/rte'), {
-//   ssr: false,
-// })
+// Use stripe container
+import StripeContainer from "@/components/StripeContainer";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+const CARD_OPTIONS = {
+  iconStyle: "solid",
+  style: {
+    base: {
+      iconColor: "navy",
+      fontWeight: 500,
+      fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+      fontSize: "20px",
+      fontSmoothing: "antialiased",
+      ":-webkit-autofill": { color: "#fce883" },
+      "::placeholder": { color: "#87bbfd" },
+    },
+    invalid: {
+      iconColor: "red",
+      color: "red",
+    },
+  },
+};
 
 const BillingInformation = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  const [success, setSuccess] = useState(false);
+  const [lastname, setLastname] = useState(false);
+  const [email, setEmail] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
+  const [stripeErrorMessage, setStripeErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Makeing sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
     });
+
+    if (!error) {
+      try {
+        const { id } = paymentMethod;
+        const { data } = await generalRequest.post("/auth/stripe-payment", {
+          amount: 3000,
+          id,
+        });
+
+        if (data.success) {
+          console.log(data);
+          console.log("Successful payment");
+          localStorage.setItem("idx", uuidv4());
+          localStorage.setItem("ids", id);
+          setSuccess(true);
+          setTimeout(() => {
+            window.location.pathname = "/pages/our-stats-explained";
+          }, 10000);
+        }
+      } catch (error) {
+        console.log("Error", error);
+        setStripeErrorMessage(
+          `Payment failed - please double-check information and try again.`
+        );
+        setSuccess(false);
+      }
+    } else {
+      console.log(error.message);
+      setStripeErrorMessage(
+        `Payment failed - please double-check information and try again.`
+      );
+    }
   };
 
   return (
@@ -44,7 +102,7 @@ const BillingInformation = () => {
             container
             alignItems="center"
             justifyContent="center"
-            spacing={2}
+            spacing={3}
           >
             <Grid item xs={12} md={12} lg={6}>
               <Box
@@ -139,6 +197,27 @@ const BillingInformation = () => {
                     style: { borderRadius: 8 },
                   }}
                 />
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={12} lg={6}>
+              <Box
+                display="flex"
+                justifyContent="center"
+                flexDirection="column"
+              >
+                <Typography
+                  as="h5"
+                  sx={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    mb: "12px",
+                  }}
+                >
+                  Payment Information
+                </Typography>
+
+                <CardElement options={CARD_OPTIONS} />
               </Box>
             </Grid>
 

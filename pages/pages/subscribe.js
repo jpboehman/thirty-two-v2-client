@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import ShoppingCart from "@/components/eCommerce/Checkout/ShoppingCart";
-import BillingInformation from "@/components/eCommerce/Checkout/BillingInformation";
 import Link from "next/link";
 import styles from "@/styles/PageTitle.module.css";
+
+import StripeContainer from "@/components/StripeContainer";
 
 const Subscribe = () => {
   return (
@@ -24,8 +24,8 @@ const Subscribe = () => {
         columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
       >
         <Grid item xs={12} md={7} lg={7} xl={8}>
-          {/* BillingInformation */}
-          <BillingInformation />
+          {/* <BillingInformation /> */}
+          <StripeContainer />
         </Grid>
       </Grid>
     </>

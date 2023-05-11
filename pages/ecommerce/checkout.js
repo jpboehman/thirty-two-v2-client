@@ -31,6 +31,8 @@ const Checkout = () => {
 
         <Grid item xs={12} md={7} lg={7} xl={8}>
           {/* BillingInformation */}
+          {/* Wrap in elements */}
+          
           <BillingInformation />
         </Grid>
       </Grid>

@@ -17,8 +17,7 @@ const Footer = () => {
         <Box>
           <Typography>
             Copyright  {' '}
-            <strong>Company</strong> is Proudly Owned by {' '}
-            
+            <strong>32Analytics</strong> is Proudly Owned by 32Analytics LLC.
           </Typography>
         </Box>
       </Stack>
