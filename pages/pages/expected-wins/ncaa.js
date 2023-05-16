@@ -11,6 +11,11 @@ import ExpectedWinsOverview from "@/components/StatOverviews/expectedWinsOvervie
 
 import { useSelector } from "react-redux";
 
+import mapSeasonUrl from "@/utils/expected-wins/NCAAExpectedWinsURLs";
+
+import chosenSeason from "common/seasonOptions";
+import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
+
 const columns = [
   { accessorKey: "School", header: "SCHOOL" },
   { accessorKey: "G", header: "G" },
@@ -29,20 +34,30 @@ const NcaaTeamEpss = () => {
   const [ncaaExpectedWins, setNcaaExpectedWins] = useState([]);
   //   const [selectedYear, setSelectedYear] = useState([]);
   const currentUser = useSelector((state) => state.currentUser?.payload);
-  console.log(currentUser);
+  const [selectedSeason, setSelectedSeason] = useState([
+    chosenSeason,
+    currentUser,
+  ]);
+  const [seasonUrl, setSeasonUrl] = useState(
+    "https://docs.google.com/spreadsheets/d/1qnd8yf6ycseM63DE48u6zYKtiSC0nbxO-2XOGf4RIo0/pub?output=csv"
+  );
+
+  console.log(seasonUrl);
 
   useEffect(() => {
-    Papa.parse(
-      "https://docs.google.com/spreadsheets/d/1qnd8yf6ycseM63DE48u6zYKtiSC0nbxO-2XOGf4RIo0/pub?output=csv",
-      {
-        download: true,
-        header: true,
-        complete: (results) => {
-          setNcaaExpectedWins(results.data);
-        },
-      }
-    );
-  }, []);
+    Papa.parse(`${seasonUrl}`, {
+      download: true,
+      header: true,
+      complete: (results) => {
+        setNcaaExpectedWins(results.data);
+      },
+    });
+  }, [seasonUrl]);
+
+  const handleSeasonSelect = (season) => {
+    setSelectedSeason(season);
+    setSeasonUrl(mapSeasonUrl(season));
+  };
 
   return (
     <>
@@ -52,11 +67,10 @@ const NcaaTeamEpss = () => {
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>Orders List</li>
         </ul>
       </div>
       <ExpectedWinsOverview />
-
+      <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
       <TableContainer
         component={Paper}
         sx={{
