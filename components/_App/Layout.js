@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <title>
-          CRE-CRM
+          32 Analytics
         </title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
