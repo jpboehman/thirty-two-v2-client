@@ -85,7 +85,7 @@ export const SidebarData = [
     ],
   },
   {
-    title: "Authentication",
+    title: "Sign Up / Sign In",
     path: "/authentication/sign-in/",
     icon: <LockIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
