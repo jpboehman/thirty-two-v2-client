@@ -11,6 +11,11 @@ import TeamEpssOverview from "@/components/StatOverviews/teamEpssOverview";
 
 import { useSelector } from "react-redux";
 
+import mapSeasonUrl from "@/utils/team-epss/NCAATeamEpssSeasonURLs";
+
+import chosenSeason from "common/seasonOptions";
+import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
+
 const columns = [
   { accessorKey: "School", header: "SCHOOL" },
   { accessorKey: "G", header: "G" },
@@ -33,6 +38,13 @@ const NcaaTeamEpss = () => {
   const [ncaaTeamEpss, setNcaaTeamEpss] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const [selectedSeason, setSelectedSeason] = useState([
+    chosenSeason,
+    currentUser,
+  ]);
+  const [seasonUrl, setSeasonUrl] = useState(
+    "https://docs.google.com/spreadsheets/d/11oKug1LY1DuVuui3HyXwq44blRyAClLOdekXuuv3aWg/pub?output=csv"
+  );
 
   useEffect(() => {
     const storedPreference = localStorage.getItem("theme");
@@ -56,21 +68,23 @@ const NcaaTeamEpss = () => {
   }, [isDarkMode]);
 
   useEffect(() => {
-    Papa.parse(
-      "https://docs.google.com/spreadsheets/d/11oKug1LY1DuVuui3HyXwq44blRyAClLOdekXuuv3aWg/pub?output=csv",
-      {
-        download: true,
-        header: true,
-        complete: (results) => {
-          if (currentUser) {
-            setNcaaTeamEpss(results.data);
-          } else {
-            setNcaaTeamEpss(results.data.slice(0, 5));
-          }
-        },
-      }
-    );
-  }, []);
+    Papa.parse(`${seasonUrl}`, {
+      download: true,
+      header: true,
+      complete: (results) => {
+        if (currentUser) {
+          setNcaaTeamEpss(results.data);
+        } else {
+          setNcaaTeamEpss(results.data.slice(0, 5));
+        }
+      },
+    });
+  }, [seasonUrl]);
+
+  const handleSeasonSelect = (season) => {
+    setSelectedSeason(season);
+    setSeasonUrl(mapSeasonUrl(season));
+  };
 
   return (
     <>
@@ -83,8 +97,9 @@ const NcaaTeamEpss = () => {
           <li>Orders List</li>
         </ul>
       </div>
+      x
       <TeamEpssOverview />
-
+      <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
       <TableContainer
         component={Paper}
         id={

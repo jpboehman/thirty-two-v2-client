@@ -10,6 +10,11 @@ import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOvervie
 
 import { useSelector } from "react-redux";
 
+import mapSeasonUrl from "@/utils/player-grades/ncaaPlayerGradesSeasonURLs";
+
+import chosenSeason from "common/seasonOptions";
+import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
+
 const columns = [
   { accessorKey: "PLAYER", header: "PLAYER" },
   { accessorKey: "SCHOOL", header: "SCHOOL" },
@@ -32,27 +37,37 @@ const NcaaTeamEpss = () => {
   const [ncaaTeamEpss, setNcaaTeamEpss] = useState([]);
   //   const [selectedYear, setSelectedYear] = useState([]);
   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const [selectedSeason, setSelectedSeason] = useState([
+    chosenSeason,
+    currentUser,
+  ]);
+  const [seasonUrl, setSeasonUrl] = useState(
+    "https://docs.google.com/spreadsheets/d/1BM4XgtUD2Z48lQlgvlBw-IoVLbKEr7HhvpefHN5JHsA/pub?gid=1828440697&single=true&output=csv"
+  );
 
   useEffect(() => {
     try {
-      Papa.parse(
-        "https://docs.google.com/spreadsheets/d/1BM4XgtUD2Z48lQlgvlBw-IoVLbKEr7HhvpefHN5JHsA/pub?gid=0&single=true&output=csv",
-        {
-          download: true,
-          header: true,
-          complete: (results) => {
-            if (currentUser) {
-              setNcaaTeamEpss(results.data);
-            } else {
-              setNcaaTeamEpss(results.data.slice(0, 5));
-            }
-          },
-        }
-      );
+      Papa.parse(`${seasonUrl}`, {
+        download: true,
+        header: true,
+        //TODO: Add loading state component
+        complete: (results) => {
+          if (currentUser) {
+            setNcaaTeamEpss(results.data);
+          } else {
+            setNcaaTeamEpss(results.data.slice(0, 5));
+          }
+        },
+      });
     } catch (error) {
       console.log(`error: ${JSON.stringify(error)}`);
     }
-  }, []);
+  }, [seasonUrl]);
+
+  const handleSeasonSelect = (season) => {
+    setSelectedSeason(season);
+    setSeasonUrl(mapSeasonUrl(season));
+  };
 
   return (
     <>
@@ -66,7 +81,7 @@ const NcaaTeamEpss = () => {
         </ul>
       </div>
       <PlayerGradesOverview />
-
+      <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
       <TableContainer
         component={Paper}
         sx={{

@@ -10,6 +10,11 @@ import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOvervie
 
 import { useSelector } from "react-redux";
 
+import mapSeasonUrl from "@/utils/player-grades/nbaPlayerGradesSeaonURLs";
+
+import chosenSeason from "common/seasonOptions";
+import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
+
 const columns = [
   { accessorKey: "PLAYER", header: "PLAYER" },
   { accessorKey: "TEAM", header: "TEAM" },
@@ -30,23 +35,33 @@ const NcaaTeamEpss = () => {
   const [nbaPlayerRatings, setNbaPlayerRatings] = useState([]);
   // const [selectedYear, setSelectedYear] = useState(chosenYear[20222023])
   const currentUser = useSelector((state) => state.currentUser?.payload);
+  const [selectedSeason, setSelectedSeason] = useState([
+    chosenSeason,
+    currentUser,
+  ]);
+  const [seasonUrl, setSeasonUrl] = useState(
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsWOjSYH9x30FEv-z4Pom-P6cvzkphmdHOpD1eFarNJi0XmkmPb5fzCEyAMX8xs9ttaFpRsWVYTPHx/pub?output=csv"
+  );
+
   useEffect(() => {
     // Correctly fetches data from NBA Player Season Grades spreadsheet. Work on limiting the items returned
-    Papa.parse(
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsWOjSYH9x30FEv-z4Pom-P6cvzkphmdHOpD1eFarNJi0XmkmPb5fzCEyAMX8xs9ttaFpRsWVYTPHx/pub?output=csv",
-      {
-        download: true,
-        header: true,
-        complete: (results) => {
-          if (currentUser) {
-            setNbaPlayerRatings(results.data);
-          } else {
-            setNbaPlayerRatings(results.data.slice(0, 5));
-          }
-        },
-      }
-    );
-  }, []);
+    Papa.parse(`${seasonUrl}`, {
+      download: true,
+      header: true,
+      complete: (results) => {
+        if (currentUser) {
+          setNbaPlayerRatings(results.data);
+        } else {
+          setNbaPlayerRatings(results.data.slice(0, 5));
+        }
+      },
+    });
+  }, [seasonUrl]);
+
+  const handleSeasonSelect = (season) => {
+    setSelectedSeason(season);
+    setSeasonUrl(mapSeasonUrl(season));
+  };
 
   return (
     <>
@@ -60,7 +75,7 @@ const NcaaTeamEpss = () => {
         </ul>
       </div>
       <PlayerGradesOverview />
-
+      <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
       <TableContainer
         component={Paper}
         sx={{

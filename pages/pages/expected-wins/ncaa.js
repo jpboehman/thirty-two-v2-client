@@ -42,8 +42,6 @@ const NcaaTeamEpss = () => {
     "https://docs.google.com/spreadsheets/d/1qnd8yf6ycseM63DE48u6zYKtiSC0nbxO-2XOGf4RIo0/pub?output=csv"
   );
 
-  console.log(seasonUrl);
-
   useEffect(() => {
     Papa.parse(`${seasonUrl}`, {
       download: true,
