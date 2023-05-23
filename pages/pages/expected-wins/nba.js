@@ -40,7 +40,6 @@ const NbaExpectedWins = () => {
     "https://docs.google.com/spreadsheets/d/1agjPAvpjw0EGOKZURP_gK-tYV1dtKmxxRPlr8eyydgQ/pub?output=csv"
   );
 
-
   useEffect(() => {
     Papa.parse(`${seasonUrl}`, {
       download: true,
@@ -60,7 +59,6 @@ const NbaExpectedWins = () => {
     setSeasonUrl(mapSeasonUrl(season));
   };
 
-
   return (
     <>
       <></>
@@ -79,6 +77,7 @@ const NbaExpectedWins = () => {
           columns={columns}
           data={nbaExpectedWins}
           enableColumnOrdering
+          enablePagination={false}
         />
       </TableContainer>
     </>

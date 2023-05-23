@@ -5,8 +5,8 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
-// Use stripe container
-import StripeContainer from "@/components/StripeContainer";
+import { generalRequest } from "http/httpService";
+
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 const CARD_OPTIONS = {
