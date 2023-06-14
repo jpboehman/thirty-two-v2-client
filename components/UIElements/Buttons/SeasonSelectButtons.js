@@ -40,7 +40,7 @@ const SeasonSelectButtons = ({ onSelectSeason }) => {
         >
           <Button
             variant="contained"
-            color="primary"
+            color="warning"
             sx={{
               textTransform: "capitalize",
               borderRadius: "10px",
@@ -57,7 +57,7 @@ const SeasonSelectButtons = ({ onSelectSeason }) => {
 
           <Button
             variant="contained"
-            color="secondary"
+            color="warning"
             sx={{
               textTransform: "capitalize",
               borderRadius: "10px",
@@ -74,7 +74,7 @@ const SeasonSelectButtons = ({ onSelectSeason }) => {
 
           <Button
             variant="contained"
-            color="success"
+            color="warning"
             sx={{
               textTransform: "capitalize",
               borderRadius: "10px",
@@ -92,7 +92,7 @@ const SeasonSelectButtons = ({ onSelectSeason }) => {
 
           <Button
             variant="contained"
-            color="info"
+            color="warning"
             sx={{
               textTransform: "capitalize",
               borderRadius: "10px",
