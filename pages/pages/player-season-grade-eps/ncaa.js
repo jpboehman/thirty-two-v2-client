@@ -10,7 +10,7 @@ import PlayerGradesOverview from "@/components/StatOverviews/playerGradesOvervie
 
 import { useSelector } from "react-redux";
 
-import mapSeasonUrl from "@/utils/player-grades/ncaaPlayerGradesSeasonURLs";
+import mapSeasonUrl from "@/utils/player-grades/NCAAPlayerGradesSeasonURLs";
 
 import chosenSeason from "common/seasonOptions";
 import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
