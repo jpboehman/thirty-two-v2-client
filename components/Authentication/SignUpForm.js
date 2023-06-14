@@ -16,7 +16,7 @@ const SignUpForm = () => {
     username: "",
     password: "",
     confirmPassword: "",
-    emailAddress: "",
+    email: "",
   });
   const [success, setSuccess] = useState();
   const [message, setMessage] = useState("");

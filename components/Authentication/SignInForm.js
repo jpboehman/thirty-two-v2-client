@@ -48,9 +48,6 @@ const SignInForm = () => {
     }
   };
 
-  console.log(currentUser);
-  console.log(message);
-
   return (
     <>
       <div className="authenticationBox">
@@ -77,10 +74,10 @@ const SignInForm = () => {
               <Typography fontSize="15px" mb="30px">
                 Already have an account?{" "}
                 <Link
-                  href="/authentication/sign-up"
+                  href="/authentication/sign-in"
                   className="primaryColor text-decoration-none"
                 >
-                  Sign up
+                  Sign In
                 </Link>
               </Typography>
 

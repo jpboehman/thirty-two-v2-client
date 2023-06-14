@@ -1,11 +1,13 @@
 import React from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Subscribe from "pages/pages/subscribe";
 import BillingInformation from "./eCommerce/Checkout/BillingInformation";
 
-// const PUBLIC_KEY = process.env.REACT_APP_STRIPE;
-const PUBLIC_KEY = `${process.env.REACT_APP_STRIPE}`;
+// PROD
+// const PUBLIC_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
+
+// LOCAL
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_STRIPE_TEST_KEY;
 
 const stripePromise = loadStripe(PUBLIC_KEY);
 

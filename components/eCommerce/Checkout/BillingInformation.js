@@ -39,6 +39,7 @@ const BillingInformation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
+      console.log("stripe is failing");
       // Stripe.js has not yet loaded.
       // Makeing sure to disable form submission until Stripe.js has loaded.
       return;
@@ -48,6 +49,8 @@ const BillingInformation = () => {
       type: "card",
       card: elements.getElement(CardElement),
     });
+
+    console.log(`stripeLoad error: ${JSON.stringify(error)}`);
 
     if (!error) {
       try {
