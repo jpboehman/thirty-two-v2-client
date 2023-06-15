@@ -8,20 +8,13 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
   optimizeFonts: false,
   i18n: {
-    locales: ['en', 'ar'],
-    defaultLocale: 'en',
+    locales: ["en", "ar"],
+    defaultLocale: "en",
   },
-  // images: {
-	// 	loader: "akamai",
-	// 	path:
-	// 		process.env.NODE_ENV === "production"
-	// 			? "https://admash-admin.envytheme.com/"
-	// 			: "http://localhost:3000",
-	// },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
