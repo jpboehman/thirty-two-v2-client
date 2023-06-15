@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import React, { useState } from "react";
+import Link from "next/link";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Box } from "@mui/system";
 import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import styles from "@/components/Authentication/Authentication.module.css";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 import { generalRequest } from "http/httpService";
-
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 const CARD_OPTIONS = {
   iconStyle: "solid",
@@ -29,6 +32,20 @@ const CARD_OPTIONS = {
 };
 
 const BillingInformation = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+  });
+  // const [success, setSuccess] = useState();
+  const [message, setMessage] = useState("");
+
+  const onChangeInput = (e) => {
+    e.preventDefault();
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const [success, setSuccess] = useState(false);
   const [lastname, setLastname] = useState(false);
   const [email, setEmail] = useState(false);
@@ -85,164 +102,250 @@ const BillingInformation = () => {
     }
   };
 
+  const handleRegister = (e) => {
+    e.preventDefault();
+    // TODO: Add form validation
+
+    const register = async () => {
+      setMessage("");
+      setSuccess(false);
+      // const ID = localStorage.getItem('idx');
+      // const IDS = localStorage.getItem('ids');
+
+      try {
+        const res = await generalRequest.post("/auth/signup", {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        });
+        if (res.data.message) {
+          console.log(res);
+          setMessage(res.data.message);
+          setSuccess(true);
+          console.log(res.data.message);
+          setTimeout(function () {
+            // Currently landing on email page
+            window.location.pathname = "/email/inbox";
+          }, 1500);
+        }
+      } catch (err) {
+        setSuccess(false);
+        setMessage(err);
+      }
+    };
+    // TODO: Ensure that all fields are validated before registering
+    register();
+    window.location.pathname = "authentication/sign-in";
+  };
+
   return (
     <>
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <div className="authenticationBox">
         <Box
+          component="main"
           sx={{
-            background: "#fff",
-            padding: "30px 20px",
-            borderRadius: "8px",
-            mb: "15px",
+            maxWidth: "510px",
+            ml: "auto",
+            mr: "auto",
+            padding: "50px 0 100px",
           }}
-          className="card-dark-bg"
         >
-          <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            Billing Information
-          </Typography>
-
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="center"
-            spacing={3}
-          >
-            <Grid item xs={12} md={12} lg={6}>
+          <Grid item xs={12} md={12} lg={12} xl={12}>
+            <Box component="form" noValidate onSubmit={handleSubmit}>
               <Box
-                display="flex"
-                justifyContent="center"
-                flexDirection="column"
-              >
-                <Typography
-                  as="h5"
-                  sx={{
-                    fontWeight: "500",
-                    fontSize: "14px",
-                    mb: "12px",
-                  }}
-                >
-                  First Name
-                </Typography>
-
-                <TextField
-                  autoComplete="first-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Enter name"
-                  autoFocus
-                  InputProps={{
-                    style: { borderRadius: 8 },
-                  }}
-                />
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={6}>
-              <Box
-                display="flex"
-                justifyContent="center"
-                flexDirection="column"
-              >
-                <Typography
-                  as="h5"
-                  sx={{
-                    fontWeight: "500",
-                    fontSize: "14px",
-                    mb: "12px",
-                  }}
-                >
-                  Last Name
-                </Typography>
-
-                <TextField
-                  autoComplete="last-name"
-                  name="lastName"
-                  required
-                  fullWidth
-                  id="LastName"
-                  label="Enter name"
-                  autoFocus
-                  InputProps={{
-                    style: { borderRadius: 8 },
-                  }}
-                />
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={6}>
-              <Box
-                display="flex"
-                justifyContent="center"
-                flexDirection="column"
-              >
-                <Typography
-                  as="h5"
-                  sx={{
-                    fontWeight: "500",
-                    fontSize: "14px",
-                    mb: "12px",
-                  }}
-                >
-                  Email Address
-                </Typography>
-
-                <TextField
-                  autoComplete="email-address"
-                  name="emailAddress"
-                  required
-                  fullWidth
-                  id="emailAddress"
-                  label="Enter email address"
-                  autoFocus
-                  InputProps={{
-                    style: { borderRadius: 8 },
-                  }}
-                />
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={6}>
-              <Box
-                display="flex"
-                justifyContent="center"
-                flexDirection="column"
-              >
-                <Typography
-                  as="h5"
-                  sx={{
-                    fontWeight: "500",
-                    fontSize: "14px",
-                    mb: "12px",
-                  }}
-                >
-                  Payment Information
-                </Typography>
-
-                <CardElement options={CARD_OPTIONS} />
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} textAlign="center">
-              <Button
-                type="submit"
-                variant="contained"
                 sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 20px",
-                  color: "#fff !important",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: "30px",
                 }}
               >
-                Subscribe
-              </Button>
-            </Grid>
+                <Link href="#" className={styles.googleBtn}>
+                  <img src="/images/google-icon.png" />
+                  Sign in with Google
+                </Link>
+
+                <Link href="#" className={styles.fbBtn}>
+                  <img src="/images/fb-icon.png" />
+                  Sign in with Facebook
+                </Link>
+              </Box>
+
+              <div className={styles.or}>
+                <span>or</span>
+              </div>
+
+              <Box component="form" noValidate onSubmit={handleRegister}>
+                <Box
+                  sx={{
+                    background: "#fff",
+                    padding: "30px 20px",
+                    borderRadius: "10px",
+                    mb: "20px",
+                  }}
+                  className="bg-black"
+                >
+                  <Grid container alignItems="center" spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Username
+                      </Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                        onChange={onChangeInput}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Email
+                      </Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                        onChange={onChangeInput}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Password
+                      </Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                        onChange={onChangeInput}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Confirm Password
+                      </Typography>
+                      <TextField
+                        required
+                        fullWidth
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        type="password"
+                        id="confirm-password"
+                        autoComplete="new-password"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                        onChange={onChangeInput}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Payment Information
+                      </Typography>
+                      <CardElement options={CARD_OPTIONS} />
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={6} sm={6}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox value="allowExtraEmails" color="primary" />
+                      }
+                      label="Remember me."
+                    />
+                  </Grid>
+
+                  <Grid item xs={6} sm={6} textAlign="end">
+                    <Link
+                      href="/authentication/forgot-password"
+                      className="primaryColor text-decoration-none"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </Grid>
+                </Grid>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    mt: 2,
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "16px",
+                    padding: "12px 10px",
+                    color: "#fff !important",
+                  }}
+                >
+                  Register
+                </Button>
+              </Box>
+            </Box>
           </Grid>
         </Box>
-      </Box>
+      </div>
     </>
   );
 };
