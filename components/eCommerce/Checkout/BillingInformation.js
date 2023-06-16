@@ -58,7 +58,7 @@ const BillingInformation = () => {
     if (!stripe || !elements) {
       console.log("stripe is failing");
       // Stripe.js has not yet loaded.
-      // Makeing sure to disable form submission until Stripe.js has loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -83,6 +83,7 @@ const BillingInformation = () => {
           localStorage.setItem("idx", uuidv4());
           localStorage.setItem("ids", id);
           setSuccess(true);
+          await handleRegister(); // Create user account after successful payment
           setTimeout(() => {
             window.location.pathname = "/pages/our-stats-explained";
           }, 10000);
@@ -102,40 +103,30 @@ const BillingInformation = () => {
     }
   };
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    // TODO: Add form validation
+  const handleRegister = async () => {
+    setMessage("");
+    setSuccess(false);
 
-    const register = async () => {
-      setMessage("");
-      setSuccess(false);
-      // const ID = localStorage.getItem('idx');
-      // const IDS = localStorage.getItem('ids');
-
-      try {
-        const res = await generalRequest.post("/auth/signup", {
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-        });
-        if (res.data.message) {
-          console.log(res);
-          setMessage(res.data.message);
-          setSuccess(true);
-          console.log(res.data.message);
-          setTimeout(function () {
-            // Currently landing on email page
-            window.location.pathname = "/email/inbox";
-          }, 1500);
-        }
-      } catch (err) {
-        setSuccess(false);
-        setMessage(err);
+    try {
+      const res = await generalRequest.post("/auth/signup", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+      if (res.data.message) {
+        console.log(res);
+        setMessage(res.data.message);
+        setSuccess(true);
+        console.log(res.data.message);
+        setTimeout(function () {
+          // Currently landing on email page
+          window.location.pathname = "/email/inbox";
+        }, 1500);
       }
-    };
-    // TODO: Ensure that all fields are validated before registering
-    register();
-    window.location.pathname = "authentication/sign-in";
+    } catch (err) {
+      setSuccess(false);
+      setMessage(err);
+    }
   };
 
   return (
