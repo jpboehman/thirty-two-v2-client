@@ -47,8 +47,6 @@ const BillingInformation = () => {
   };
 
   const [success, setSuccess] = useState(false);
-  const [lastname, setLastname] = useState(false);
-  const [email, setEmail] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const [stripeErrorMessage, setStripeErrorMessage] = useState("");
