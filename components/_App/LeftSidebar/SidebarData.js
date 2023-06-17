@@ -3,18 +3,9 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import GridViewIcon from "@mui/icons-material/GridView";
 import LayersIcon from "@mui/icons-material/Layers";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SchoolIcon from "@mui/icons-material/School";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import AddchartIcon from "@mui/icons-material/Addchart";
-import CopyAllIcon from "@mui/icons-material/CopyAll";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import OurStatsExplained from "@/components/Pages/TermsConditions/TermsConditionsContent";
 
 export const SidebarData = [
   {
@@ -67,26 +58,8 @@ export const SidebarData = [
     ],
   },
   {
-    title: "Analytics",
-    path: "/analytics/customers/",
-    icon: <AddchartIcon />,
-    iconClosed: <KeyboardArrowRightIcon />,
-    iconOpened: <KeyboardArrowDownIcon />,
-
-    subNav: [
-      {
-        title: "Customers",
-        path: "/analytics/customers/",
-      },
-      {
-        title: "Reports",
-        path: "/analytics/reports/",
-      },
-    ],
-  },
-  {
     title: "Sign Up / Sign In",
-    path: "/authentication/sign-in/",
+    path: "/authentication/sign-up/",
     icon: <LockIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -97,16 +70,12 @@ export const SidebarData = [
         path: "/authentication/sign-up/",
       },
       {
+        title: "Sign In",
+        path: "/authentication/sign-in/",
+      },
+      {
         title: "Forgot Password",
         path: "/authentication/forgot-password/",
-      },
-      {
-        title: "Lock Screen",
-        path: "/authentication/lock-screen/",
-      },
-      {
-        title: "Confirm Mail",
-        path: "/authentication/confirm-mail/",
       },
       {
         title: "Logout",

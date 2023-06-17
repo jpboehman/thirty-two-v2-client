@@ -97,7 +97,7 @@ const NcaaTeamEpss = () => {
           <li>Orders List</li>
         </ul>
       </div>
-      x
+
       <TeamEpssOverview />
       <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
       <TableContainer
