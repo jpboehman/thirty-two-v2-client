@@ -50,7 +50,8 @@
     "recharts": "^2.2.0",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
-    "swiper": "^8.4.5"
+    "swiper": "^8.4.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "sass": "^1.57.1"

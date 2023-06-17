@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import styles from "@/components/Authentication/Authentication.module.css";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { v4 as uuidv4 } from 'uuid';
 
 import { generalRequest } from "http/httpService";
 
@@ -53,10 +50,9 @@ const BillingInformation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!stripe || !elements) {
-      console.log("stripe is failing");
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
+      console.log("Stripe is failing");
       return;
     }
 
@@ -64,8 +60,6 @@ const BillingInformation = () => {
       type: "card",
       card: elements.getElement(CardElement),
     });
-
-    console.log(`stripeLoad error: ${JSON.stringify(error)}`);
 
     if (!error) {
       try {
@@ -128,215 +122,379 @@ const BillingInformation = () => {
   };
 
   return (
-    <>
-      <div className="authenticationBox">
-        <Box
-          component="main"
-          sx={{
-            maxWidth: "510px",
-            ml: "auto",
-            mr: "auto",
-            padding: "50px 0 100px",
-          }}
-        >
-          <Grid item xs={12} md={12} lg={12} xl={12}>
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  mb: "30px",
-                }}
-              >
-                <Link href="#" className={styles.googleBtn}>
-                  <img src="/images/google-icon.png" />
-                  Sign in with Google
-                </Link>
-
-                <Link href="#" className={styles.fbBtn}>
-                  <img src="/images/fb-icon.png" />
-                  Sign in with Facebook
-                </Link>
-              </Box>
-
-              <div className={styles.or}>
-                <span>or</span>
-              </div>
-
-              <Box component="form" noValidate onSubmit={handleRegister}>
-                <Box
-                  sx={{
-                    background: "#fff",
-                    padding: "30px 20px",
-                    borderRadius: "10px",
-                    mb: "20px",
-                  }}
-                  className="bg-black"
-                >
-                  <Grid container alignItems="center" spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Username
-                      </Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        id="username"
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                        onChange={onChangeInput}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Email
-                      </Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                        onChange={onChangeInput}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Password
-                      </Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="new-password"
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                        onChange={onChangeInput}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Confirm Password
-                      </Typography>
-                      <TextField
-                        required
-                        fullWidth
-                        name="confirmPassword"
-                        label="Confirm Password"
-                        type="password"
-                        id="confirm-password"
-                        autoComplete="new-password"
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                        onChange={onChangeInput}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Payment Information
-                      </Typography>
-                      <CardElement options={CARD_OPTIONS} />
-                    </Grid>
-                  </Grid>
-                </Box>
-
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={6} sm={6}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox value="allowExtraEmails" color="primary" />
-                      }
-                      label="Remember me."
-                    />
-                  </Grid>
-
-                  <Grid item xs={6} sm={6} textAlign="end">
-                    <Link
-                      href="/authentication/forgot-password"
-                      className="primaryColor text-decoration-none"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </Grid>
+    <div className="authenticationBox">
+      <Box
+        component="main"
+        sx={{
+          maxWidth: "510px",
+          ml: "auto",
+          mr: "auto",
+          padding: "50px 0 100px",
+        }}
+      >
+        <Grid item xs={12} md={12} lg={12} xl={12}>
+          <Box component="form" noValidate onSubmit={handleSubmit}>
+            <Box
+              sx={{
+                background: "#fff",
+                padding: "30px 20px",
+                borderRadius: "10px",
+                mb: "20px",
+              }}
+              className="bg-black"
+            >
+              <Grid container alignItems="center" spacing={2}>
+                <Grid item xs={12}>
+                  <Typography
+                    component="label"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "10px",
+                      display: "block",
+                    }}
+                  >
+                    Username
+                  </Typography>
+                  <TextField
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    InputProps={{
+                      style: { borderRadius: 8 },
+                    }}
+                    onChange={onChangeInput}
+                  />
                 </Grid>
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    mt: 2,
-                    textTransform: "capitalize",
-                    borderRadius: "8px",
-                    fontWeight: "500",
-                    fontSize: "16px",
-                    padding: "12px 10px",
-                    color: "#fff !important",
-                  }}
-                >
-                  Register
-                </Button>
-              </Box>
+                <Grid item xs={12}>
+                  <Typography
+                    component="label"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "10px",
+                      display: "block",
+                    }}
+                  >
+                    Email
+                  </Typography>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    InputProps={{
+                      style: { borderRadius: 8 },
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    component="label"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "10px",
+                      display: "block",
+                    }}
+                  >
+                    Password
+                  </Typography>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    InputProps={{
+                      style: { borderRadius: 8 },
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    component="label"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "10px",
+                      display: "block",
+                    }}
+                  >
+                    Confirm Password
+                  </Typography>
+                  <TextField
+                    required
+                    fullWidth
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    type="password"
+                    id="confirm-password"
+                    autoComplete="new-password"
+                    InputProps={{
+                      style: { borderRadius: 8 },
+                    }}
+                    onChange={onChangeInput}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    component="label"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "10px",
+                      display: "block",
+                    }}
+                  >
+                    Payment Information
+                  </Typography>
+                  <CardElement options={CARD_OPTIONS} />
+                </Grid>
+              </Grid>
             </Box>
-          </Grid>
-        </Box>
-      </div>
-    </>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: 2,
+                textTransform: "capitalize",
+                borderRadius: "8px",
+                fontWeight: "500",
+                fontSize: "16px",
+                padding: "12px 10px",
+                color: "#fff !important",
+              }}
+            >
+              Register
+            </Button>
+          </Box>
+        </Grid>
+      </Box>
+    </div>
   );
 };
+
+//   return (
+//     <>
+//       <div className="authenticationBox">
+//         <Box
+//           component="main"
+//           sx={{
+//             maxWidth: "510px",
+//             ml: "auto",
+//             mr: "auto",
+//             padding: "50px 0 100px",
+//           }}
+//         >
+//           <Grid item xs={12} md={12} lg={12} xl={12}>
+//             <Box component="form" noValidate onSubmit={handleSubmit}>
+//               <Box
+//                 sx={{
+//                   display: "flex",
+//                   justifyContent: "space-between",
+//                   alignItems: "center",
+//                   mb: "30px",
+//                 }}
+//               >
+//                 <Link href="#" className={styles.googleBtn}>
+//                   <img src="/images/google-icon.png" />
+//                   Sign in with Google
+//                 </Link>
+
+//                 <Link href="#" className={styles.fbBtn}>
+//                   <img src="/images/fb-icon.png" />
+//                   Sign in with Facebook
+//                 </Link>
+//               </Box>
+
+//               <div className={styles.or}>
+//                 <span>or</span>
+//               </div>
+
+//               <Box component="form" noValidate onSubmit={handleRegister}>
+//                 {/* <Box
+//                   sx={{
+//                     background: "#fff",
+//                     padding: "30px 20px",
+//                     borderRadius: "10px",
+//                     mb: "20px",
+//                   }}
+//                   className="bg-black"
+//                 >
+//                   <Grid container alignItems="center" spacing={2}>
+//                     <Grid item xs={12}>
+//                       <Typography
+//                         component="label"
+//                         sx={{
+//                           fontWeight: "500",
+//                           fontSize: "14px",
+//                           mb: "10px",
+//                           display: "block",
+//                         }}
+//                       >
+//                         Username
+//                       </Typography>
+//                       <TextField
+//                         required
+//                         fullWidth
+//                         id="username"
+//                         label="Username"
+//                         name="username"
+//                         autoComplete="username"
+//                         InputProps={{
+//                           style: { borderRadius: 8 },
+//                         }}
+//                         onChange={onChangeInput}
+//                       />
+//                     </Grid>
+//                     <Grid item xs={12}>
+//                       <Typography
+//                         component="label"
+//                         sx={{
+//                           fontWeight: "500",
+//                           fontSize: "14px",
+//                           mb: "10px",
+//                           display: "block",
+//                         }}
+//                       >
+//                         Email
+//                       </Typography>
+//                       <TextField
+//                         required
+//                         fullWidth
+//                         id="email"
+//                         label="Email Address"
+//                         name="email"
+//                         autoComplete="email"
+//                         InputProps={{
+//                           style: { borderRadius: 8 },
+//                         }}
+//                         onChange={onChangeInput}
+//                       />
+//                     </Grid>
+//                     <Grid item xs={12}>
+//                       <Typography
+//                         component="label"
+//                         sx={{
+//                           fontWeight: "500",
+//                           fontSize: "14px",
+//                           mb: "10px",
+//                           display: "block",
+//                         }}
+//                       >
+//                         Password
+//                       </Typography>
+//                       <TextField
+//                         required
+//                         fullWidth
+//                         name="password"
+//                         label="Password"
+//                         type="password"
+//                         id="password"
+//                         autoComplete="new-password"
+//                         InputProps={{
+//                           style: { borderRadius: 8 },
+//                         }}
+//                         onChange={onChangeInput}
+//                       />
+//                     </Grid>
+//                     <Grid item xs={12}>
+//                       <Typography
+//                         component="label"
+//                         sx={{
+//                           fontWeight: "500",
+//                           fontSize: "14px",
+//                           mb: "10px",
+//                           display: "block",
+//                         }}
+//                       >
+//                         Confirm Password
+//                       </Typography>
+//                       <TextField
+//                         required
+//                         fullWidth
+//                         name="confirmPassword"
+//                         label="Confirm Password"
+//                         type="password"
+//                         id="confirm-password"
+//                         autoComplete="new-password"
+//                         InputProps={{
+//                           style: { borderRadius: 8 },
+//                         }}
+//                         onChange={onChangeInput}
+//                       />
+//                     </Grid>
+//                     <Grid item xs={12}>
+//                       <Typography
+//                         component="label"
+//                         sx={{
+//                           fontWeight: "500",
+//                           fontSize: "14px",
+//                           mb: "10px",
+//                           display: "block",
+//                         }}
+//                       >
+//                         Payment Information
+//                       </Typography>
+//                       <CardElement options={CARD_OPTIONS} />
+//                     </Grid>
+//                   </Grid>
+//                 </Box> */}
+
+//                 <Grid container alignItems="center" spacing={2}>
+//                   <Grid item xs={6} sm={6}>
+//                     <FormControlLabel
+//                       control={
+//                         <Checkbox value="allowExtraEmails" color="primary" />
+//                       }
+//                       label="Remember me."
+//                     />
+//                   </Grid>
+
+//                   <Grid item xs={6} sm={6} textAlign="end">
+//                     <Link
+//                       href="/authentication/forgot-password"
+//                       className="primaryColor text-decoration-none"
+//                     >
+//                       Forgot your password?
+//                     </Link>
+//                   </Grid>
+//                 </Grid>
+
+//                 <Button
+//                   type="submit"
+//                   fullWidth
+//                   variant="contained"
+//                   sx={{
+//                     mt: 2,
+//                     textTransform: "capitalize",
+//                     borderRadius: "8px",
+//                     fontWeight: "500",
+//                     fontSize: "16px",
+//                     padding: "12px 10px",
+//                     color: "#fff !important",
+//                   }}
+//                 >
+//                   Register
+//                 </Button>
+//               </Box>
+//             </Box>
+//           </Grid>
+//         </Box>
+//       </div>
+//     </>
+//   );
+// };
 
 export default BillingInformation;
