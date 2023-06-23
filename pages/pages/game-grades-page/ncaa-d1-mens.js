@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
-import Papa from "papaparse";
+import { useSelector } from "react-redux";
+import useApi from "hooks/useApi";
 import Link from "next/link";
 import styles from "@/styles/PageTitle.module.css";
 
-import { Box, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  IconButton,
+  Button,
+  TableContainer,
+  Paper,
+} from "@mui/material";
 
-import Grid from "@mui/material/Grid";
-import ClearIcon from "@mui/icons-material/Clear";
-import InfoIcon from "@mui/icons-material/Info";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
+import ImportModal from "@/components/Excel/ImportModal";
 
 import MaterialReactTable from "material-react-table";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
 import ExpectedWinsOverview from "@/components/StatOverviews/expectedWinsOverview";
-
-import { useSelector } from "react-redux";
-
 import BootstrapDialog from "@/components/Modals/ModalBootstraps";
-
 import ExcelUploader from "@/components/Excel/ExcelUploader";
+import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
 
 import mapSeasonUrl from "@/utils/expected-wins/NCAAExpectedWinsURLs";
-
 import chosenSeason from "common/seasonOptions";
-import SeasonSelectButtons from "@/components/UIElements/Buttons/SeasonSelectButtons";
 
 const columns = [
   { accessorKey: "School", header: "SCHOOL" },
@@ -58,62 +56,34 @@ const NcaaTeamEpss = () => {
   const [uploadedData, setUploadedData] = useState();
 
   // TableState
-  //   const { response, isLoading, isError, errorMessage } = useApi(
-  //     `/${userId}/companies`
-  //   );
-  //   const [tableData, setTableData] = useState(response?.companies);
-
-  //   useEffect(() => {
-  //     Papa.parse(`${seasonUrl}`, {
-  //       download: true,
-  //       header: true,
-  //       complete: (results) => {
-  //         setNcaaExpectedWins(results.data);
-  //       },
-  //     });
-  //   }, [seasonUrl]);
-
-  // TODO: Tweak this!
-  //   useEffect(() => {
-  //     if (!tableData && response?.companies?.length > 0) {
-  //       // set the columns and tableData
-  //       const dynamicColumns = response.companies[0].fields;
-  //       const columnHeaders = getColumnHeaders(dynamicColumns);
-
-  //       // Add the new column to the beginning of the columns array
-  //       const newColumns = [
-  //         {
-  //           accessorKey: "companyLink",
-  //           header: "",
-  //           Cell: ({ row }) => (
-  //             <Link href={`/companies/${row.original.documentId}`} passHref>
-  //               <InfoIcon />
-  //             </Link>
-  //           ),
-  //         },
-  //         ...columnHeaders,
-  //       ];
-
-  //       setColumns(newColumns);
-
-  //       setTableData(
-  //         response.companies.map((company) => {
-  //           const rowData = {};
-  //           // Added this and it work
-  //           rowData["documentId"] = company._id;
-  //           company.fields.forEach((field) => {
-  //             rowData[field.name] = field.value;
-  //           });
-  //           return rowData;
-  //         })
-  //       );
-  //     } else if (response && response.companies.length === 0) {
-  //       if (!uploadedData) setIsImportModalOpen(true);
-  //     }
-  //   }, [response, uploadedData]);
+  const { data, isLoading, isError, errorMessage } = useApi(
+    `/ncaa-d1-mens-game-grades`
+  );
+  const [tableData, setTableData] = useState(data?.gameGrades);
 
   useEffect(() => {
-    const uploadCompanyExcelData = async () => {
+    if (!tableData && data?.gameGrades?.length > 0) {
+      const dynamicColumns = data.gameGrades[0].fields;
+      const columnHeaders = getColumnHeaders(dynamicColumns);
+
+      setTableData(
+        data.gameGrades.map((grade) => {
+          const rowData = {};
+          // Added this and it work
+          rowData["documentId"] = grade._id;
+          grade.fields.forEach((field) => {
+            rowData[field.name] = field.value;
+          });
+          return rowData;
+        })
+      );
+    } else if (data && data.gameGrades.length === 0) {
+      if (!uploadedData) setIsImportModalOpen(true);
+    }
+  }, [data, uploadedData]);
+
+  useEffect(() => {
+    const uploadGameGradeExcelData = async () => {
       try {
         const { data } = await generalRequest.post(
           `ncaa-d1-mens/upload-game-grades`,
@@ -125,7 +95,7 @@ const NcaaTeamEpss = () => {
       }
     };
     if (uploadedData) {
-      uploadCompanyExcelData();
+      uploadGameGradeExcelData();
       setUploadedData(null);
     }
   }, [uploadedData]);
@@ -142,99 +112,6 @@ const NcaaTeamEpss = () => {
   const handleIsImportModalClose = () => {
     setIsImportModalOpen(false);
   };
-
-  {
-    /* Modal for importing data - move this to separate component */
-  }
-  <BootstrapDialog
-    onClose={handleIsImportModalClose}
-    aria-labelledby="customized-dialog-title"
-    open={isImportModalOpen}
-  >
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "#EDEFF5",
-          borderRadius: "8px",
-          padding: "20px 20px",
-        }}
-        className="bg-black"
-      >
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          sx={{
-            fontWeight: "500",
-            fontSize: "18px",
-          }}
-        >
-          Upload file
-        </Typography>
-
-        <IconButton
-          aria-label="Close"
-          size="small"
-          onClick={handleIsImportModalClose}
-          className="modal-close"
-        >
-          <ClearIcon />
-        </IconButton>
-      </Box>
-
-      <Box component="form" noValidate>
-        <Box
-          sx={{
-            background: "#fff",
-            padding: "20px 20px",
-            borderRadius: "8px",
-          }}
-          className="dark-BG-101010"
-        >
-          <Grid
-            container
-            alignItems="center"
-            spacing={2}
-            columns={[{ field: "name", editable: true }]}
-          >
-            <Grid item xs={12} md={12} lg={6}>
-              <ExcelUploader onUpload={handleUpload} />
-            </Grid>
-
-            <Grid item xs={12} textAlign="start">
-              <Button
-                variant="contained"
-                color="secondary"
-                sx={{
-                  mt: 1,
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 5px",
-                  color: "#fff !important",
-                }}
-                onClick={handleIsImportModalClose}
-                className="mr-15px"
-              >
-                <ClearIcon
-                  sx={{
-                    position: "relative",
-                    top: "-1px",
-                  }}
-                  className="mr-3px"
-                />{" "}
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Box>
-  </BootstrapDialog>;
 
   return (
     <>
@@ -263,6 +140,11 @@ const NcaaTeamEpss = () => {
           enableColumnOrdering
         />
       </TableContainer>
+      <ImportModal
+        open={isImportModalOpen}
+        onClose={handleIsImportModalClose}
+        onUpload={handleUpload}
+      />
     </>
   );
 };
