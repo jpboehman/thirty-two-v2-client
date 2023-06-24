@@ -33,6 +33,10 @@ export const SidebarData = [
         title: "NCAA Expected Wins",
         path: "/pages/expected-wins/ncaa",
       },
+      {
+        title: "NCAA Player Game Grades",
+        path: "/pages/game-grades-page/ncaa-d1-mens",
+      },
     ],
   },
   {
