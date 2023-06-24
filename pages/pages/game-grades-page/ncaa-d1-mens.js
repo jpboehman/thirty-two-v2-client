@@ -48,16 +48,19 @@ const NcaaD1MensGameGrades = () => {
     currentUser,
   ]);
 
+  // TODO: If the user requests more data, then add the page parameter as the third funciton argument
+  // Perhaps a 'Load More' button that will set the page to the next page
   const { data } = useApi("/ncaa-d1-mens-game-grades", 500);
   useEffect(() => {
-    if (data) setNcaaD1MensGameGrades(data);
+    if (data?.gameGrades) setNcaaD1MensGameGrades(data.gameGrades);
   }, [data]);
-  console.log(data);
 
   const handleSeasonSelect = (season) => {
     setSelectedSeason(season);
     setSeasonUrl(mapSeasonUrl(season));
   };
+
+  console.log(ncaaD1MensGameGrades);
 
   return (
     <>
@@ -70,7 +73,7 @@ const NcaaD1MensGameGrades = () => {
         </ul>
       </div>
       <ExpectedWinsOverview />
-      <SeasonSelectButtons onSelectSeason={handleSeasonSelect} />
+      {/* <SeasonSelectButtons onSelectSeason={handleSeasonSelect} /> */}
       <TableContainer
         component={Paper}
         sx={{
