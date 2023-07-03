@@ -5,7 +5,7 @@ import styles from "@/styles/PageTitle.module.css";
 import MaterialReactTable from "material-react-table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import ExpectedWinsOverview from "@/components/StatOverviews/expectedWinsOverview";
+import GamegradesOverview from "@/components/StatOverviews/gameGradesOverview";
 
 import { useSelector } from "react-redux";
 
@@ -50,17 +50,15 @@ const NcaaD1MensGameGrades = () => {
 
   // TODO: If the user requests more data, then add the page parameter as the third funciton argument
   // Perhaps a 'Load More' button that will set the page to the next page
-  const { data } = useApi("/ncaa-d1-mens-game-grades", 500);
+  const { data, isError, errorMessage } = useApi(
+    "/ncaa-d1-mens-game-grades",
+    500
+  );
   useEffect(() => {
+    // TODO:
+    // Add error-handling logic here
     if (data?.gameGrades) setNcaaD1MensGameGrades(data.gameGrades);
   }, [data]);
-
-  const handleSeasonSelect = (season) => {
-    setSelectedSeason(season);
-    setSeasonUrl(mapSeasonUrl(season));
-  };
-
-  console.log(ncaaD1MensGameGrades);
 
   return (
     <>
@@ -72,8 +70,7 @@ const NcaaD1MensGameGrades = () => {
           </li>
         </ul>
       </div>
-      <ExpectedWinsOverview />
-      {/* <SeasonSelectButtons onSelectSeason={handleSeasonSelect} /> */}
+      <GamegradesOverview />
       <TableContainer
         component={Paper}
         sx={{

@@ -26,6 +26,10 @@ export const SidebarData = [
         path: "/pages/team-epss/ncaa",
       },
       {
+        title: "NCAA Teams",
+        path: "/pages/teams/ncaa-d1-mens",
+      },
+      {
         title: "NCAA Player Grades",
         path: "/pages/player-season-grade-eps/ncaa",
       },

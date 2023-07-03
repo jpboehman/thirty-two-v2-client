@@ -1,0 +1,94 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import styles from "@/styles/PageTitle.module.css";
+import MaterialReactTable from "material-react-table";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
+import NcaaTeamsOverview from "@/components/StatOverviews/ncaaTeamsOverview";
+import { useSelector } from "react-redux";
+import chosenSeason from "common/seasonOptions";
+import useApi from "hooks/useApi";
+
+import InfoIcon from "@mui/icons-material/Info";
+
+const columns = [
+  {
+    accessorKey: "Team",
+    header: "Team",
+  },
+  { accessorKey: "adj EPSS/Poss", header: "Adj. EPS/Possession" },
+  { accessorKey: "adj Tm EPS/Poss", header: "Adj. Team EPS/Possession" },
+  { accessorKey: "adj Opp EPS/Poss", header: "Adj. Opp EPS/Poss" },
+  { accessorKey: "GP", header: "GP" },
+  { accessorKey: "Record", header: "Record" },
+  { accessorKey: "W %", header: "W %" },
+  { accessorKey: "EPSS", header: "EPSS" },
+  { accessorKey: "Team EPS", header: "Team EPS" },
+  { accessorKey: "Opp EPS", header: "Opp EPS" },
+  { accessorKey: "exW %", header: "exW %" },
+  { accessorKey: "exW", header: "exW" },
+  { accessorKey: "exW Regression", header: "exW Regression" },
+];
+
+const NcaaD1MensTeams = () => {
+  const [ncaaD1MensTeamData, setNcaaD1MensTeamData] = useState([]);
+  const router = useRouter();
+  const currentUser = useSelector((state) => state.currentUser?.payload);
+  const [selectedSeason, setSelectedSeason] = useState([
+    chosenSeason,
+    currentUser,
+  ]);
+  const [selectedTeamId, setSelectedTeamId] = useState(null);
+
+  const { data, isError, errorMessage } = useApi("/ncaa-d1-mens-teams", 500);
+  useEffect(() => {
+    if (data?.ncaaTeams) setNcaaD1MensTeamData(data.ncaaTeams);
+  }, [data]);
+
+  useEffect(() => {
+    if (selectedTeamId) {
+      window.location.pathname = `/pages/teams/${selectedTeamId}`;
+    }
+  }, [selectedTeamId]);
+
+  const handleRowClick = (row) => {
+    setSelectedTeamId(row.original._id);
+  };
+
+  // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
+
+  return (
+    <>
+      <div className={styles.pageTitle}>
+        <h1>NCAA Teams (Men)</h1>
+        <ul>
+          <li>
+            <Link href="/">Dashboard</Link>
+          </li>
+        </ul>
+      </div>
+      <NcaaTeamsOverview />
+      <TableContainer
+        component={Paper}
+        sx={{
+          boxShadow: "none",
+        }}
+      >
+        <MaterialReactTable
+          columns={columns}
+          data={ncaaD1MensTeamData}
+          enableColumnOrdering
+          muiTableBodyRowProps={({ row }) => ({
+            onClick: () => handleRowClick(row),
+            sx: {
+              cursor: "pointer",
+            },
+          })}
+        />
+      </TableContainer>
+    </>
+  );
+};
+
+export default NcaaD1MensTeams;
