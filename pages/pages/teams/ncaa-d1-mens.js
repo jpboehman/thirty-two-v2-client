@@ -46,14 +46,12 @@ const NcaaD1MensTeams = () => {
     if (data?.ncaaTeams) setNcaaD1MensTeamData(data.ncaaTeams);
   }, [data]);
 
-  useEffect(() => {
-    if (selectedTeamId) {
-      window.location.pathname = `/pages/teams/${selectedTeamId}`;
-    }
-  }, [selectedTeamId]);
-
   const handleRowClick = (row) => {
-    setSelectedTeamId(row.original._id);
+    // const { _id, Team } = row;
+    const { _id, Team } = row.original;
+    setSelectedTeamId(_id);
+    const pathname = `/pages/teams/${_id}/${Team}`;
+    window.location.pathname = pathname;
   };
 
   // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
@@ -69,24 +67,26 @@ const NcaaD1MensTeams = () => {
         </ul>
       </div>
       <NcaaTeamsOverview />
-      <TableContainer
-        component={Paper}
-        sx={{
-          boxShadow: "none",
-        }}
-      >
-        <MaterialReactTable
-          columns={columns}
-          data={ncaaD1MensTeamData}
-          enableColumnOrdering
-          muiTableBodyRowProps={({ row }) => ({
-            onClick: () => handleRowClick(row),
-            sx: {
-              cursor: "pointer",
-            },
-          })}
-        />
-      </TableContainer>
+      {ncaaD1MensTeamData && (
+        <TableContainer
+          component={Paper}
+          sx={{
+            boxShadow: "none",
+          }}
+        >
+          <MaterialReactTable
+            columns={columns}
+            data={ncaaD1MensTeamData}
+            enableColumnOrdering
+            muiTableBodyRowProps={({ row }) => ({
+              onClick: () => handleRowClick(row),
+              sx: {
+                cursor: "pointer",
+              },
+            })}
+          />
+        </TableContainer>
+      )}
     </>
   );
 };
