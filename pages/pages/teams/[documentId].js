@@ -12,19 +12,30 @@ import useApi from "hooks/useApi";
 import InfoIcon from "@mui/icons-material/Info";
 
 const columns = [
+  { accessorKey: "Player", header: "Player" },
   { accessorKey: "Team", header: "Team" },
-  { accessorKey: "adj EPSS/Poss", header: "Adj. EPS/Possession" },
-  { accessorKey: "adj Tm EPS/Poss", header: "Adj. Team EPS/Possession" },
-  { accessorKey: "adj Opp EPS/Poss", header: "Adj. Opp EPS/Poss" },
-  { accessorKey: "GP", header: "GP" },
-  { accessorKey: "Record", header: "Record" },
-  { accessorKey: "W %", header: "W %" },
-  { accessorKey: "EPSS", header: "EPSS" },
-  { accessorKey: "Team EPS", header: "Team EPS" },
-  { accessorKey: "Opp EPS", header: "Opp EPS" },
-  { accessorKey: "exW %", header: "exW %" },
-  { accessorKey: "exW", header: "exW" },
-  { accessorKey: "exW Regression", header: "exW Regression" },
+  { accessorKey: "Season Grade", header: "Season Grade" },
+  { accessorKey: "WCr %", header: "WCr %" },
+  { accessorKey: "WCr/GP", header: "WCr/GP" },
+  { accessorKey: "MVPr", header: "MVPr" },
+  { accessorKey: "MIN", header: "MIN" },
+  { accessorKey: "PTS", header: "PTS" },
+  { accessorKey: "FGM", header: "FGM" },
+  { accessorKey: "FGA", header: "FGA" },
+  { accessorKey: "3FM", header: "3FM" },
+  { accessorKey: "3FA", header: "3FA" },
+  { accessorKey: "2FM", header: "2FM" },
+  { accessorKey: "2FA", header: "2FA" },
+  { accessorKey: "FTM", header: "FTM" },
+  { accessorKey: "FTA", header: "FTA" },
+  { accessorKey: "OREB", header: "OREB" },
+  { accessorKey: "DREB", header: "DREB" },
+  { accessorKey: "REB", header: "REB" },
+  { accessorKey: "AST", header: "AST" },
+  { accessorKey: "STL", header: "STL" },
+  { accessorKey: "BLK", header: "BLK" },
+  { accessorKey: "TO", header: "TO" },
+  { accessorKey: "PF", header: "PF" },
 ];
 
 const NcaaD1MensTeamRoster = () => {
@@ -37,39 +48,38 @@ const NcaaD1MensTeamRoster = () => {
   ]);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  // Obtain ObjectID and Team name from URL
-  const { documentId, teamName } = router.query;
-  console.log(documentId, Team);
+  // Cprrectly obtaining documentId and team from query. Now send these to backend
+  const { documentId, team } = router.query;
+  console.log(team);
 
   // TODO: Update route
   const { data, isError, errorMessage } = useApi(
-    "/ncaa-d1-mens-team/roster",
+    `/ncaa-d1-mens-team/${team}`,
     500
   );
   useEffect(() => {
-    if (data?.ncaaTeamsRoster)
-      setNcaaD1MensTeamRosterData(data.ncaaTeamsRoster);
+    if (data?.teamRoster) setNcaaD1MensTeamRosterData(data.teamRoster);
   }, [data]);
 
-  useEffect(() => {
-    if (selectedPlayerId) {
-      window.location.pathname = `/pages/players/${selectedPlayerId}`;
-    }
-  }, [selectedPlayerId]);
+  //   useEffect(() => {
+  //     if (selectedPlayerId) {
+  //       window.location.pathname = `/pages/players/${selectedPlayerId}`;
+  //     }
+  //   }, [selectedPlayerId]);
 
-//   const handleRowClick = (row) => {
-//     const { _id, Team } = row;
-//     setSelectedPlayerId(_id);
-//     const pathname = `/pages/players/${_id}}`;
-//     window.location.pathname = pathname;
-//   };
+  const handleRowClick = (row) => {
+    const { _id, Team } = row;
+    setSelectedPlayerId(_id);
+    const pathname = `/pages/players/${_id}}`;
+    window.location.pathname = pathname;
+  };
 
   // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
 
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA Teams (Men)</h1>
+        <h1>NCAA Roster</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
@@ -86,12 +96,12 @@ const NcaaD1MensTeamRoster = () => {
           columns={columns}
           data={ncaaD1MensTeamRosterData}
           enableColumnOrdering
-        //   muiTableBodyRowProps={({ row }) => ({
-        //     onClick: () => handleRowClick(row),
-        //     sx: {
-        //       cursor: "pointer",
-        //     },
-        //   })}
+          muiTableBodyRowProps={({ row }) => ({
+            onClick: () => handleRowClick(row),
+            sx: {
+              cursor: "pointer",
+            },
+          })}
         />
       </TableContainer>
     </>

@@ -47,11 +47,14 @@ const NcaaD1MensTeams = () => {
   }, [data]);
 
   const handleRowClick = (row) => {
-    // const { _id, Team } = row;
     const { _id, Team } = row.original;
     setSelectedTeamId(_id);
-    const pathname = `/pages/teams/${_id}/${Team}`;
-    window.location.pathname = pathname;
+    const query = `team=${encodeURIComponent(Team)}`;
+    const pathname = `/pages/teams/${_id}`;
+    router.push({
+      pathname,
+      query,
+    });
   };
 
   // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
