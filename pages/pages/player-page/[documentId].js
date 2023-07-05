@@ -40,64 +40,37 @@ const columns = [
 ];
 
 const NcaaD1MensTeamRoster = () => {
-  const [ncaaD1MensPlayer, setNcaaD1MensPlayer] = useState([]);
   const router = useRouter();
+  // TODO: Fix bug, if router.query is not available, we need to make sure that it is
+  const [ncaaD1MensPlayer, setNcaaD1MensPlayer] = useState([]);
+  const [mongoDocumentId, setMongoDocumentId] = useState();
   const currentUser = useSelector((state) => state.currentUser?.payload);
-  const [selectedSeason, setSelectedSeason] = useState([
-    chosenSeason,
-    currentUser,
-  ]);
-  const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   // Cprrectly obtaining documentId and team from query. Now send these to backend
   const { documentId } = router.query;
+  console.log(router.query);
+  const decodedDocumentId = documentId ? decodeURIComponent(documentId) : null;
 
   // TODO: Update route
   const { data, isError, errorMessage } = useApi(
-    `/ncaa-d1-mens-player/${documentId}`,
+    `/ncaa-d1-mens-player/${decodedDocumentId}`,
     500
   );
+
   useEffect(() => {
     if (data?.ncaaPlayer) setNcaaD1MensPlayer(data.ncaaPlayer);
   }, [data]);
 
-  const handleRowClick = (row) => {
-    const { _id } = row.original;
-    setSelectedPlayerId(_id);
-    const pathname = `/pages/player-page/${_id}}`;
-    window.location.pathname = pathname;
-  };
-
-  console.log(ncaaD1MensPlayer);
-
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA Roster</h1>
+        <h1>Player Page</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
         </ul>
       </div>
-      {/* <TableContainer
-        component={Paper}
-        sx={{
-          boxShadow: "none",
-        }}
-      >
-        <MaterialReactTable
-          columns={columns}
-          data={ncaaD1MensTeamRosterData}
-          enableColumnOrdering
-          muiTableBodyRowProps={({ row }) => ({
-            onClick: () => handleRowClick(row),
-            sx: {
-              cursor: "pointer",
-            },
-          })}
-        />
-      </TableContainer> */}
     </>
   );
 };

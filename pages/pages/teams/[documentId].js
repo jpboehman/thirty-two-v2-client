@@ -49,10 +49,7 @@ const NcaaD1MensTeamRoster = () => {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   // Cprrectly obtaining documentId and team from query. Now send these to backend
-  const { documentId, team } = router.query;
-  console.log(team);
-
-  // TODO: Update route
+  const { team } = router.query;
   const { data, isError, errorMessage } = useApi(
     `/ncaa-d1-mens-team/${team}`,
     500
@@ -61,20 +58,12 @@ const NcaaD1MensTeamRoster = () => {
     if (data?.teamRoster) setNcaaD1MensTeamRosterData(data.teamRoster);
   }, [data]);
 
-  //   useEffect(() => {
-  //     if (selectedPlayerId) {
-  //       window.location.pathname = `/pages/players/${selectedPlayerId}`;
-  //     }
-  //   }, [selectedPlayerId]);
-
   const handleRowClick = (row) => {
-    const { _id, Team } = row;
+    const { _id } = row.original;
     setSelectedPlayerId(_id);
-    const pathname = `/pages/players/${_id}}`;
+    const pathname = `/pages/player-page/${_id}`;
     window.location.pathname = pathname;
   };
-
-  // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
 
   return (
     <>
