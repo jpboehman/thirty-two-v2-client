@@ -57,8 +57,6 @@ const NcaaD1MensTeams = () => {
     });
   };
 
-  // TODO: Now routing to documentId page. Obtain objectId from URL and then obtain stats from database
-
   return (
     <>
       <div className={styles.pageTitle}>

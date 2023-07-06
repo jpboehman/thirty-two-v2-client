@@ -48,7 +48,6 @@ const NcaaD1MensTeamRoster = () => {
   ]);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  // Cprrectly obtaining documentId and team from query. Now send these to backend
   const { team } = router.query;
   const { data, isError, errorMessage } = useApi(
     `/ncaa-d1-mens-team/${team}`,
