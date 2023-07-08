@@ -11,6 +11,7 @@ import chosenSeason from "common/seasonOptions";
 import useApi from "hooks/useApi";
 
 import InfoIcon from "@mui/icons-material/Info";
+import ReusableBanner from "@/components/Banners/ReusableBanner";
 
 const columns = [
   {
@@ -69,24 +70,26 @@ const NcaaD1MensTeams = () => {
       </div>
       <NcaaTeamsOverview />
       {ncaaD1MensTeamData && (
-        <TableContainer
-          component={Paper}
-          sx={{
-            boxShadow: "none",
-          }}
-        >
-          <MaterialReactTable
-            columns={columns}
-            data={ncaaD1MensTeamData}
-            enableColumnOrdering
-            muiTableBodyRowProps={({ row }) => ({
-              onClick: () => handleRowClick(row),
-              sx: {
-                cursor: "pointer",
-              },
-            })}
-          />
-        </TableContainer>
+        <>
+          <TableContainer
+            component={Paper}
+            sx={{
+              boxShadow: "none",
+            }}
+          >
+            <MaterialReactTable
+              columns={columns}
+              data={ncaaD1MensTeamData}
+              enableColumnOrdering
+              muiTableBodyRowProps={({ row }) => ({
+                onClick: () => handleRowClick(row),
+                sx: {
+                  cursor: "pointer",
+                },
+              })}
+            />
+          </TableContainer>
+        </>
       )}
     </>
   );

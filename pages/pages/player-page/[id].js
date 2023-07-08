@@ -76,10 +76,12 @@ const NcaaD1MensPlayer = () => {
   //   window.location.pathname = pathname;
   // };
 
+  // TODO: Add tables for other two pages
+
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>Player Page</h1>
+        <h1>{ncaaD1MensPlayer[0]["Player"]}</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>

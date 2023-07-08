@@ -5,6 +5,7 @@ import styles from "@/styles/PageTitle.module.css";
 import MaterialReactTable from "material-react-table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
+import NcaaTeamsOverview from "@/components/StatOverviews/ncaaTeamsOverview";
 import { useSelector } from "react-redux";
 import chosenSeason from "common/seasonOptions";
 import useApi from "hooks/useApi";
@@ -13,9 +14,10 @@ import InfoIcon from "@mui/icons-material/Info";
 import ReusableBanner from "@/components/Banners/ReusableBanner";
 
 const columns = [
-  { accessorKey: "Player", header: "Player" },
+  { accessorKey: "Player", header: "Player Name" },
   { accessorKey: "Team", header: "Team" },
   { accessorKey: "Season Grade", header: "Season Grade" },
+  { accessorKey: "G", header: "G" },
   { accessorKey: "WCr %", header: "WCr %" },
   { accessorKey: "WCr/GP", header: "WCr/GP" },
   { accessorKey: "MVPr", header: "MVPr" },
@@ -39,24 +41,19 @@ const columns = [
   { accessorKey: "PF", header: "PF" },
 ];
 
-const NcaaD1MensTeamRoster = () => {
-  const [ncaaD1MensTeamRosterData, setNcaaD1MensTeamRosterData] = useState([]);
+const NcaaD1MensLeaguePlayers = () => {
+  const [ncaaD1MensLeaguePlayers, setNcaaD1MensLeaguePlayers] = useState([]);
   const router = useRouter();
   const currentUser = useSelector((state) => state.currentUser?.payload);
-  const [selectedSeason, setSelectedSeason] = useState([
-    chosenSeason,
-    currentUser,
-  ]);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  const { team } = router.query;
-  // TODO: Also make this path send back team Banner data
   const { data, isError, errorMessage } = useApi(
-    `/ncaa-d1-mens-team/${team}`,
+    "/ncaa-d1-mens-league-players",
     500
   );
   useEffect(() => {
-    if (data?.teamRoster) setNcaaD1MensTeamRosterData(data.teamRoster);
+    if (data?.ncaaPlayerLeague)
+      setNcaaD1MensLeaguePlayers(data.ncaaPlayerLeague);
   }, [data]);
 
   const handleRowClick = (row) => {
@@ -69,16 +66,15 @@ const NcaaD1MensTeamRoster = () => {
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA Roster</h1>
+        <h1>NCAA League Players</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
         </ul>
       </div>
-      {ncaaD1MensTeamRosterData && (
+      {ncaaD1MensLeaguePlayers && (
         <>
-        <ReusableBanner statistics={data}/>
           <TableContainer
             component={Paper}
             sx={{
@@ -87,7 +83,7 @@ const NcaaD1MensTeamRoster = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={ncaaD1MensTeamRosterData}
+              data={ncaaD1MensLeaguePlayers}
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
@@ -103,4 +99,4 @@ const NcaaD1MensTeamRoster = () => {
   );
 };
 
-export default NcaaD1MensTeamRoster;
+export default NcaaD1MensLeaguePlayers;

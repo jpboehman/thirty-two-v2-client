@@ -34,6 +34,10 @@ export const SidebarData = [
         path: "/pages/player-season-grade-eps/ncaa",
       },
       {
+        title: "NCAA League Players",
+        path: "/pages/league-players-page/ncaa-d1-mens",
+      },
+      {
         title: "NCAA Expected Wins",
         path: "/pages/expected-wins/ncaa",
       },
