@@ -69,7 +69,7 @@ const NcaaD1MensTeamRoster = () => {
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA Roster</h1>
+        <h1>Team Statistics</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
@@ -78,7 +78,7 @@ const NcaaD1MensTeamRoster = () => {
       </div>
       {ncaaD1MensTeamRosterData && (
         <>
-        <ReusableBanner statistics={data}/>
+          <ReusableBanner statistics={data} teamName={team} />
           <TableContainer
             component={Paper}
             sx={{

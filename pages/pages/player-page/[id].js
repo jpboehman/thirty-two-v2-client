@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import styles from "@/styles/PageTitle.module.css";
+import Card from "@mui/material/Card";
+import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import MaterialReactTable from "material-react-table";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import Link from "next/link";
 
 import { generalRequest } from "http/httpService";
 
@@ -52,7 +55,7 @@ const NcaaD1MensPlayer = () => {
           );
 
           if (response?.data?.ncaaPlayer && isMounted) {
-            setNcaaD1MensPlayer(response.data?.ncaaPlayer);
+            setNcaaD1MensPlayer(response.data?.ncaaPlayer[0]);
           }
         } catch (error) {
           console.error("Error fetching player data:", error);
@@ -76,36 +79,916 @@ const NcaaD1MensPlayer = () => {
   //   window.location.pathname = pathname;
   // };
 
-  // TODO: Add tables for other two pages
-
   return (
     <>
-      <div className={styles.pageTitle}>
-        <h1>{ncaaD1MensPlayer[0]["Player"]}</h1>
-        <ul>
-          <li>
-            <Link href="/">Dashboard</Link>
-          </li>
-        </ul>
-      </div>
-      <TableContainer
-        component={Paper}
-        sx={{
-          boxShadow: "none",
-        }}
-      >
-        <MaterialReactTable
-          columns={columns}
-          data={ncaaD1MensPlayer}
-          enableColumnOrdering
-          // muiTableBodyRowProps={({ row }) => ({
-          //   onClick: () => handleRowClick(row),
-          //   sx: {
-          //     cursor: "pointer",
-          //   },
-          // })}
-        />
-      </TableContainer>
+      {ncaaD1MensPlayer && (
+        <>
+          <Card
+            sx={{
+              boxShadow: "none",
+              borderRadius: "10px",
+              p: "25px",
+              mb: "15px",
+            }}
+          >
+            <Typography
+              as="h3"
+              sx={{
+                fontSize: 18,
+                fontWeight: 500,
+                mb: "10px",
+              }}
+            >
+              {ncaaD1MensPlayer["Player"]} Statistics
+            </Typography>
+
+            <TableContainer
+              component={Paper}
+              sx={{
+                boxShadow: "none",
+              }}
+            >
+              <Table aria-label="simple table" className="dark-table">
+                <TableBody>
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        {/* TODO: Make the team name clickable */}
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          Team:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["Team"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          Season Grade:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["Season Grade"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          WCr %
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["WCr %"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          WCr/GP:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["WCr/GP"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          MVPr:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["MVPr"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          MIN:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["MIN"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          PTS:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["PTS"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          FGM:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["FGM"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          FGA:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["FGA"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          3FM:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["3FM"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          3FA:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["3FA"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          2FM:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["2FM"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          2FA:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["2FA"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          FTM:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["FTM"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          FTA:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["FTA"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          OREB:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["OREB"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          DREB:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["DREB"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          REB:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["REB"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          AST:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["AST"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          STL:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["STL"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          BLK:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["BLK"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          TO:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["TO"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          PF:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {ncaaD1MensPlayer["PF"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
+        </>
+      )}
     </>
   );
 
