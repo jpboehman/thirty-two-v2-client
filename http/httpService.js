@@ -1,8 +1,8 @@
 import axios from "axios";
 
 axios.defaults.baseURL =
-//   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/";
-'http://localhost:8080/api/';
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/";
+// 'http://localhost:8080/api/';
 
 let user;
 if (typeof window !== "undefined")
