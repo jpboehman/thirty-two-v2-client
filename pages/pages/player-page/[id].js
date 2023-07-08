@@ -9,40 +9,19 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
+import Link from "next/link";
 
 import { generalRequest } from "http/httpService";
 
-const columns = [
-  { accessorKey: "Season Grade", header: "Season Grade" },
-  { accessorKey: "WCr %", header: "WCr %" },
-  { accessorKey: "WCr/GP", header: "WCr/GP" },
-  { accessorKey: "MVPr", header: "MVPr" },
-  { accessorKey: "MIN", header: "MIN" },
-  { accessorKey: "PTS", header: "PTS" },
-  { accessorKey: "FGM", header: "FGM" },
-  { accessorKey: "FGA", header: "FGA" },
-  { accessorKey: "3FM", header: "3FM" },
-  { accessorKey: "3FA", header: "3FA" },
-  { accessorKey: "2FM", header: "2FM" },
-  { accessorKey: "2FA", header: "2FA" },
-  { accessorKey: "FTM", header: "FTM" },
-  { accessorKey: "FTA", header: "FTA" },
-  { accessorKey: "OREB", header: "OREB" },
-  { accessorKey: "DREB", header: "DREB" },
-  { accessorKey: "REB", header: "REB" },
-  { accessorKey: "AST", header: "AST" },
-  { accessorKey: "STL", header: "STL" },
-  { accessorKey: "BLK", header: "BLK" },
-  { accessorKey: "TO", header: "TO" },
-  { accessorKey: "PF", header: "PF" },
-];
-
 const NcaaD1MensPlayer = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query?.id ? router.query?.id : router.query?.param;
+  console.log(router);
   const [ncaaD1MensPlayer, setNcaaD1MensPlayer] = useState({});
-  const [selectedTeamId, setSelectedTeamId] = useState();
+  const [selectedTeam, setSelectedTeam] = useState();
   const currentUser = useSelector((state) => state.currentUser?.payload);
+
+  console.log(id);
 
   useEffect(() => {
     let isMounted = true;
@@ -50,12 +29,24 @@ const NcaaD1MensPlayer = () => {
     const fetchPlayerData = async () => {
       if (id) {
         try {
-          const response = await generalRequest.get(
+          const playerLeagueResponse = await generalRequest.get(
             `/ncaa-d1-mens-league-players/${id}`
           );
 
-          if (response?.data?.ncaaPlayerLeague && isMounted) {
-            setNcaaD1MensPlayer(response.data?.ncaaPlayerLeague[0]);
+          const ncaaPlayerResponse = await generalRequest.get(
+            `/ncaa-d1-mens-player/${id}`
+          );
+
+          console.log(playerLeagueResponse);
+          console.log(ncaaPlayerResponse);
+
+          if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
+            setNcaaD1MensPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
+          } else if (
+            playerLeagueResponse?.data?.ncaaPlayerLeague?.length &&
+            isMounted
+          ) {
+            setNcaaD1MensPlayer(playerLeagueResponse.data?.ncaaPlayerLeague[0]);
           }
         } catch (error) {
           console.error("Error fetching player data:", error);
@@ -119,7 +110,6 @@ const NcaaD1MensPlayer = () => {
                           alignItems: "center",
                         }}
                       >
-                        {/* TODO: Make the team name clickable */}
                         <Typography
                           sx={{
                             fontWeight: "500",
@@ -129,15 +119,19 @@ const NcaaD1MensPlayer = () => {
                         >
                           Team:
                         </Typography>
-                        <Typography
-                          sx={{
-                            fontWeight: "700",
-                            fontSize: "12px",
-                          }}
-                          className="ml-10px"
+                        <Link
+                          href={`/pages/teams/${ncaaD1MensPlayer._id}?param=${ncaaD1MensPlayer["Team"]}`}
                         >
-                          {ncaaD1MensPlayer["Team"]}
-                        </Typography>
+                          <Typography
+                            sx={{
+                              fontWeight: "700",
+                              fontSize: "12px",
+                            }}
+                            className="ml-10px"
+                          >
+                            {ncaaD1MensPlayer["Team"]}
+                          </Typography>
+                        </Link>
                       </Box>
                     </TableCell>
                   </TableRow>

@@ -49,7 +49,8 @@ const NcaaD1MensTeamRoster = () => {
   ]);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  const { team } = router.query;
+  const team = router.query?.team ? router.query?.team : router.query?.param;
+  console.log(router);
   // TODO: Also make this path send back team Banner data
   const { data, isError, errorMessage } = useApi(
     `/ncaa-d1-mens-team/${team}`,

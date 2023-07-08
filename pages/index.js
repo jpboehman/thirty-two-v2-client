@@ -21,6 +21,7 @@ import eventBus from "common/EventBus";
 import { logout } from "redux/userRedux";
 
 import { useDispatch, useSelector } from "react-redux";
+import StatsExplained from "./pages/our-stats-explained";
 
 export default function App() {
   const currentUser = useSelector((state) => state?.currentUser?.payload);
@@ -63,68 +64,7 @@ export default function App() {
         </ul>
       </div>
 
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-        <Grid item xs={12} md={12} lg={12} xl={8}>
-          {/* Features */}
-          <Features />
-
-          {/* AudienceOverview */}
-          <AudienceOverview />
-
-          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 2 }}>
-            <Grid item xs={12} md={8}>
-              {/* VisitsByDay */}
-              <VisitsByDay />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              {/* Impressions */}
-              {/* <Impressions /> */}
-
-              {/* ActivityTimeline */}
-              <ActivityTimeline />
-            </Grid>
-
-            <Grid item xs={12} md={12}>
-              {/* RevenuStatus */}
-              <RevenuStatus />
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <Grid item xs={12} md={12} lg={12} xl={4}>
-          {/* Ratings */}
-          <Ratings />
-
-          {/* LiveVisitsOnOurSite */}
-          <LiveVisitsOnOurSite />
-
-          {/* SalesByLocations */}
-          <SalesByCountries />
-
-          {/* NewCustomers */}
-          <NewCustomers />
-        </Grid>
-      </Grid>
-
-      {/* Recent Orders */}
-      <RecentOrders />
-
-      <Grid
-        container
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
-      >
-        <Grid item xs={12} md={12} lg={12} xl={8}>
-          {/* TeamMembersList */}
-          <TeamMembersList />
-        </Grid>
-
-        <Grid item xs={12} md={12} lg={12} xl={4}>
-          {/* BestSellingProducts */}
-          <BestSellingProducts />
-        </Grid>
-      </Grid>
+      <StatsExplained />
     </>
   );
 }
