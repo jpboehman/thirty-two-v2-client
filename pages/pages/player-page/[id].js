@@ -51,11 +51,11 @@ const NcaaD1MensPlayer = () => {
       if (id) {
         try {
           const response = await generalRequest.get(
-            `/ncaa-d1-mens-player/${id}`
+            `/ncaa-d1-mens-league-players/${id}`
           );
 
-          if (response?.data?.ncaaPlayer && isMounted) {
-            setNcaaD1MensPlayer(response.data?.ncaaPlayer[0]);
+          if (response?.data?.ncaaPlayerLeague && isMounted) {
+            setNcaaD1MensPlayer(response.data?.ncaaPlayerLeague[0]);
           }
         } catch (error) {
           console.error("Error fetching player data:", error);
@@ -70,14 +70,7 @@ const NcaaD1MensPlayer = () => {
     };
   }, [id]);
 
-  // Edit to make route to team page
-  // const handleRowClick = (row) => {
-  //   console.log(row);
-  //   const { _id } = row.original;
-  //   setSelectedTeamId(_id);
-  //   const pathname = `/pages/teams/${_id}`;
-  //   window.location.pathname = pathname;
-  // };
+  console.log(ncaaD1MensPlayer);
 
   return (
     <>
