@@ -496,7 +496,7 @@ const ReusableBanner = ({ statistics, teamName }) => {
                           }}
                           className="ml-10px"
                         >
-                          exW:
+                          Expected Wins:
                         </Typography>
                         <Typography
                           sx={{
@@ -534,7 +534,7 @@ const ReusableBanner = ({ statistics, teamName }) => {
                           }}
                           className="ml-10px"
                         >
-                          exW %:
+                          Expected Win %:
                         </Typography>
                         <Typography
                           sx={{
@@ -572,7 +572,7 @@ const ReusableBanner = ({ statistics, teamName }) => {
                           }}
                           className="ml-10px"
                         >
-                          exW Regression:
+                          Expected Wins Regression:
                         </Typography>
                         <Typography
                           sx={{

@@ -15,6 +15,7 @@ import ReusableBanner from "@/components/Banners/ReusableBanner";
 const columns = [
   { accessorKey: "Player", header: "Player" },
   { accessorKey: "Team", header: "Team" },
+  { accessorKey: "Season", header: "Season" },
   { accessorKey: "Season Grade", header: "Season Grade" },
   { accessorKey: "WCr %", header: "WCr %" },
   { accessorKey: "WCr/GP", header: "WCr/GP" },
@@ -50,7 +51,6 @@ const NcaaD1MensTeamRoster = () => {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   const team = router.query?.team ? router.query?.team : router.query?.param;
-  console.log(router);
   // TODO: Also make this path send back team Banner data
   const { data, isError, errorMessage } = useApi(
     `/ncaa-d1-mens-team/${team}`,
@@ -71,6 +71,7 @@ const NcaaD1MensTeamRoster = () => {
     <>
       <div className={styles.pageTitle}>
         <h1>Team Statistics</h1>
+        {/* // TODO: Insert season buttons here */}
         <ul>
           <li>
             <Link href="/">Dashboard</Link>

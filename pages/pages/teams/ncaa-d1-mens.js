@@ -27,9 +27,9 @@ const columns = [
   { accessorKey: "EPSS", header: "EPSS" },
   { accessorKey: "Team EPS", header: "Team EPS" },
   { accessorKey: "Opp EPS", header: "Opp EPS" },
-  { accessorKey: "exW %", header: "exW %" },
-  { accessorKey: "exW", header: "exW" },
-  { accessorKey: "exW Regression", header: "exW Regression" },
+  { accessorKey: "exW %", header: "Expected Win %" },
+  { accessorKey: "exW", header: "Expected Wins" },
+  { accessorKey: "exW Regression", header: "Expected Wins Regression" },
 ];
 
 const NcaaD1MensTeams = () => {
