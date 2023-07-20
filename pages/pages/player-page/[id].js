@@ -15,7 +15,7 @@ import Link from "next/link";
 import { generalRequest } from "http/httpService";
 
 const columns = [
-  { accessorKey: "Team", header: "Team" },
+  // { accessorKey: "Team", header: "Team" },
   { accessorKey: "GameDay", header: "Game Date" },
   { accessorKey: "Opponent", header: "Opponent" },
   { accessorKey: "Game Grade", header: "Game Grade" },
@@ -52,8 +52,6 @@ const NcaaD1MensPlayer = () => {
 
     const fetchPlayerData = async () => {
       if (id) {
-        // TODO: Can I make any updates here?
-        // Need to get gameGrades flowing in here correctly
         try {
           const playerLeagueResponse = await generalRequest.get(
             `/ncaa-d1-mens-league-players/${id}`
@@ -62,9 +60,6 @@ const NcaaD1MensPlayer = () => {
           const ncaaPlayerResponse = await generalRequest.get(
             `/ncaa-d1-mens-player/${id}`
           );
-
-          console.log(playerLeagueResponse);
-          console.log(ncaaPlayerResponse);
 
           if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
             setNcaaD1MensPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
@@ -80,37 +75,40 @@ const NcaaD1MensPlayer = () => {
       }
     };
 
-    // TODO: Fix this function
-    const fetchPlayerGameGradeData = async () => {
-      if (id) {
-        try {
-          console.log(ncaaD1MensPlayer);
-          const playerGameGradeResponse = await generalRequest.get(`
-          /ncaa-d1-mens-game-grades/${ncaaD1MensPlayer}`);
-
-          console.log(playerGameGradeResponse);
-
-          if (playerGameGradeResponse?.data?.gameGrades?.length && isMounted) {
-            ncaaD1MensPlayerGameGrades(ncaaPlayerResponse.data);
-          } else if (
-            playerGameGradeResponse?.data?.gameGrades?.length &&
-            isMounted
-          ) {
-            ncaaD1MensPlayerGameGrades(playerLeagueResponse.data);
-          }
-        } catch (error) {
-          console.error("Error fetching player data:", error);
-        }
-      }
-    };
-
     fetchPlayerData();
-    fetchPlayerGameGradeData();
 
     return () => {
       isMounted = false;
     };
   }, [id]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchPlayerGameGradeData = async () => {
+      if (ncaaD1MensPlayer && ncaaD1MensPlayer["Player"]) {
+        try {
+          const playerGameGradeResponse = await generalRequest.get(
+            `/ncaa-d1-mens-game-grades/${ncaaD1MensPlayer["Player"]}`
+          );
+
+          if (playerGameGradeResponse?.data?.gameGrades?.length && isMounted) {
+            setNcaaD1MensPlayerGameGrades(
+              playerGameGradeResponse.data.gameGrades
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching player game grade data:", error);
+        }
+      }
+    };
+
+    fetchPlayerGameGradeData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [ncaaD1MensPlayer]);
 
   console.log(ncaaD1MensPlayer);
 
@@ -185,10 +183,6 @@ const NcaaD1MensPlayer = () => {
                         </Link>
                       </Box>
                     </TableCell>
-                  </TableRow>
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
                     <TableCell
                       sx={{
                         borderBottom: "1px solid #F7FAFF",
@@ -222,11 +216,7 @@ const NcaaD1MensPlayer = () => {
                         </Typography>
                       </Box>
                     </TableCell>
-                  </TableRow>
 
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
                     <TableCell
                       sx={{
                         borderBottom: "1px solid #F7FAFF",
@@ -247,7 +237,7 @@ const NcaaD1MensPlayer = () => {
                           }}
                           className="ml-10px"
                         >
-                          WCr %
+                          WCr %:
                         </Typography>
                         <Typography
                           sx={{
@@ -260,11 +250,6 @@ const NcaaD1MensPlayer = () => {
                         </Typography>
                       </Box>
                     </TableCell>
-                  </TableRow>
-
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
                     <TableCell
                       sx={{
                         borderBottom: "1px solid #F7FAFF",
@@ -298,11 +283,6 @@ const NcaaD1MensPlayer = () => {
                         </Typography>
                       </Box>
                     </TableCell>
-                  </TableRow>
-
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
                     <TableCell
                       sx={{
                         borderBottom: "1px solid #F7FAFF",
