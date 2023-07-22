@@ -289,6 +289,11 @@ const BillingInformation = () => {
             >
               Register
             </Button>
+            <Grid item xs={12} md={7} lg={7} xl={8}>
+              <Typography>
+                *Subscriptions are billed annually at $29.99
+              </Typography>
+            </Grid>
           </Box>
         </Grid>
       </Box>

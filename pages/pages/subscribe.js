@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "@/styles/PageTitle.module.css";
 
 import StripeContainer from "@/components/StripeContainer";
+import { Typography } from "@mui/material";
 
 const Subscribe = () => {
   return (
@@ -24,8 +25,10 @@ const Subscribe = () => {
         columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 2 }}
       >
         <Grid item xs={12} md={7} lg={7} xl={8}>
-          {/* <BillingInformation /> */}
           <StripeContainer />
+        </Grid>
+        <Grid item xs={12} md={7} lg={7} xl={8}>
+          <Typography>*Subscritpions are billed annually at $29.99</Typography>
         </Grid>
       </Grid>
     </>
