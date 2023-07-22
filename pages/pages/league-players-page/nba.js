@@ -14,66 +14,67 @@ import InfoIcon from "@mui/icons-material/Info";
 import ReusableBanner from "@/components/Banners/ReusableBanner";
 
 const columns = [
-  { accessorKey: "Player", header: "Player Name" },
-  { accessorKey: "Team", header: "Team" },
+  { accessorKey: "Player", header: "Player" },
+  { accessorKey: "Tm", header: "Team" },
+  // { accessorKey: "Season", header: "Season" },
   { accessorKey: "Season Grade", header: "Season Grade" },
-  { accessorKey: "G", header: "G" },
+  { accessorKey: "WCr", header: "WCr" },
   { accessorKey: "WCr %", header: "WCr %" },
   { accessorKey: "WCr/GP", header: "WCr/GP" },
   { accessorKey: "MVPr", header: "MVPr" },
-  { accessorKey: "MIN", header: "MIN" },
+  { accessorKey: "MP", header: "MIN" },
   { accessorKey: "PTS", header: "PTS" },
-  { accessorKey: "FGM", header: "FGM" },
+  { accessorKey: "FG", header: "FG" },
   { accessorKey: "FGA", header: "FGA" },
-  { accessorKey: "3FM", header: "3FM" },
-  { accessorKey: "3FA", header: "3FA" },
-  { accessorKey: "2FM", header: "2FM" },
-  { accessorKey: "2FA", header: "2FA" },
-  { accessorKey: "FTM", header: "FTM" },
+  { accessorKey: "3P", header: "3P" },
+  { accessorKey: "3PA", header: "3PA" },
+  { accessorKey: "2P", header: "2P" },
+  { accessorKey: "2PA", header: "2PA" },
+  { accessorKey: "FT", header: "FT" },
   { accessorKey: "FTA", header: "FTA" },
-  { accessorKey: "OREB", header: "OREB" },
-  { accessorKey: "DREB", header: "DREB" },
+  { accessorKey: "ORB", header: "ORB" },
+  { accessorKey: "DRB", header: "DRB" },
   { accessorKey: "REB", header: "REB" },
   { accessorKey: "AST", header: "AST" },
   { accessorKey: "STL", header: "STL" },
   { accessorKey: "BLK", header: "BLK" },
-  { accessorKey: "TO", header: "TO" },
+  { accessorKey: "TOV", header: "TO" },
   { accessorKey: "PF", header: "PF" },
 ];
 
-const NcaaD1MensLeaguePlayers = () => {
-  const [ncaaD1MensLeaguePlayers, setNcaaD1MensLeaguePlayers] = useState([]);
+const NbaLeaguePlayers = () => {
+  const [nbaLeaguePlayers, setNbaLeaguePlayers] = useState([]);
   const router = useRouter();
   const currentUser = useSelector((state) => state.currentUser?.payload);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  const { data, isError, errorMessage } = useApi(
-    "/ncaa-d1-mens-league-players",
-    500
-  );
+  const { data, isError, errorMessage } = useApi("/nba-league-players", 500);
   useEffect(() => {
-    if (data?.ncaaPlayerLeague)
-      setNcaaD1MensLeaguePlayers(data.ncaaPlayerLeague);
+    if (data?.nbaPlayerLeague) setNbaLeaguePlayers(data.nbaPlayerLeague);
   }, [data]);
 
   const handleRowClick = (row) => {
     const { _id } = row.original;
     setSelectedPlayerId(_id);
+    const query = `league=nba`;
     const pathname = `/pages/player-page/${_id}`;
-    window.location.pathname = pathname;
+    router.push({
+      pathname,
+      query,
+    });
   };
 
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA League Players</h1>
+        <h1>NBA League Players</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
         </ul>
       </div>
-      {ncaaD1MensLeaguePlayers && (
+      {nbaLeaguePlayers && (
         <>
           <TableContainer
             component={Paper}
@@ -83,7 +84,7 @@ const NcaaD1MensLeaguePlayers = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={ncaaD1MensLeaguePlayers}
+              data={nbaLeaguePlayers}
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
@@ -99,4 +100,4 @@ const NcaaD1MensLeaguePlayers = () => {
   );
 };
 
-export default NcaaD1MensLeaguePlayers;
+export default NbaLeaguePlayers;

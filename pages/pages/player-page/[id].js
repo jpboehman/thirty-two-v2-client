@@ -14,41 +14,58 @@ import Paper from "@mui/material/Paper";
 import Link from "next/link";
 
 import { generalRequest } from "http/httpService";
+import { ncaaColumns } from "common/tableColumns";
 
-const columns = [
-  // { accessorKey: "Team", header: "Team" },
-  { accessorKey: "GameDay", header: "Game Date" },
-  { accessorKey: "Opponent", header: "Opponent" },
-  { accessorKey: "Game Grade", header: "Game Grade" },
+const tempNbaColumns = [
+  { accessorKey: "Player", header: "Player" },
+  { accessorKey: "Team", header: "Team" },
+  { accessorKey: "Season", header: "Season" },
+  { accessorKey: "Season Grade", header: "Season Grade" },
+  { accessorKey: "WCr %", header: "WCr %" },
+  { accessorKey: "WCr/GP", header: "WCr/GP" },
+  { accessorKey: "MVPr", header: "MVPr" },
   { accessorKey: "MIN", header: "MIN" },
   { accessorKey: "PTS", header: "PTS" },
   { accessorKey: "FGM", header: "FGM" },
   { accessorKey: "FGA", header: "FGA" },
   { accessorKey: "3FM", header: "3FM" },
   { accessorKey: "3FA", header: "3FA" },
+  { accessorKey: "2FM", header: "2FM" },
+  { accessorKey: "2FA", header: "2FA" },
   { accessorKey: "FTM", header: "FTM" },
   { accessorKey: "FTA", header: "FTA" },
+  { accessorKey: "OREB", header: "OREB" },
+  { accessorKey: "DREB", header: "DREB" },
   { accessorKey: "REB", header: "REB" },
   { accessorKey: "AST", header: "AST" },
   { accessorKey: "STL", header: "STL" },
   { accessorKey: "BLK", header: "BLK" },
-  { accessorKey: "OREB", header: "OREB" },
   { accessorKey: "TO", header: "TO" },
   { accessorKey: "PF", header: "PF" },
 ];
 
-const NcaaD1MensPlayer = () => {
+const LEAGUE_TYPE = {
+  NBA_LEAGUE: "nba-league-players",
+  NCAA_LEAGUE: "ncaa-d1-mens-league-players",
+  NCAA_PLAYER: "ncaa-d1-mens-player",
+};
+
+const PlayerPage = () => {
   const router = useRouter();
   const id = router.query?.id ? router.query?.id : router.query?.param;
+  const league = router.query?.league || LEAGUE_TYPE.NCAA;
+  const isNba = league?.includes(LEAGUE_TYPE.NBA);
   console.log(router);
-  const [ncaaD1MensPlayer, setNcaaD1MensPlayer] = useState({});
-  const [ncaaD1MensPlayerGameGrades, setNcaaD1MensPlayerGameGrades] = useState(
-    {}
-  );
+  const [player, setPlayer] = useState({});
+  const [playerGameGrades, setPlayerGameGrades] = useState({});
   const [selectedTeam, setSelectedTeam] = useState();
   const currentUser = useSelector((state) => state.currentUser?.payload);
   // Once added to sheet, then should be good to go
   const [selectedSeason, setSelectedSeason] = useState("2022-23");
+
+  console.log(`league is: ${JSON.stringify(league)}`);
+
+  console.log(`router from player: ${JSON.stringify(router)}`);
 
   useEffect(() => {
     let isMounted = true;
@@ -56,21 +73,36 @@ const NcaaD1MensPlayer = () => {
     const fetchPlayerData = async () => {
       if (id) {
         try {
-          const playerLeagueResponse = await generalRequest.get(
-            `/ncaa-d1-mens-league-players/${id}`
-          );
+          if (league === "ncaa") {
+            const playerLeagueResponse = await generalRequest.get(
+              // `/ncaa-d1-mens-league-players/${id}`
+              `/${LEAGUE_TYPE.NCAA_LEAGUE}/${id}`
+            );
 
-          const ncaaPlayerResponse = await generalRequest.get(
-            `/ncaa-d1-mens-player/${id}`
-          );
+            const ncaaPlayerResponse = await generalRequest.get(
+              `/${LEAGUE_TYPE.NCAA_PLAYER}/${id}`
+            );
 
-          if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
-            setNcaaD1MensPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
-          } else if (
-            playerLeagueResponse?.data?.ncaaPlayerLeague?.length &&
-            isMounted
-          ) {
-            setNcaaD1MensPlayer(playerLeagueResponse.data?.ncaaPlayerLeague[0]);
+            if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
+              setPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
+            } else if (
+              playerLeagueResponse?.data?.ncaaPlayerLeague?.length &&
+              isMounted
+            ) {
+              setPlayer(playerLeagueResponse.data?.ncaaPlayerLeague[0]);
+            }
+          } else {
+            // Fetching nba endpoints
+            const playerLeagueResponse = await generalRequest.get(
+              `/${LEAGUE_TYPE.NBA_LEAGUE}/${id}`
+            );
+
+            if (
+              playerLeagueResponse?.data?.nbaPlayerLeague?.length &&
+              isMounted
+            ) {
+              setPlayer(playerLeagueResponse.data?.nbaPlayerLeague[0]);
+            }
           }
         } catch (error) {
           console.error("Error fetching player data:", error);
@@ -88,17 +120,33 @@ const NcaaD1MensPlayer = () => {
   useEffect(() => {
     let isMounted = true;
 
+    // TODO: Add NBA functionality for this
     const fetchPlayerGameGradeData = async () => {
-      if (ncaaD1MensPlayer && ncaaD1MensPlayer["Player"]) {
+      if (player && player["Player"] && league) {
         try {
-          const playerGameGradeResponse = await generalRequest.get(
-            `/ncaa-d1-mens-game-grades/${ncaaD1MensPlayer["Player"]}/${selectedSeason}`
-          );
-
-          if (playerGameGradeResponse?.data?.gameGrades?.length && isMounted) {
-            setNcaaD1MensPlayerGameGrades(
-              playerGameGradeResponse.data.gameGrades
+          if (league === "ncaa") {
+            const playerGameGradeResponse = await generalRequest.get(
+              `/ncaa-d1-mens-game-grades/${player["Player"]}/${selectedSeason}`
             );
+
+            if (
+              playerGameGradeResponse?.data?.gameGrades?.length &&
+              isMounted
+            ) {
+              setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
+            }
+          } else {
+            // Repeating the same thing for the NBA
+            const playerGameGradeResponse = await generalRequest.get(
+              `/nba-game-grades/${player["Player"]}/${selectedSeason}`
+            );
+
+            if (
+              playerGameGradeResponse?.data?.gameGrades?.length &&
+              isMounted
+            ) {
+              setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
+            }
           }
         } catch (error) {
           console.error("Error fetching player game grade data:", error);
@@ -111,13 +159,11 @@ const NcaaD1MensPlayer = () => {
     return () => {
       isMounted = false;
     };
-  }, [ncaaD1MensPlayer]);
-
-  console.log(ncaaD1MensPlayer);
+  }, [player]);
 
   return (
     <>
-      {ncaaD1MensPlayer && (
+      {player && (
         <>
           <Card
             sx={{
@@ -135,7 +181,7 @@ const NcaaD1MensPlayer = () => {
                 mb: "10px",
               }}
             >
-              {ncaaD1MensPlayer["Player"]} Statistics
+              {player["Player"]} Statistics
             </Typography>
 
             <TableContainer
@@ -172,7 +218,7 @@ const NcaaD1MensPlayer = () => {
                           Team:
                         </Typography>
                         <Link
-                          href={`/pages/teams/${ncaaD1MensPlayer._id}?param=${ncaaD1MensPlayer["Team"]}`}
+                          href={`/pages/teams/${player._id}?param=${player["Team"]}`}
                         >
                           <Typography
                             sx={{
@@ -181,7 +227,7 @@ const NcaaD1MensPlayer = () => {
                             }}
                             className="ml-10px"
                           >
-                            {ncaaD1MensPlayer["Team"]}
+                            {player["Team"]}
                           </Typography>
                         </Link>
                       </Box>
@@ -215,7 +261,7 @@ const NcaaD1MensPlayer = () => {
                           }}
                           className="ml-10px"
                         >
-                          {ncaaD1MensPlayer["Season Grade"]}
+                          {player["Season Grade"]}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -249,7 +295,7 @@ const NcaaD1MensPlayer = () => {
                           }}
                           className="ml-10px"
                         >
-                          {ncaaD1MensPlayer["WCr %"]}
+                          {player["WCr %"]}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -282,7 +328,7 @@ const NcaaD1MensPlayer = () => {
                           }}
                           className="ml-10px"
                         >
-                          {ncaaD1MensPlayer["WCr/GP"]}
+                          {player["WCr/GP"]}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -315,7 +361,7 @@ const NcaaD1MensPlayer = () => {
                           }}
                           className="ml-10px"
                         >
-                          {ncaaD1MensPlayer["MVPr"]}
+                          {player["MVPr"]}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -374,8 +420,8 @@ const NcaaD1MensPlayer = () => {
               }}
             >
               <MaterialReactTable
-                columns={columns}
-                data={ncaaD1MensPlayerGameGrades}
+                columns={league === "nba" ? tempNbaColumns : ncaaColumns}
+                data={playerGameGrades}
                 enableColumnOrdering
                 muiTableBodyRowProps={({ row }) => ({
                   onClick: () => handleRowClick(row),
@@ -392,4 +438,4 @@ const NcaaD1MensPlayer = () => {
   );
 };
 
-export default NcaaD1MensPlayer;
+export default PlayerPage;

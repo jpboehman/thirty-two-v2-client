@@ -59,8 +59,12 @@ const NcaaD1MensLeaguePlayers = () => {
   const handleRowClick = (row) => {
     const { _id } = row.original;
     setSelectedPlayerId(_id);
+    const query = `league=ncaa`;
     const pathname = `/pages/player-page/${_id}`;
-    window.location.pathname = pathname;
+    router.push({
+      pathname,
+      query,
+    });
   };
 
   return (
