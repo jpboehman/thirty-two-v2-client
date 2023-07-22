@@ -36,8 +36,12 @@ const TeamRoster = () => {
   const handleRowClick = (row) => {
     const { _id } = row.original;
     setSelectedPlayerId(_id);
+    const query = `league=${league}`
     const pathname = `/pages/player-page/${_id}`;
-    window.location.pathname = pathname;
+    router.push({
+      pathname,
+      query,
+    });
   };
 
   if (isError) {

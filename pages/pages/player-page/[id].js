@@ -53,9 +53,7 @@ const LEAGUE_TYPE = {
 const PlayerPage = () => {
   const router = useRouter();
   const id = router.query?.id ? router.query?.id : router.query?.param;
-  const league = router.query?.league || LEAGUE_TYPE.NCAA;
-  const isNba = league?.includes(LEAGUE_TYPE.NBA);
-  console.log(router);
+  const league = router.query?.league;
   const [player, setPlayer] = useState({});
   const [playerGameGrades, setPlayerGameGrades] = useState({});
   const [selectedTeam, setSelectedTeam] = useState();
@@ -63,19 +61,46 @@ const PlayerPage = () => {
   // Once added to sheet, then should be good to go
   const [selectedSeason, setSelectedSeason] = useState("2022-23");
 
-  console.log(`league is: ${JSON.stringify(league)}`);
+  console.log(league);
 
-  console.log(`router from player: ${JSON.stringify(router)}`);
+  // Add a player parameter to the fetchPlayerGameGradeData function
+  const fetchPlayerGameGradeData = async (fetchedPlayer) => {
+    console.log(`fetchedPlayer from fetch: ${fetchedPlayer}`);
+    // if (fetchedPlayer && fetchedPlayer["Player"]) {
+      try {
+        if (league && league !== "nba-team" && league !== "nba") {
+          const playerGameGradeResponse = await generalRequest.get(
+            `/ncaa-d1-mens-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`
+          );
+
+          if (playerGameGradeResponse?.data?.gameGrades?.length) {
+            setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
+          }
+        } else {
+          console.log(`are we we entering here`);
+          // Repeating the same thing for the NBA
+          const nbaGameGraderesponse = await generalRequest.get(
+            `/nba-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`
+          );
+
+          if (nbaGameGraderesponse?.data?.gameGrades?.length) {
+            setPlayerGameGrades(nbaGameGraderesponse.data.gameGrades);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching player game grade data:", error);
+      }
+    // }
+  };
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchPlayerData = async () => {
-      if (id) {
+      if (id && league) {
         try {
-          if (league === "ncaa") {
+          if (league !== "nba" && league !== "nba-team") {
             const playerLeagueResponse = await generalRequest.get(
-              // `/ncaa-d1-mens-league-players/${id}`
               `/${LEAGUE_TYPE.NCAA_LEAGUE}/${id}`
             );
 
@@ -85,11 +110,16 @@ const PlayerPage = () => {
 
             if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
               setPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
+              // TODO: Figure out why it isn't working for team-page
+              await fetchPlayerGameGradeData(ncaaPlayerResponse.data?.ncaaPlayer[0]);
             } else if (
               playerLeagueResponse?.data?.ncaaPlayerLeague?.length &&
               isMounted
             ) {
               setPlayer(playerLeagueResponse.data?.ncaaPlayerLeague[0]);
+              await fetchPlayerGameGradeData(
+                playerLeagueResponse.data?.ncaaPlayerLeague[0]
+              );
             }
           } else {
             // Fetching nba endpoints
@@ -101,7 +131,13 @@ const PlayerPage = () => {
               playerLeagueResponse?.data?.nbaPlayerLeague?.length &&
               isMounted
             ) {
+
+              
+              console.log(`here at least?`)
               setPlayer(playerLeagueResponse.data?.nbaPlayerLeague[0]);
+              fetchPlayerGameGradeData(
+                playerLeagueResponse.data?.nbaPlayerLeague[0]
+              );
             }
           }
         } catch (error) {
@@ -115,55 +151,11 @@ const PlayerPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [id, selectedSeason]);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    // TODO: Add NBA functionality for this
-    const fetchPlayerGameGradeData = async () => {
-      if (player && player["Player"] && league) {
-        try {
-          if (league === "ncaa") {
-            const playerGameGradeResponse = await generalRequest.get(
-              `/ncaa-d1-mens-game-grades/${player["Player"]}/${selectedSeason}`
-            );
-
-            if (
-              playerGameGradeResponse?.data?.gameGrades?.length &&
-              isMounted
-            ) {
-              setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
-            }
-          } else {
-            // Repeating the same thing for the NBA
-            const playerGameGradeResponse = await generalRequest.get(
-              `/nba-game-grades/${player["Player"]}/${selectedSeason}`
-            );
-
-            if (
-              playerGameGradeResponse?.data?.gameGrades?.length &&
-              isMounted
-            ) {
-              setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching player game grade data:", error);
-        }
-      }
-    };
-
-    fetchPlayerGameGradeData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [player]);
+  }, [id, selectedSeason, league]);
 
   return (
     <>
-      {player && (
+      {player && league && (
         <>
           <Card
             sx={{
@@ -420,15 +412,9 @@ const PlayerPage = () => {
               }}
             >
               <MaterialReactTable
-                columns={league === "nba" ? tempNbaColumns : ncaaColumns}
+                columns={!league.includes("nba") ? ncaaColumns : tempNbaColumns}
                 data={playerGameGrades}
                 enableColumnOrdering
-                muiTableBodyRowProps={({ row }) => ({
-                  onClick: () => handleRowClick(row),
-                  sx: {
-                    cursor: "pointer",
-                  },
-                })}
               />
             </TableContainer>
           </Card>
