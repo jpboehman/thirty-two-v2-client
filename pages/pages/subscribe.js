@@ -27,9 +27,6 @@ const Subscribe = () => {
         <Grid item xs={12} md={7} lg={7} xl={8}>
           <StripeContainer />
         </Grid>
-        <Grid item xs={12} md={7} lg={7} xl={8}>
-          <Typography>*Subscritpions are billed annually at $29.99</Typography>
-        </Grid>
       </Grid>
     </>
   );

@@ -327,7 +327,9 @@ const NcaaD1MensPlayer = () => {
             {/* Season Selectors */}
             <Box
               sx={{
-                display: "flex",
+                display: "grid",
+                gridTemplateColumns: "repeat(5, 1fr)",
+                gap: "10px",
                 justifyContent: "space-between",
                 mt: 2,
                 mb: 2,
