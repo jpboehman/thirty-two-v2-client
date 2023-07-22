@@ -31,6 +31,7 @@ const columns = [
 const NbaTeams = () => {
   const [nbaTeamData, setNbaTeamData] = useState([]);
   const router = useRouter();
+  const league = router.pathname.split("/").includes("nba") ? "nba-team" : "ncaa-d1-mens-team";
   const currentUser = useSelector((state) => state.currentUser?.payload);
   const [selectedSeason, setSelectedSeason] = useState([
     chosenSeason,
@@ -46,7 +47,7 @@ const NbaTeams = () => {
   const handleRowClick = (row) => {
     const { _id, Team } = row.original;
     setSelectedTeamId(_id);
-    const query = `team=${encodeURIComponent(Team)}`;
+    const query = `team=${encodeURIComponent(Team)}&league=${league}`;
     const pathname = `/pages/teams/${_id}`;
     router.push({
       pathname,

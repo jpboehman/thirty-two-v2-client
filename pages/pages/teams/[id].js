@@ -8,56 +8,29 @@ import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 import chosenSeason from "common/seasonOptions";
 import useApi from "hooks/useApi";
+import { ncaaColumns, nbaColumns } from "common/tableColumns";
 
-import InfoIcon from "@mui/icons-material/Info";
-import ReusableBanner from "@/components/Banners/ReusableBanner";
+const LEAGUE_TYPE = {
+  NBA: "nba",
+  NCAA: "ncaa-d1-mens-team",
+};
 
-const columns = [
-  { accessorKey: "Player", header: "Player" },
-  { accessorKey: "Team", header: "Team" },
-  { accessorKey: "Season", header: "Season" },
-  { accessorKey: "Season Grade", header: "Season Grade" },
-  { accessorKey: "WCr %", header: "WCr %" },
-  { accessorKey: "WCr/GP", header: "WCr/GP" },
-  { accessorKey: "MVPr", header: "MVPr" },
-  { accessorKey: "MIN", header: "MIN" },
-  { accessorKey: "PTS", header: "PTS" },
-  { accessorKey: "FGM", header: "FGM" },
-  { accessorKey: "FGA", header: "FGA" },
-  { accessorKey: "3FM", header: "3FM" },
-  { accessorKey: "3FA", header: "3FA" },
-  { accessorKey: "2FM", header: "2FM" },
-  { accessorKey: "2FA", header: "2FA" },
-  { accessorKey: "FTM", header: "FTM" },
-  { accessorKey: "FTA", header: "FTA" },
-  { accessorKey: "OREB", header: "OREB" },
-  { accessorKey: "DREB", header: "DREB" },
-  { accessorKey: "REB", header: "REB" },
-  { accessorKey: "AST", header: "AST" },
-  { accessorKey: "STL", header: "STL" },
-  { accessorKey: "BLK", header: "BLK" },
-  { accessorKey: "TO", header: "TO" },
-  { accessorKey: "PF", header: "PF" },
-];
-
-const NcaaD1MensTeamRoster = () => {
-  const [ncaaD1MensTeamRosterData, setNcaaD1MensTeamRosterData] = useState([]);
+const TeamRoster = () => {
+  const [teamRosterData, setTeamRosterData] = useState([]);
   const router = useRouter();
   const currentUser = useSelector((state) => state.currentUser?.payload);
-  const [selectedSeason, setSelectedSeason] = useState([
-    chosenSeason,
-    currentUser,
-  ]);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  const team = router.query?.team ? router.query?.team : router.query?.param;
-  // TODO: Also make this path send back team Banner data
-  const { data, isError, errorMessage } = useApi(
-    `/ncaa-d1-mens-team/${team}`,
-    500
-  );
+  const team = router.query?.team || router.query?.param;
+  const league = router.query?.league || LEAGUE_TYPE.NCAA;
+
+  const { data, isError, errorMessage } = useApi(`/${league}/${team}`, 500);
+
+  const isNba = league?.includes(LEAGUE_TYPE.NBA);
+  const columns = isNba ? nbaColumns : ncaaColumns;
+
   useEffect(() => {
-    if (data?.teamRoster) setNcaaD1MensTeamRosterData(data.teamRoster);
+    if (data?.teamRoster) setTeamRosterData(data.teamRoster);
   }, [data]);
 
   const handleRowClick = (row) => {
@@ -67,20 +40,23 @@ const NcaaD1MensTeamRoster = () => {
     window.location.pathname = pathname;
   };
 
+  if (isError) {
+    return <p>Error: {errorMessage}</p>;
+  }
+
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>Team Statistics</h1>
-        {/* // TODO: Insert season buttons here */}
+        <h1>Roster Statistics</h1>
+        {/* // TODO: Insert season buttons here when columns are added for this*/}
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
         </ul>
       </div>
-      {ncaaD1MensTeamRosterData && (
+      {teamRosterData && (
         <>
-          <ReusableBanner statistics={data} teamName={team} />
           <TableContainer
             component={Paper}
             sx={{
@@ -88,8 +64,8 @@ const NcaaD1MensTeamRoster = () => {
             }}
           >
             <MaterialReactTable
-              columns={columns}
-              data={ncaaD1MensTeamRosterData}
+              columns={isNba ? nbaColumns : ncaaColumns}
+              data={teamRosterData}
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
@@ -105,4 +81,4 @@ const NcaaD1MensTeamRoster = () => {
   );
 };
 
-export default NcaaD1MensTeamRoster;
+export default TeamRoster;
