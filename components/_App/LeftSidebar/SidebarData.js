@@ -51,22 +51,18 @@ export const SidebarData = [
   {
     title: "NBA",
     path: "/pages/our-stats-explained",
-    icon: <LayersIcon />,
+    icon: <SchoolIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
       {
-        title: "NBA Team EPSS",
-        path: "/pages/team-epss/nba",
+        title: "NBA Teams",
+        path: "/pages/teams/nba",
       },
       {
-        title: "NBA Player Grades",
-        path: "/pages/player-season-grade-eps/nba",
-      },
-      {
-        title: "NBA Expected Wins",
-        path: "/pages/expected-wins/nba",
+        title: "NBA League Players",
+        path: "/pages/league-players-page/nba",
       },
     ],
   },

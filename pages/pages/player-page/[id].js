@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import { Box, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -46,6 +47,8 @@ const NcaaD1MensPlayer = () => {
   );
   const [selectedTeam, setSelectedTeam] = useState();
   const currentUser = useSelector((state) => state.currentUser?.payload);
+  // Once added to sheet, then should be good to go
+  const [selectedSeason, setSelectedSeason] = useState("2022-23");
 
   useEffect(() => {
     let isMounted = true;
@@ -80,7 +83,7 @@ const NcaaD1MensPlayer = () => {
     return () => {
       isMounted = false;
     };
-  }, [id]);
+  }, [id, selectedSeason]);
 
   useEffect(() => {
     let isMounted = true;
@@ -89,7 +92,7 @@ const NcaaD1MensPlayer = () => {
       if (ncaaD1MensPlayer && ncaaD1MensPlayer["Player"]) {
         try {
           const playerGameGradeResponse = await generalRequest.get(
-            `/ncaa-d1-mens-game-grades/${ncaaD1MensPlayer["Player"]}`
+            `/ncaa-d1-mens-game-grades/${ncaaD1MensPlayer["Player"]}/${selectedSeason}`
           );
 
           if (playerGameGradeResponse?.data?.gameGrades?.length && isMounted) {
@@ -320,6 +323,48 @@ const NcaaD1MensPlayer = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+
+            {/* Season Selectors */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                mt: 2,
+                mb: 2,
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => setSelectedSeason("2022-23")}
+              >
+                2022-2023
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setSelectedSeason("2021-22")}
+              >
+                2021-2022
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setSelectedSeason("2020-21")}
+              >
+                2020-2021
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setSelectedSeason("2019-18")}
+              >
+                2019-2018
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setSelectedSeason("2018-19")}
+              >
+                2018-2019
+              </Button>
+            </Box>
+
             <TableContainer
               component={Paper}
               sx={{
