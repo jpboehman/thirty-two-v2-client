@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -52,46 +52,49 @@ const LEAGUE_TYPE = {
 
 const PlayerPage = () => {
   const router = useRouter();
-  const id = router.query?.id ? router.query?.id : router.query?.param;
+  const id = Array.isArray(router.query?.param)
+    ? router.query?.param[0]
+    : router.query?.id
+    ? router.query?.id
+    : router.query?.param;
+
+  const playerName = router.query?.Player;
   const league = router.query?.league;
   const [player, setPlayer] = useState({});
-  const [playerGameGrades, setPlayerGameGrades] = useState({});
+  const [playerGameGrades, setPlayerGameGrades] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState();
   const currentUser = useSelector((state) => state.currentUser?.payload);
-  // Once added to sheet, then should be good to go
   const [selectedSeason, setSelectedSeason] = useState("2022-23");
 
-  console.log(league);
+  const fetchPlayerGameGradeData = useCallback(
+    async (fetchedPlayer, currentLeague) => {
+      console.log(
+        `fetchPlayerGameGradeData fetchedPlayer: ${JSON.stringify(
+          fetchedPlayer
+        )}, currentLeague: ${currentLeague}`
+      );
+      if (fetchedPlayer?.Player && currentLeague) {
+        const endPoint =
+          currentLeague === "nba" || currentLeague === "nba-team"
+            ? `/nba-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`
+            : `/ncaa-d1-mens-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`;
 
-  // Add a player parameter to the fetchPlayerGameGradeData function
-  const fetchPlayerGameGradeData = async (fetchedPlayer) => {
-    console.log(`fetchedPlayer from fetch: ${fetchedPlayer}`);
-    // if (fetchedPlayer && fetchedPlayer["Player"]) {
-      try {
-        if (league && league !== "nba-team" && league !== "nba") {
-          const playerGameGradeResponse = await generalRequest.get(
-            `/ncaa-d1-mens-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`
-          );
-
-          if (playerGameGradeResponse?.data?.gameGrades?.length) {
-            setPlayerGameGrades(playerGameGradeResponse.data.gameGrades);
+        try {
+          const response = await generalRequest.get(endPoint);
+          if (response?.data?.gameGrades?.length) {
+            setPlayerGameGrades(response.data.gameGrades);
           }
-        } else {
-          console.log(`are we we entering here`);
-          // Repeating the same thing for the NBA
-          const nbaGameGraderesponse = await generalRequest.get(
-            `/nba-game-grades/${fetchedPlayer["Player"]}/${selectedSeason}`
-          );
-
-          if (nbaGameGraderesponse?.data?.gameGrades?.length) {
-            setPlayerGameGrades(nbaGameGraderesponse.data.gameGrades);
-          }
+        } catch (error) {
+          console.error("Error fetching player game grade data:", error);
         }
-      } catch (error) {
-        console.error("Error fetching player game grade data:", error);
+      } else {
+        console.warn(
+          "fetchPlayerGameGradeData: Missing fetchedPlayer or currentLeague"
+        );
       }
-    // }
-  };
+    },
+    [selectedSeason]
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -99,45 +102,61 @@ const PlayerPage = () => {
     const fetchPlayerData = async () => {
       if (id && league) {
         try {
-          if (league !== "nba" && league !== "nba-team") {
-            const playerLeagueResponse = await generalRequest.get(
+          if (league === "ncaa" || league === "ncaa-d1-mens-team") {
+            const ncaaPlayerLeagueResponse = await generalRequest.get(
               `/${LEAGUE_TYPE.NCAA_LEAGUE}/${id}`
             );
-
             const ncaaPlayerResponse = await generalRequest.get(
               `/${LEAGUE_TYPE.NCAA_PLAYER}/${id}`
             );
 
-            if (ncaaPlayerResponse?.data?.ncaaPlayer?.length && isMounted) {
-              setPlayer(ncaaPlayerResponse.data?.ncaaPlayer[0]);
-              // TODO: Figure out why it isn't working for team-page
-              await fetchPlayerGameGradeData(ncaaPlayerResponse.data?.ncaaPlayer[0]);
-            } else if (
-              playerLeagueResponse?.data?.ncaaPlayerLeague?.length &&
-              isMounted
-            ) {
-              setPlayer(playerLeagueResponse.data?.ncaaPlayerLeague[0]);
-              await fetchPlayerGameGradeData(
-                playerLeagueResponse.data?.ncaaPlayerLeague[0]
-              );
+            const responseData =
+              ncaaPlayerResponse?.data?.ncaaPlayer?.length > 0
+                ? ncaaPlayerResponse.data.ncaaPlayer[0]
+                : ncaaPlayerLeagueResponse?.data?.ncaaPlayerLeague[0];
+
+            if (isMounted) {
+              setPlayer(responseData);
+              await fetchPlayerGameGradeData(responseData, league);
             }
           } else {
-            // Fetching nba endpoints
-            const playerLeagueResponse = await generalRequest.get(
-              `/${LEAGUE_TYPE.NBA_LEAGUE}/${id}`
+            // Passing the wrong id to NBA - need to pass right playerId
+            const nbaPlayerLeagueResponse = await generalRequest.get(
+              `/nba/${id}`,
+              {
+                params: {
+                  playerName,
+                },
+              }
+            );
+            const nbaPlayerResponse = await generalRequest.get(
+              `/${LEAGUE_TYPE.NBA_LEAGUE}/${id}`,
+              {
+                params: {
+                  playerName,
+                },
+              }
             );
 
-            if (
-              playerLeagueResponse?.data?.nbaPlayerLeague?.length &&
-              isMounted
-            ) {
+            console.log(
+              `nbaPlayerResponse: ${JSON.stringify(nbaPlayerResponse)}`
+            );
+            console.log(
+              `nbaPlayerLeagueResponse: ${JSON.stringify(
+                nbaPlayerLeagueResponse
+              )}`
+            );
 
-              
-              console.log(`here at least?`)
-              setPlayer(playerLeagueResponse.data?.nbaPlayerLeague[0]);
-              fetchPlayerGameGradeData(
-                playerLeagueResponse.data?.nbaPlayerLeague[0]
-              );
+            const responseData =
+              nbaPlayerResponse?.data?.nbaPlayer?.length > 0
+                ? nbaPlayerResponse.data.nbaPlayer[0]
+                : nbaPlayerLeagueResponse?.data?.nbaPlayer[0];
+
+            console.log(`responseData: ${JSON.stringify(responseData)}`);
+
+            if (isMounted && responseData) {
+              setPlayer(responseData);
+              await fetchPlayerGameGradeData(responseData, league);
             }
           }
         } catch (error) {
@@ -151,11 +170,13 @@ const PlayerPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [id, selectedSeason, league]);
+  }, [id, selectedSeason, league, fetchPlayerGameGradeData]);
+
+  console.log(`player is: ${JSON.stringify(player)}`);
 
   return (
     <>
-      {player && league && (
+      {player && (
         <>
           <Card
             sx={{
@@ -219,7 +240,7 @@ const PlayerPage = () => {
                             }}
                             className="ml-10px"
                           >
-                            {player["Team"]}
+                            {player["Tm"] || player["Team"]}
                           </Typography>
                         </Link>
                       </Box>

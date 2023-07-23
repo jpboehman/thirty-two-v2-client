@@ -34,9 +34,10 @@ const TeamRoster = () => {
   }, [data]);
 
   const handleRowClick = (row) => {
-    const { _id } = row.original;
+    const { _id, Player } = row.original;
+    // grab player Name from here?
     setSelectedPlayerId(_id);
-    const query = `league=${league}`
+    const query = `league=${league}&player=${Player}`;
     const pathname = `/pages/player-page/${_id}`;
     router.push({
       pathname,
