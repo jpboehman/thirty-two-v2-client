@@ -2,7 +2,7 @@ import React from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import GridViewIcon from "@mui/icons-material/GridView";
-import LayersIcon from "@mui/icons-material/Layers";
+import InfoIcon from '@mui/icons-material/Info';
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SchoolIcon from "@mui/icons-material/School";
@@ -16,7 +16,7 @@ export const SidebarData = [
   {
     title: "About Us",
     path: "/pages/about-us",
-    icon: <GridViewIcon />,
+    icon: <InfoIcon />,
   },
   {
     title: "NCAA",

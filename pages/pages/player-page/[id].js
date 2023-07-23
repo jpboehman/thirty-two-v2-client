@@ -14,7 +14,6 @@ import Paper from "@mui/material/Paper";
 import Link from "next/link";
 
 import { generalRequest } from "http/httpService";
-import { ncaaColumns } from "common/tableColumns";
 
 const tempNbaColumns = [
   { accessorKey: "Team", header: "Team" },
@@ -25,6 +24,28 @@ const tempNbaColumns = [
   { accessorKey: "FGA", header: "FGA" },
   { accessorKey: "3FM", header: "3FM" },
   { accessorKey: "3FA", header: "3FA" },
+  { accessorKey: "FTM", header: "FTM" },
+  { accessorKey: "FTA", header: "FTA" },
+  { accessorKey: "OREB", header: "OREB" },
+  { accessorKey: "REB", header: "REB" },
+  { accessorKey: "AST", header: "AST" },
+  { accessorKey: "STL", header: "STL" },
+  { accessorKey: "BLK", header: "BLK" },
+  { accessorKey: "TO", header: "TO" },
+  { accessorKey: "PF", header: "PF" },
+];
+
+export const ncaaColumns = [
+  { accessorKey: "Team", header: "Team" },
+  { accessorKey: "Season", header: "Season" },
+  { accessorKey: "MIN", header: "MIN" },
+  { accessorKey: "PTS", header: "PTS" },
+  { accessorKey: "FGM", header: "FGM" },
+  { accessorKey: "FGA", header: "FGA" },
+  { accessorKey: "3FM", header: "3FM" },
+  { accessorKey: "3FA", header: "3FA" },
+  { accessorKey: "2FM", header: "2FM" },
+  { accessorKey: "2FA", header: "2FA" },
   { accessorKey: "FTM", header: "FTM" },
   { accessorKey: "FTA", header: "FTA" },
   { accessorKey: "OREB", header: "OREB" },

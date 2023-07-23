@@ -7,7 +7,7 @@ import Profile from "./Profile";
 import Tooltip from "@mui/material/Tooltip";
 import CurrentDate from "./CurrentDate";
 
-const TopNavbar = ({ toogleActive }) => {
+const TopNavbar = () => {
   return (
     <>
       <topnavbardark>
@@ -23,35 +23,22 @@ const TopNavbar = ({ toogleActive }) => {
           className="top-navbar-for-dark"
         >
           <Toolbar>
-            <Tooltip title="Hide/Show" arrow>
-              <IconButton
-                size="sm"
-                edge="start"
-                color="inherit"
-                onClick={toogleActive}
-              >
-                <i className="ri-align-left"></i>
-              </IconButton>
-            </Tooltip>
-
-            {/* Search form */}
-            <SearchForm />
-
-            <Typography component="div" sx={{ flexGrow: 1 }}></Typography>
-
-            <Stack direction="row" spacing={2}>
-              {/* CurrentDate */}
-              <CurrentDate />
-
-              {/* Notification */}
-              <Email />
-
-              {/* Notification */}
-              <Notification />
-
-              {/* Profile */}
-              <Profile />
-            </Stack>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexGrow: 1,
+              }}
+            >
+              <img
+                src="/images/32_Analytics_logo.jpg"
+                alt="Analytics logo"
+                style={{ width: "auto", height: "80px" }}
+              />
+              <Typography component="div"></Typography>
+            </div>
+            <Stack direction="row" spacing={2}></Stack>
           </Toolbar>
         </AppBar>
       </topnavbardark>
