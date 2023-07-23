@@ -5,13 +5,9 @@ import styles from "@/styles/PageTitle.module.css";
 import MaterialReactTable from "material-react-table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import NcaaTeamsOverview from "@/components/StatOverviews/ncaaTeamsOverview";
 import { useSelector } from "react-redux";
 import chosenSeason from "common/seasonOptions";
 import useApi from "hooks/useApi";
-
-import InfoIcon from "@mui/icons-material/Info";
-import ReusableBanner from "@/components/Banners/ReusableBanner";
 
 const columns = [
   {
@@ -68,7 +64,6 @@ const NcaaD1MensTeams = () => {
           </li>
         </ul>
       </div>
-      <NcaaTeamsOverview />
       {ncaaD1MensTeamData && (
         <>
           <TableContainer
