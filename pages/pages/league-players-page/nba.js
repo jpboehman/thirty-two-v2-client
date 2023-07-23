@@ -50,7 +50,7 @@ const NbaLeaguePlayers = () => {
 
   const { data, isError, errorMessage } = useApi("/nba-league-players", 500);
   useEffect(() => {
-    if (data?.nbaPlayerLeague) setNbaLeaguePlayers(data.nbaPlayerLeague);
+    if (data?.nbaPlayer) setNbaLeaguePlayers(data.nbaPlayer);
   }, [data]);
 
   const handleRowClick = (row) => {
