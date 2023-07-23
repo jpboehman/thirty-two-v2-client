@@ -14,6 +14,11 @@ export const SidebarData = [
     icon: <GridViewIcon />,
   },
   {
+    title: "About Us",
+    path: "/pages/about-us",
+    icon: <GridViewIcon />,
+  },
+  {
     title: "NCAA",
     path: "/pages/our-stats-explained",
     icon: <SchoolIcon />,
@@ -21,31 +26,14 @@ export const SidebarData = [
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      // {
-      //   title: "NCAA Team EPSS",
-      //   path: "/pages/team-epss/ncaa",
-      // },
       {
         title: "NCAA Teams",
         path: "/pages/teams/ncaa-d1-mens",
       },
-      // {
-      //   title: "NCAA Player Grades",
-      //   path: "/pages/player-season-grade-eps/ncaa",
-      // },
       {
         title: "NCAA League Players",
         path: "/pages/league-players-page/ncaa-d1-mens",
       },
-      // {
-      //   title: "NCAA Expected Wins",
-      //   path: "/pages/expected-wins/ncaa",
-      // },
-      // This data should appear on the player's page
-      // {
-      //   title: "NCAA Player Game Grades",
-      //   path: "/pages/game-grades-page/ncaa-d1-mens",
-      // },
     ],
   },
   {

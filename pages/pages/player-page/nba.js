@@ -63,12 +63,8 @@ const NcaaD1MensTeamRoster = () => {
   const handleRowClick = (row) => {
     const { _id } = row.original;
     setSelectedPlayerId(_id);
-    const query = `league=nba`;
-    const pathname = `/pages/player-page/${_id}`;
-    router.push({
-      pathname,
-      query,
-    });
+    const pathname = `/pages/player-page/${_id}}`;
+    window.location.pathname = pathname;
   };
 
   console.log(ncaaD1MensPlayer);
