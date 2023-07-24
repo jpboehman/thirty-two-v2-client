@@ -95,7 +95,7 @@ export const SidebarData = [
       // },
       {
         title: "Privacy Policy",
-        path: "/settings/privacy-policy/",
+        path: "/pages/privacy-policy/",
       },
       {
         title: "Terms & Conditions",
