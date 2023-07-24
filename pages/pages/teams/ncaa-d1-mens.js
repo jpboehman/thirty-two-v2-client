@@ -14,7 +14,7 @@ const columns = [
     accessorKey: "Team",
     header: "Team",
   },
-  { accessorKey: "adj EPSS/Poss", header: "Adj. EPS/Possession" },
+  { accessorKey: "adj EPSS/Poss", header: "Adj. EPSS/Possession" },
   { accessorKey: "adj Tm EPS/Poss", header: "Adj. Team EPS/Possession" },
   { accessorKey: "adj Opp EPS/Poss", header: "Adj. Opp EPS/Poss" },
   { accessorKey: "GP", header: "GP" },

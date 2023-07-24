@@ -16,8 +16,9 @@ import Link from "next/link";
 import { generalRequest } from "http/httpService";
 
 const tempNbaColumns = [
-  { accessorKey: "Team", header: "Team" },
-  { accessorKey: "Season", header: "Season" },
+  { accessorKey: "GameDay", header: "Game Day" },
+  { accessorKey: "Opponent", header: "Opp" },
+  { accessorKey: "Game Grade", header: "Game Grade" },
   { accessorKey: "MIN", header: "MIN" },
   { accessorKey: "PTS", header: "PTS" },
   { accessorKey: "FGM", header: "FGM" },
@@ -36,8 +37,9 @@ const tempNbaColumns = [
 ];
 
 export const ncaaColumns = [
-  { accessorKey: "Team", header: "Team" },
-  { accessorKey: "Season", header: "Season" },
+  { accessorKey: "GameDay", header: "Game Day" },
+  { accessorKey: "Opponent", header: "Opp" },
+  { accessorKey: "Game Grade", header: "Game Grade" },
   { accessorKey: "MIN", header: "MIN" },
   { accessorKey: "PTS", header: "PTS" },
   { accessorKey: "FGM", header: "FGM" },
@@ -185,7 +187,7 @@ const PlayerPage = () => {
     };
   }, [id, selectedSeason, league, fetchPlayerGameGradeData]);
 
-  console.log(`player is: ${JSON.stringify(player)}`);
+  console.log(`gameGrades are: ${JSON.stringify(playerGameGrades)}`);
 
   return (
     <>
