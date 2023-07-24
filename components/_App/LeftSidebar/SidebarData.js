@@ -6,6 +6,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SchoolIcon from "@mui/icons-material/School";
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
 
 export const SidebarData = [
   {
@@ -21,7 +22,7 @@ export const SidebarData = [
   {
     title: "NCAA",
     path: "/pages/our-stats-explained",
-    icon: <SchoolIcon />,
+    icon: <SportsBasketballIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
@@ -39,7 +40,7 @@ export const SidebarData = [
   {
     title: "NBA",
     path: "/pages/our-stats-explained",
-    icon: <SchoolIcon />,
+    icon: <SportsBasketballIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
@@ -55,7 +56,7 @@ export const SidebarData = [
     ],
   },
   {
-    title: "Sign Up / Sign In",
+    title: "Sign Up for $30 / Sign In",
     path: "/authentication/sign-up/",
     icon: <LockIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
@@ -88,14 +89,10 @@ export const SidebarData = [
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      {
-        title: "Account",
-        path: "/settings/account/",
-      },
-      {
-        title: "Security",
-        path: "/settings/security/",
-      },
+      // {
+      //   title: "Security",
+      //   path: "/settings/security/",
+      // },
       {
         title: "Privacy Policy",
         path: "/settings/privacy-policy/",
@@ -109,12 +106,5 @@ export const SidebarData = [
         path: "/authentication/logout/",
       },
     ],
-  },
-  {
-    title: "Subscribe",
-    path: "/pages/subscribe",
-    icon: <SettingsIcon />,
-    iconClosed: <KeyboardArrowRightIcon />,
-    iconOpened: <KeyboardArrowDownIcon />,
   },
 ];

@@ -312,6 +312,40 @@ const PlayerPage = () => {
                           }}
                           className="ml-10px"
                         >
+                          WCr:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontWeight: "700",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
+                          {player["WCr"]}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+
+                    <TableCell
+                      sx={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "12px",
+                        padding: "8px 10px",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "12px",
+                          }}
+                          className="ml-10px"
+                        >
                           WCr %:
                         </Typography>
                         <Typography

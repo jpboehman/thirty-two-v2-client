@@ -21,7 +21,6 @@ const columns = [
   { accessorKey: "Wins", header: "Wins" },
   { accessorKey: "exWins", header: "Expected Wins" },
   { accessorKey: "W %", header: "W %" },
-  { accessorKey: "Opp EPS", header: "Opp EPS" },
   { accessorKey: "exW %", header: "Expected Win %" },
   { accessorKey: "exW Regression", header: "Expected Wins Regression" },
 ];

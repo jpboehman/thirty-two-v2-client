@@ -13,6 +13,7 @@ const columns = [
   { accessorKey: "Team", header: "Team" },
   { accessorKey: "Season Grade", header: "Season Grade" },
   { accessorKey: "G", header: "G" },
+  { accessorKey: "WCr", header: "WCr" },
   { accessorKey: "WCr %", header: "WCr %" },
   { accessorKey: "WCr/GP", header: "WCr/GP" },
   { accessorKey: "MVPr", header: "MVPr" },
