@@ -2,11 +2,11 @@ import React from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import GridViewIcon from "@mui/icons-material/GridView";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import LockIcon from "@mui/icons-material/Lock";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SchoolIcon from "@mui/icons-material/School";
-import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
 
 export const SidebarData = [
   {
@@ -83,7 +83,7 @@ export const SidebarData = [
   },
   {
     title: "Settings",
-    path: "/settings/account/",
+    path: "/pages/teams/ncaa-d1-mens",
     icon: <SettingsIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -99,7 +99,7 @@ export const SidebarData = [
       },
       {
         title: "Terms & Conditions",
-        path: "/pages/terms-conditions/",
+        path: "/pages/terms-and-conditions/",
       },
       {
         title: "Logout",
