@@ -79,6 +79,8 @@ const PlayerPage = () => {
   const currentUser = useSelector((state) => state.currentUser?.payload);
   const [selectedSeason, setSelectedSeason] = useState("2022-23");
 
+  const isNba = league?.includes("nba");
+
   const fetchPlayerGameGradeData = useCallback(
     async (fetchedPlayer, currentLeague) => {
       console.log(
@@ -151,15 +153,6 @@ const PlayerPage = () => {
               }
             );
 
-            console.log(
-              `nbaPlayerResponse: ${JSON.stringify(nbaPlayerResponse)}`
-            );
-            console.log(
-              `nbaPlayerLeagueResponse: ${JSON.stringify(
-                nbaPlayerLeagueResponse
-              )}`
-            );
-
             const responseData =
               nbaPlayerResponse?.data?.nbaPlayer?.length > 0
                 ? nbaPlayerResponse.data.nbaPlayer[0]
@@ -184,8 +177,6 @@ const PlayerPage = () => {
       isMounted = false;
     };
   }, [id, selectedSeason, league, fetchPlayerGameGradeData]);
-
-  console.log(`gameGrades are: ${JSON.stringify(playerGameGrades)}`);
 
   return (
     <>
@@ -480,7 +471,7 @@ const PlayerPage = () => {
               }}
             >
               <MaterialReactTable
-                columns={!league.includes("nba") ? ncaaColumns : tempNbaColumns}
+                columns={isNba ? tempNbaColumns : ncaaColumns}
                 data={playerGameGrades}
                 enableColumnOrdering
               />
