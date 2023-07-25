@@ -46,8 +46,6 @@ export const ncaaColumns = [
   { accessorKey: "FGA", header: "FGA" },
   { accessorKey: "3FM", header: "3FM" },
   { accessorKey: "3FA", header: "3FA" },
-  { accessorKey: "2FM", header: "2FM" },
-  { accessorKey: "2FA", header: "2FA" },
   { accessorKey: "FTM", header: "FTM" },
   { accessorKey: "FTA", header: "FTA" },
   { accessorKey: "OREB", header: "OREB" },
