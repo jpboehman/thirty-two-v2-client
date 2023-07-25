@@ -46,7 +46,7 @@ const NbaTeams = () => {
 
   const handleRowClick = (row) => {
     const { _id, Team, Player } = row.original;
-    console.log(`player from row click: ${JSON.stringify(row)}`)
+    console.log(`player from row click: ${JSON.stringify(row)}`);
     setSelectedTeamId(_id);
     const query = `team=${encodeURIComponent(
       Team
@@ -78,7 +78,9 @@ const NbaTeams = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={nbaTeamData}
+              data={nbaTeamData.sort(
+                (a, b) => b["Team EPS"] - a["Team EPS"]
+              )}
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
