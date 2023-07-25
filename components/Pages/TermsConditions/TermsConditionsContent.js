@@ -17,89 +17,166 @@ const OurStatsExplained = () => {
         }}
       >
         <div className={styles.termsConditionsContent}>
-          <h2>Player Season Grade</h2>
           <p>
-            The Player Season Grade statistic grades a player’s season on a
-            scale of 0-100. The grade is calculated through the use of
-            traditional box score stats, advanced stats, and our very own EPS
-            statistic. The main purpose of Player Season Grades is to take all
-            the statistics that go into evaluating a player’s performance and
-            simplify it down to one number. This offers an alternative way of
-            evaluating player performance. Please keep in mind that the
-            statistic doesn’t attempt to rate players but strictly grade their
-            season.
-          </p>
-          <strong>How accurate are Player Season Grades?</strong>
-          <p>
-            In 9 of the past 10 seasons, the NBA MVP has finished within the top
-            2 of Player Season Grades for that season. In 7 of the past 10
-            seasons, the NBA Rookie of the Year had the highest Player Season
-            Grade amongst rookies for their respective seasons. In 7 of the past
-            10 seasons, the AP Player of the Year has finished within the top 3
-            of Player Season Grades for that season.
+            <strong>GLOSSARY</strong>
           </p>
 
-          <h2>Efficient Production Score (EPS)</h2>
-          <p>
-            EPS attempts to measure a player’s performance by applying linear
-            weights to traditional box score statistics. The EPS statistic is
-            our way of understanding how efficiently a player contributes to
-            their team. EPS can also be applied to team statistics which helps
-            with understanding team performance.
-          </p>
-          <strong>How accurate are Player Season Grades?</strong>
-          <p>
-            EPS accurately identifies which players are providing quality
-            performances to their teams: Nikola Jokić, the 2020-2021 NBA MVP,
-            led the league in EPS last season. Luka Garza, the 2020-2021 AP
-            National Player of the Year, led the country in EPS last season.
-            Teams should strive to have players that provide a high EPS every
-            game. In the 2020-2021 NBA Regular Season, teams that had a higher
-            EPS than their opponent won the game 94% of the time. This means if
-            you have a higher EPS than your opponent during a game, you also
-            have a higher chance of winning the game.
-          </p>
-
-          <h2>Efficient Production Score Spread (EPSS)</h2>
-          <p>
-            EPSS is the difference or spread between a team’s EPS and their
-            opponent’s EPS. The EPSS stat is our way to measure team
-            performance. Historically, a team’s EPSS and win percentage are
-            strongly correlated. EPSS = (Team EPS – Opponent EPS)
-          </p>
-          <strong>How accurate is EPSS?</strong>
-          <p>
-            For the NBA, there is a strong, positive correlation (0.93) between
-            EPSS and win percentage. For the NCAA, there is a strong, positive
-            correlation (0.89) between EPSS and win percentage. As shown in the
-            graph below and through our understanding of the correlation in both
-            the NBA and NCAA, EPSS and win percentage are both strongly related.
-            The higher the EPSS, the higher the win percentage. The lower the
-            EPSS, the lower the win percentage.
-          </p>
-
-          <h2>Expected Wins</h2>
-          <p>
-            Through the use of our EPS statistic, we are able to project a
-            team’s win percentage which then allows us to project how many wins
-            a team is expected to have. These projections are a unique way to
-            understand whether a team has played better or worse than their
-            record indicates.
-          </p>
-          <strong>How accurate is Expected Wins?</strong>
+          <ul>
+            <li>
+              <strong>EPS</strong> - Efficient Production Score
+            </li>
+            <li>
+              <strong>EPSS</strong> - Efficient Production Score Spread
+            </li>
+            <li>
+              <strong>WCr</strong> - Wins Created
+            </li>
+            <li>
+              <strong>WCr %</strong> - Wins Created Share
+            </li>
+            <li>
+              <strong>WCr/GP</strong> - Wins Created per Game Played
+            </li>
+            <li>
+              <strong>MVPr</strong> - Most Valuable Player Rating
+            </li>
+            <li>
+              <strong>adjEPSS/Poss</strong> - Adjusted EPSS per Possession
+            </li>
+            <li>
+              <strong>ExW%</strong> - Expected Win Percentage
+            </li>
+            <li>
+              <strong>ExW</strong> - Expected Wins
+            </li>
+          </ul>
 
           <p>
-            For the NBA, there is a 95% average accuracy across the league by
-            the end of the season. An example of this accuracy from last season:
-            The Milwaukee Bucks owned a record of 46-26 (0.638) at the end of
-            the season. Our Expected Wins Through Games Played model expected
-            Milwaukee to have a (0.639) win percentage that equates to an
-            expected record of 46-26. For the NCAA, there is a 93% average
-            accuracy across the country by the end of the season An example of
-            this accuracy from last season: The Michigan Wolverines ended their
-            season with a record of 23-5 (0.821). Our Expected Wins Through
-            Games Played model expected Michigan to have a (0.806) win
-            percentage that equates to an expected record of 23-5.
+            <strong>SEASON GRADES: </strong>Player Season Grades provide a way to
+            encapsulate a player’s season into one complete number and exist on
+            a 0 to 100 scale. A player’s Season Grade is built by using all of
+            the data compiled from their individual Game Grades. The Season
+            Grades are also adjusted for consistency and performance above that
+            of an average D1 player.
+          </p>
+
+          <p>
+            <strong>GAME GRADES: </strong>Player Game Grades offer a new,
+            alternative way to evaluate player performance. Game Grades are
+            built on 5 core components that work to provide context and depth
+            for every individual player’s performance.
+          </p>
+
+          <p>The 5 core components that go into Game Grades are:</p>
+
+          <ol>
+            <li>
+              Player Adjusted Performance: We adjust a player’s performance
+              based on the opponent played
+            </li>
+            <li>
+              Player Adjusted Efficiency: We adjust a player’s performance based
+              on the # of possessions played{" "}
+            </li>
+            <li>
+              Relative Player Impact: We adjust a player’s performance based on
+              how they performed relative to the performance of their teammates.
+            </li>
+            <li>
+              Player Wins Created: We use our own efficiency metrics (EPS) to
+              calculate an expected win % for a team in a game. We then credit a
+              player with a share of their team’s expected win % based on their
+              role in the game.
+            </li>
+            <li>
+              EPS Plus-Minus: We calculate the change in EPS Spread when a
+              player is on/off the court.
+            </li>
+          </ol>
+          <p>
+            <strong>WCr:</strong> WCr (Wins Created) estimates how many wins a
+            player has created for their team over the course of a season. WCr
+            is calculated through a player’s role in expected team performance.
+          </p>
+
+          <p>
+            <strong>WCr %:</strong> WCr % (Wins Created Share) measures the
+            share of a team’s expected wins that a player has contributed.
+          </p>
+
+          <p>
+            <strong>WCr/GP:</strong> WCr/GP (Wins Created per Game Played)
+            estimates how many wins a player creates for their team on a per
+            game basis.
+          </p>
+
+          <p>
+            <strong>WINS CREATED TRIO:</strong> WCr, WCr %, and WCr/GP are all
+            calculated based on our expected team performance metrics rather
+            than actual team performance. The purpose of this is to have the
+            Wins Created Trio serve as predictive values for future player
+            performance.
+          </p>
+
+          <p>
+            <strong>MVPr:</strong> MVPr (Most Valuable Player Rating) measures
+            the value a player brings to team success. MVPr takes into account
+            player efficiency, role, team success, and pace.
+          </p>
+
+          <p>
+            <strong>EPS:</strong> EPS (Efficient Production Score) measures the
+            efficiency of a player/team’s production. EPS is our very own
+            efficiency stat. We believe EPS is one of the most accurate ways to
+            measure performance because it evaluates everything that a
+            player/team does. EPS is at the core at everything we do.
+          </p>
+
+          <p>
+            Team EPS refers to a team’s efficiency. The higher a team’s Team EPS
+            is, the better.
+          </p>
+          <p>
+            Opponent EPS refers to the efficiency that a team allows against
+            themselves. The lower a team’s Opponent EPS is, the better.
+          </p>
+
+          <p>
+            <strong>EPSS:</strong> EPSS (Efficient Production Score Spread)
+            measures the quality of a team’s performance. EPSS is calculated by
+            finding the spread/difference between a team’s Team EPS and their
+            Opponent EPS. An example of the equation is listed below:
+          </p>
+
+          <p>EPSS = Team EPS - Opponent EPS</p>
+
+          <p>The higher a team’s EPSS is, the better the performance.</p>
+
+          <p>
+            <strong>adjEPSS/Poss:</strong> adjEPSS/Poss (Adjusted EPSS per
+            Possession) measures team performance and adjusts EPSS for both
+            opponent and possessions played. Because college basketball has a
+            wider range of quality and tempo between teams, we include an
+            adjusted EPSS per possession for college basketball. This adjustment
+            allows for a much more honest evaluation of team performance.
+          </p>
+
+          <p>
+            <strong>EXPECTED WIN %:</strong> ExW% (Expected Win Percentage)
+            measures a team’s expected win percentage based on our team
+            efficiency metrics. Based on a team’s Team EPS and their Opponent
+            EPS, we can calculate an expected win percentage. This expected win
+            percentage serves as a predictive metric for a team’s future
+            performance. Over the course of a season, we can expect a team to
+            regress to the expected win percentage.
+          </p>
+
+          <p>
+            <strong>EXPECTED WINS:</strong> ExW (Expected Wins) measures the
+            amount of wins a team is expected to have based on their
+            performance. Expected Wins is calculated by multiplying a team’s
+            Expected Win % and their GP. This statistic shows whether a team has
+            won or lost more games than they were expected to based on their performance.
           </p>
         </div>
       </Card>
