@@ -21,7 +21,7 @@ import eventBus from "common/EventBus";
 import { logout } from "redux/userRedux";
 
 import { useDispatch, useSelector } from "react-redux";
-import StatsExplained from "./pages/our-stats-explained";
+import NcaaD1MensTeams from "./pages/teams/ncaa-d1-mens";
 
 export default function App() {
   const currentUser = useSelector((state) => state?.currentUser?.payload);
@@ -64,7 +64,7 @@ export default function App() {
         </ul>
       </div>
 
-      <StatsExplained />
+      <NcaaD1MensTeams />
     </>
   );
 }
