@@ -20,23 +20,11 @@ export default function Logout() {
               maxWidth: "510px",
               ml: "auto",
               mr: "auto",
-              textAlign: "center"
+              textAlign: "center",
             }}
             className="bg-black"
           >
-            <Box>
-              <img
-                src="/images/logo.png"
-                alt="Black logo"
-                className="black-logo"
-              />
-
-              <img
-                src="/images/logo-white.png"
-                alt="White logo"
-                className="white-logo"
-              />
-            </Box>
+            <Box></Box>
 
             <Box mt={4} mb={4}>
               <img src="/images/coffee.png" alt="Coffee" />
@@ -57,7 +45,7 @@ export default function Logout() {
                 fontWeight: "500",
                 fontSize: "16px",
                 padding: "12px 10px",
-                color: "#fff !important"
+                color: "#fff !important",
               }}
             >
               Sign In
