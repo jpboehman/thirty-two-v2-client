@@ -72,7 +72,7 @@ const NcaaD1MensTeamRoster = () => {
   return (
     <>
       <div className={styles.pageTitle}>
-        <h1>NCAA Roster</h1>
+        <h1>NBA Roster</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>

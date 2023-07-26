@@ -74,11 +74,11 @@ const NbaTeamEpss = () => {
       download: true,
       header: true,
       complete: (results) => {
-          if (currentUser) {
-            setNbaTeamEpss(results.data);
-          } else {
-            setNbaTeamEpss(results.data.slice(0, 5));
-          }
+        if (currentUser) {
+          setNbaTeamEpss(results.data);
+        } else {
+          setNbaTeamEpss(results.data.slice(0, 5));
+        }
         setNbaTeamEpss(results.data);
       },
     });
@@ -117,6 +117,11 @@ const NbaTeamEpss = () => {
           columns={columns}
           data={nbaTeamEpss}
           enableColumnOrdering
+          muiTablePaginationProps={{
+            rowsPerPageOptions: [5, 20, 50, 100, 200],
+            showFirstButton: false,
+            showLastButton: false,
+          }}
         />
       </TableContainer>
     </>

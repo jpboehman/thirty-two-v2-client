@@ -88,6 +88,11 @@ const TeamRoster = () => {
                   cursor: "pointer",
                 },
               })}
+              muiTablePaginationProps={{
+                rowsPerPageOptions: [5, 20, 50, 100, 200],
+                showFirstButton: false,
+                showLastButton: false,
+              }}
             />
           </TableContainer>
         </>

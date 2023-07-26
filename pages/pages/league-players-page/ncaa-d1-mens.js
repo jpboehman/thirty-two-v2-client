@@ -93,6 +93,11 @@ const NcaaD1MensLeaguePlayers = () => {
                   cursor: "pointer",
                 },
               })}
+              muiTablePaginationProps={{
+                rowsPerPageOptions: [5, 20, 50, 100],
+                showFirstButton: false,
+                showLastButton: false,
+              }}
             />
           </TableContainer>
         </>

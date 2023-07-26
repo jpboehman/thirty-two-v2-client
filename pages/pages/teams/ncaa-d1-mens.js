@@ -82,6 +82,11 @@ const NcaaD1MensTeams = () => {
                   cursor: "pointer",
                 },
               })}
+              muiTablePaginationProps={{
+                rowsPerPageOptions: [5, 20, 50, 100],
+                showFirstButton: false,
+                showLastButton: false,
+              }}
             />
           </TableContainer>
         </>
