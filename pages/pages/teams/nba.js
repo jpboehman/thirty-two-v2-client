@@ -78,7 +78,15 @@ const NbaTeams = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={nbaTeamData.sort((a, b) => b["EPSS"] - a["EPSS"])}
+              data={
+                currentUser
+                  ? nbaTeamData.sort(
+                      (a, b) => b["EPSS"] - a["EPSS"]
+                    )
+                  : nbaTeamData
+                      .sort((a, b) => b["EPSS"] - a["EPSS"])
+                      .slice(0, 5)
+              }
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
