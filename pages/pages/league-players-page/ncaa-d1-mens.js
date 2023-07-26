@@ -45,7 +45,6 @@ const NcaaD1MensLeaguePlayers = () => {
 
   const { data, isError, errorMessage } = useApi(
     "/ncaa-d1-mens-league-players",
-    500
   );
   useEffect(() => {
     if (data?.ncaaPlayerLeague)

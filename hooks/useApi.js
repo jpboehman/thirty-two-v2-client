@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { generalRequest } from "http/httpService";
 
-const useApi = (urlPath, limit = 100, page = 1) => {
+const useApi = (urlPath, limit, page) => {
   const [response, setResponse] = useState({
     data: null,
     isLoading: false,

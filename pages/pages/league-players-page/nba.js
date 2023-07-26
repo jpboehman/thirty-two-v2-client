@@ -43,7 +43,7 @@ const NbaLeaguePlayers = () => {
   const currentUser = useSelector((state) => state.currentUser?.payload);
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
-  const { data, isError, errorMessage } = useApi("/nba-league-players", 500);
+  const { data, isError, errorMessage } = useApi("/nba-league-players");
   useEffect(() => {
     if (data?.nbaPlayer) setNbaLeaguePlayers(data.nbaPlayer);
   }, [data]);
