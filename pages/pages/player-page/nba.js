@@ -54,7 +54,6 @@ const NcaaD1MensTeamRoster = () => {
   // TODO: Update route
   const { data, isError, errorMessage } = useApi(
     `/ncaa-d1-mens-player/${id}`,
-    500
   );
   useEffect(() => {
     if (data?.ncaaPlayer) setNcaaD1MensPlayer(data.ncaaPlayer);

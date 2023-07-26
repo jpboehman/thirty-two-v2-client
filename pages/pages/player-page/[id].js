@@ -472,7 +472,15 @@ const PlayerPage = () => {
             >
               <MaterialReactTable
                 columns={isNba ? tempNbaColumns : ncaaColumns}
-                data={playerGameGrades}
+                data={
+                  currentUser
+                    ? playerGameGrades.sort(
+                        (a, b) => b["Game Grade"] - a["Game Grade"]
+                      )
+                    : playerGameGrades
+                        .sort((a, b) => b["Game Grade"] - a["Game Grade"])
+                        .slice(0, 5)
+                }
                 enableColumnOrdering
                 muiTablePaginationProps={{
                   rowsPerPageOptions: [5, 20, 50, 100, 200],

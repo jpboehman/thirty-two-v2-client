@@ -44,7 +44,7 @@ const NcaaD1MensLeaguePlayers = () => {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   const { data, isError, errorMessage } = useApi(
-    "/ncaa-d1-mens-league-players",
+    "/ncaa-d1-mens-league-players"
   );
   useEffect(() => {
     if (data?.ncaaPlayerLeague)
@@ -82,9 +82,15 @@ const NcaaD1MensLeaguePlayers = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={ncaaD1MensLeaguePlayers.sort(
-                (a, b) => b["Season Grade"] - a["Season Grade"]
-              )}
+              data={
+                currentUser
+                  ? ncaaD1MensLeaguePlayers.sort(
+                      (a, b) => b["Season Grade"] - a["Season Grade"]
+                    )
+                  : ncaaD1MensLeaguePlayers
+                      .sort((a, b) => b["Season Grade"] - a["Season Grade"])
+                      .slice(0, 5)
+              }
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),

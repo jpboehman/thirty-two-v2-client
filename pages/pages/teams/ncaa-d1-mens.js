@@ -74,7 +74,15 @@ const NcaaD1MensTeams = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={ncaaD1MensTeamData.sort((a, b) => b["EPSS"] - a["EPSS"])}
+              data={
+                currentUser
+                  ? ncaaD1MensTeamData.sort(
+                      (a, b) => b["adj EPSS/Poss"] - a["adj EPSS/Poss"]
+                    )
+                  : ncaaD1MensTeamData
+                      .sort((a, b) => b["adj EPSS/Poss"] - a["adj EPSS/Poss"])
+                      .slice(0, 5)
+              }
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),

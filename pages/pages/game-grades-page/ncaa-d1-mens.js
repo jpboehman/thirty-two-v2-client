@@ -52,7 +52,6 @@ const NcaaD1MensGameGrades = () => {
   // Perhaps a 'Load More' button that will set the page to the next page
   const { data, isError, errorMessage } = useApi(
     "/ncaa-d1-mens-game-grades",
-    500
   );
   useEffect(() => {
     // TODO:
@@ -79,7 +78,15 @@ const NcaaD1MensGameGrades = () => {
       >
         <MaterialReactTable
           columns={columns}
-          data={ncaaD1MensGameGrades}
+          data={
+            currentUser
+              ? ncaaD1MensGameGrades.sort(
+                  (a, b) => b["Game Grade"] - a["Game Grade"]
+                )
+              : ncaaD1MensGameGrades
+                  .sort((a, b) => b["Game Grade"] - a["Game Grade"])
+                  .slice(0, 5)
+          }
           enableColumnOrdering
         />
       </TableContainer>
