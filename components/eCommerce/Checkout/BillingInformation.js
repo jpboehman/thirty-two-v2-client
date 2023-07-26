@@ -103,7 +103,7 @@ const BillingInformation = () => {
           const userSuccess = await handleRegister(); // Create user account after successful payment
           if (userSuccess) {
             setTimeout(() => {
-              window.location.pathname = "/pages/our-stats-explained";
+              window.location.pathname = "/authentication/sign-in";
             }, 2000);
           }
         }
@@ -291,7 +291,8 @@ const BillingInformation = () => {
             </Button>
             <Grid item xs={12} md={7} lg={7} xl={8}>
               <Typography>
-                *Subscriptions are billed annually at $30.00. All purchases are final
+                *Subscriptions are billed annually at $30.00. All purchases are
+                final
               </Typography>
             </Grid>
           </Box>

@@ -79,9 +79,15 @@ const NbaLeaguePlayers = () => {
           >
             <MaterialReactTable
               columns={columns}
-              data={nbaLeaguePlayers.sort(
-                (a, b) => b["Season Grade"] - a["Season Grade"]
-              )}
+              data={
+                currentUser
+                  ? nbaLeaguePlayers.sort(
+                      (a, b) => b["Season Grade"] - a["Season Grade"]
+                    )
+                  : nbaLeaguePlayers
+                      .sort((a, b) => b["Season Grade"] - a["Season Grade"])
+                      .slice(0, 5)
+              }
               enableColumnOrdering
               muiTableBodyRowProps={({ row }) => ({
                 onClick: () => handleRowClick(row),
