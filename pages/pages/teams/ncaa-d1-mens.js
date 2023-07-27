@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 import chosenSeason from "common/seasonOptions";
 import useApi from "hooks/useApi";
+import SubscribeForMore from "@/components/Forms/SubscribeForMore";
 
 const columns = [
   {
@@ -97,6 +98,7 @@ const NcaaD1MensTeams = () => {
               }}
             />
           </TableContainer>
+          {!currentUser && <SubscribeForMore />}
         </>
       )}
     </>

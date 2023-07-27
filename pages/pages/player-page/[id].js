@@ -14,6 +14,7 @@ import Paper from "@mui/material/Paper";
 import Link from "next/link";
 
 import { generalRequest } from "http/httpService";
+import SubscribeForMore from "@/components/Forms/SubscribeForMore";
 
 const tempNbaColumns = [
   { accessorKey: "GameDay", header: "Game Day" },
@@ -489,6 +490,7 @@ const PlayerPage = () => {
                 }}
               />
             </TableContainer>
+            {!currentUser && <SubscribeForMore />}
           </Card>
         </>
       )}

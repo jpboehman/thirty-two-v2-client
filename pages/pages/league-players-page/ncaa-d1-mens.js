@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 import useApi from "hooks/useApi";
+import SubscribeForMore from "@/components/Forms/SubscribeForMore";
 
 const columns = [
   { accessorKey: "Player", header: "Player Name" },
@@ -105,6 +106,7 @@ const NcaaD1MensLeaguePlayers = () => {
               }}
             />
           </TableContainer>
+          {!currentUser && <SubscribeForMore />}
         </>
       )}
     </>
