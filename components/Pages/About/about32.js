@@ -27,7 +27,7 @@ const AboutUs = () => {
             can help you understand more about basketball. Our goal is to
             provide an additional tool to help you evaluate the game we love. In
             attempting to accomplish this, we turned what was once a passion
-            project into 32 Analytics to share our proprietary data with the
+            project into 32 Analytics to share our proprietary data with the rest of the world.
             world.
           </strong>
           <br />

@@ -107,8 +107,8 @@ const TeamRoster = () => {
                   showLastButton: false,
                 }}
               />
+              <div>{!currentUser && <SubscribeForMore />}</div>
             </TableContainer>
-            {!currentUser && <SubscribeForMore />}
           </Card>
         </>
       )}
