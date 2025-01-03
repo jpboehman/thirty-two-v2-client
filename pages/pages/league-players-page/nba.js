@@ -13,7 +13,6 @@ import SubscribeForMore from "@/components/Forms/SubscribeForMore";
 const columns = [
   { accessorKey: "Player", header: "Player" },
   { accessorKey: "Tm", header: "Team" },
-  // { accessorKey: "Season", header: "Season" },
   { accessorKey: "Season Grade", header: "Season Grade" },
   { accessorKey: "WCr", header: "WCr" },
   { accessorKey: "WCr %", header: "WCr %" },
@@ -46,6 +45,7 @@ const NbaLeaguePlayers = () => {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null);
 
   const { data, isError, errorMessage } = useApi("/nba-league-players");
+
   useEffect(() => {
     if (data?.nbaPlayer) setNbaLeaguePlayers(data.nbaPlayer);
   }, [data]);
@@ -60,6 +60,14 @@ const NbaLeaguePlayers = () => {
       query,
     });
   };
+
+  // Filter rows dynamically based on all columns
+  const filterValidRows = (rows) =>
+    rows.filter((row) =>
+      Object.values(row).every(
+        (value) => value !== undefined && value !== null && value !== "#N/A" && value !== "N/A"
+      )
+    );
 
   return (
     <>
@@ -84,10 +92,10 @@ const NbaLeaguePlayers = () => {
                 columns={columns}
                 data={
                   currentUser
-                    ? nbaLeaguePlayers.sort(
+                    ? filterValidRows(nbaLeaguePlayers).sort(
                         (a, b) => b["Season Grade"] - a["Season Grade"]
                       )
-                    : nbaLeaguePlayers
+                    : filterValidRows(nbaLeaguePlayers)
                         .sort((a, b) => b["Season Grade"] - a["Season Grade"])
                         .slice(0, 5)
                 }
