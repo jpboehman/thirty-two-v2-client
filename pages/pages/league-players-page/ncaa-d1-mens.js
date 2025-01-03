@@ -47,6 +47,7 @@ const NcaaD1MensLeaguePlayers = () => {
   const { data, isError, errorMessage } = useApi(
     "/ncaa-d1-mens-league-players"
   );
+
   useEffect(() => {
     if (data?.ncaaPlayerLeague)
       setNcaaD1MensLeaguePlayers(data.ncaaPlayerLeague);
@@ -62,6 +63,14 @@ const NcaaD1MensLeaguePlayers = () => {
       query,
     });
   };
+
+  // Filter rows dynamically based on all columns
+  const filterValidRows = (rows) =>
+    rows.filter((row) =>
+      Object.values(row).every(
+        (value) => value !== undefined && value !== null && value !== "#N/A" && value !== "N/A"
+      )
+    );
 
   return (
     <>
@@ -85,10 +94,10 @@ const NcaaD1MensLeaguePlayers = () => {
               columns={columns}
               data={
                 currentUser
-                  ? ncaaD1MensLeaguePlayers.sort(
+                  ? filterValidRows(ncaaD1MensLeaguePlayers).sort(
                       (a, b) => b["Season Grade"] - a["Season Grade"]
                     )
-                  : ncaaD1MensLeaguePlayers
+                  : filterValidRows(ncaaD1MensLeaguePlayers)
                       .sort((a, b) => b["Season Grade"] - a["Season Grade"])
                       .slice(0, 5)
               }
